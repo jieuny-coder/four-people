@@ -1,12 +1,15 @@
 /* 부모 컨테이너: 화면 중앙에 아이폰 이미지 배치 */
 .screen-container {
   position: relative;
-  width: 390px;  /* 아이폰 이미지 크기 */
+  width: 390px;
+  /* 아이폰 이미지 크기 */
   height: 844px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
   margin: 0 auto;
+  overflow: hidden;
+  
 }
 
 /* 아이폰 이미지 크기 조정 */
@@ -16,19 +19,129 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1;  /* 이미지가 배경이 되도록 z-index 설정 */
+  z-index: 10;   /* 이미지가 배경이 되도록 z-index 설정 */
 }
 
 /* 텍스트를 이미지 위에 위치 */
 .content {
   position: absolute;
-  z-index: 2;  /* 이미지 위에 텍스트가 표시되도록 z-index 설정 */
+  z-index: 2;
+  /* 이미지 위에 텍스트가 표시되도록 z-index 설정 */
   color: black;
   font-size: 24px;
-  top: 50%;  /* 화면 중앙으로 조정 */
+  /* 화면 중앙으로 조정 */
   left: 50%;
-  transform: translate(-50%, -50%);  /* 텍스트를 정확히 중앙에 배치 */
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /* 텍스트를 정확히 중앙에 배치 */
   text-align: center;
 }
 
-/* content 안에 들어간 요소들 CSS */
+/* Buttons에 들어가는 CSS */
+.instance-child {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0%;
+  right: 0%;
+  bottom: 0%;
+  left: 0%;
+  border-radius: 8px;
+  background-color: #000;
+}
+
+.property-1default-inner {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+/* 배너 박스 CSS */
+.BannerBox {
+  width: 100%;
+  position: relative;
+  border-radius: 5px;
+  background-color: #d9d9d9;
+  height: 100px;
+}
+
+/* Topbar 컴포넌트 CSS */
+.topbar {
+  position: absolute;
+  top: 20px;
+  right: 0;
+  left: 0;
+  width: 95%; /* 전체 가로 크기 */
+  padding: 10px 10px 10px 0px;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between; /* 아이콘이 양 끝에 위치하도록 설정 */
+  align-items: center; /* 아이콘이 수직 중앙에 위치하도록 설정 */
+}
+
+/* 시간 텍스트 스타일 */
+.time {
+  font-size: 18px;
+  color: black;
+  margin-left: 20px;
+}
+
+/* 아이콘들이 들어갈 컨테이너 */
+.status-icons {
+  display: flex;
+  gap: 10px; /* 아이콘 사이의 간격 */
+  /* margin-right: 10px; */
+}
+
+/* 아이콘의 공통 스타일 */
+.icon {
+  width: 20px; /* 아이콘 크기 */
+  height: 20px;
+}
+
+/* Header컴포넌트 CSS */
+.header_container{
+  position:static;
+  width:100%;
+  z-index:1;
+  margin-top: 8px;
+}
+
+/* 버튼하단바 CSS */
+.bottom-bar {
+  display: flex;
+  background-color: black;
+  padding: 10px 0;
+  position: absolute;
+  bottom:0;
+  justify-content: space-around;
+  width: 100%;
+
+}
+
+.button {
+  text-align: center;
+}
+
+.button img {
+  width: 20px;
+  height: 20px;
+  margin-bottom: 5px;
+}
+
+.button p {
+  color: white;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.bottom-bar::after {
+  content: "";
+  display: block;
+  width: 100px;  /* 밑줄 길이 */
+  height: 2px;
+  background-color: white;
+  margin: 0 auto;
+  position: absolute;
+  bottom: 10px; /* 밑줄 위치 */
+}

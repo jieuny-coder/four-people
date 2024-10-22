@@ -1,10 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
-import Home from './components/Home';
+import SearchFilter from './pages/SearchFilter';
 
 function App() {
   return (
-    <Home></Home>
+    <div>
+      <SearchFilter/>
+    </div>
   );
 }
 

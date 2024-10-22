@@ -4,3 +4,7 @@ npm install or npm i
 npm start
 
 포트번호 : 3000
+
+- 부트스트랩 에러나면 부트스트랩 따로 설치할 것 
+npm install react-bootstrap bootstrap
+npm install bootstrap@latest react-bootstrap@latest
