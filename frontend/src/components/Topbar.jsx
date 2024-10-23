@@ -22,7 +22,7 @@ const Topbar = () => {
     <div className="topbar">
     <span className="time">{time}</span>
     <div className="status-icons">
-        <img src="/images/antena.png" alt="Signal Icon" className="icon" />
+        <img src="/images/car.jpg" alt="Signal Icon" className="icon" />
         <img src="/images/wifi.png" alt="Wi-Fi Icon" className="icon" />
         <img src="/images/_battery.png" alt="Battery Icon" className="icon" />
       </div>

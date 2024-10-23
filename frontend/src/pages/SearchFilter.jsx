@@ -3,6 +3,7 @@ import Topbar from '../components/Topbar'
 import Header from '../components/Header'
 import Btnbar from '../components/Btnbar'
 import UserLogin from './UserLogin'
+import { Parkinglot01 } from './Parkinglot01'
 
 const SearchFilter = () => {
   // 화면 컴포넌트 확인용 페이지
@@ -11,7 +12,7 @@ const SearchFilter = () => {
   return (
     <div>
       <div className="screen-container">
-        <img className="screen-replace" src="/images/mobile.png" alt="iPhone Frame" />
+        <img className="screen-replace" src="/images/mobile.png" alt="iPhon e Frame" />
         {/* Topbar 컴포넌트 고정 */}
         <Topbar />
 
@@ -22,7 +23,7 @@ const SearchFilter = () => {
         <Btnbar />
 
         {/* 페이지 컴포넌트는 필요 시 여기에 추가 */}
-        <UserLogin/>
+        <Parkinglot01/>
       </div>
     </div>
   )
