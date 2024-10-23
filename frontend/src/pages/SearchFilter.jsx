@@ -2,19 +2,27 @@ import React from 'react'
 import Topbar from '../components/Topbar'
 import Header from '../components/Header'
 import Btnbar from '../components/Btnbar'
+import UserLogin from './UserLogin'
 
 const SearchFilter = () => {
+  // 화면 컴포넌트 확인용 페이지
+
+
   return (
     <div>
       <div className="screen-container">
         <img className="screen-replace" src="/images/mobile.png" alt="iPhone Frame" />
-        {/* 추가 UI 요소들을 className이 content인 div안에 배치하면 됩니다 */}
-          <Topbar />
-          <Header/>
-          <div className='content'>
-            여기에 내용입력
-          </div>
-          <Btnbar/>
+        {/* Topbar 컴포넌트 고정 */}
+        <Topbar />
+
+        {/* Header 컴포넌트 */}
+        <Header />
+
+        {/* Btnbar를 프레임 하단에 고정 */}
+        <Btnbar />
+
+        {/* 페이지 컴포넌트는 필요 시 여기에 추가 */}
+        <UserLogin/>
       </div>
     </div>
   )

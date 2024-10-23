@@ -2,14 +2,11 @@
 .screen-container {
   position: relative;
   width: 390px;
-  /* 아이폰 이미지 크기 */
-  height: 844px;
+  height: 844px;   /* 아이폰 이미지 크기 */
   display: flex;
-  justify-content: center;
-  /* align-items: center; */
   margin: 0 auto;
-  overflow: hidden;
-  
+  flex-direction: column
+  /* overflow: hidden; */
 }
 
 /* 아이폰 이미지 크기 조정 */
@@ -19,22 +16,20 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 10;   /* 이미지가 배경이 되도록 z-index 설정 */
+  z-index: 999;   /* 프레임이 제일앞에 오도록 z-index 설정 */
 }
 
 /* 텍스트를 이미지 위에 위치 */
 .content {
   position: absolute;
-  z-index: 2;
-  /* 이미지 위에 텍스트가 표시되도록 z-index 설정 */
+  z-index: 2;  /* 휴대폰 프레임보다 아래 z-index 설정 */
   color: black;
   font-size: 24px;
   /* 화면 중앙으로 조정 */
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  /* 텍스트를 정확히 중앙에 배치 */
-  text-align: center;
+  text-align: center;  /* 텍스트를 정확히 중앙에 배치 */
 }
 
 /* Buttons에 들어가는 CSS */
@@ -68,15 +63,15 @@
 /* Topbar 컴포넌트 CSS */
 .topbar {
   position: absolute;
-  top: 20px;
-  right: 0;
+  top: 24px;
   left: 0;
-  width: 95%; /* 전체 가로 크기 */
-  padding: 10px 10px 10px 0px;
-  z-index: 2;
+  width: 100%; /* 전체 가로 크기 */
+  padding: 10px 30px 10px 0px;
+  z-index: 998;
   display: flex;
-  justify-content: space-between; /* 아이콘이 양 끝에 위치하도록 설정 */
+  justify-content: space-around; /* 아이콘이 양 끝에 위치하도록 설정 */
   align-items: center; /* 아이콘이 수직 중앙에 위치하도록 설정 */
+  gap: 115px;
 }
 
 /* 시간 텍스트 스타일 */
@@ -90,7 +85,6 @@
 .status-icons {
   display: flex;
   gap: 10px; /* 아이콘 사이의 간격 */
-  /* margin-right: 10px; */
 }
 
 /* 아이콘의 공통 스타일 */
@@ -101,22 +95,25 @@
 
 /* Header컴포넌트 CSS */
 .header_container{
-  position:static;
+  position:absolute;
+  top:60px;
+  left:0;
   width:100%;
-  z-index:1;
-  margin-top: 8px;
+  z-index:997;
+  /* margin-top: 8px; */
 }
 
 /* 버튼하단바 CSS */
 .bottom-bar {
+  position:absolute;
   display: flex;
   background-color: black;
   padding: 10px 0;
-  position: absolute;
   bottom:0;
+  left:0;
   justify-content: space-around;
   width: 100%;
-
+  z-index: 2; /*기본 z-인덱스*/
 }
 
 .button {
@@ -145,3 +142,164 @@
   position: absolute;
   bottom: 10px; /* 밑줄 위치 */
 }
+
+/* 로그인 페이지 컴포넌트 CSS */
+.login_container {
+  position: relative;
+  width: 390px;
+  height: 844px;
+  margin: -3px auto;
+  /* overflow: hidden; */
+}
+/* 배경 이미지 */
+.login_background {
+  width: 100%;
+  height: 90%;
+  top: 0;
+  left: 0;
+  z-index: 997;
+  object-fit: cover;
+}
+/* 텍스트 및 안내 메시지 */
+.login_text_container {
+  position: absolute;
+  top: 145px;
+  left: 40px;
+  width: 100%;
+  /* padding: 20px; */
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+.login_text {
+  color: white;
+  font-size: 18px;
+  line-height: 0.5;
+}
+
+.login_text_bold {
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+
+/* 사용자 / 관리자 선택 */
+.login_selection_container {
+  position: absolute;
+  top: 265px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.login_selection_box {
+  background-color: #fff;
+  width: 150px;
+  height: 50px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.login_option {
+  font-size: 16px;
+  color: #000;
+  cursor: pointer;
+}
+.login_option_admin {
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+}
+/* 입력 박스 및 로그인 버튼 */
+.login_input_wrapper {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 330px;
+  margin: 20px auto;
+}
+
+
+/* 입력 박스 및 로그인 버튼 */
+.login_input_container {
+  position: absolute;
+  top: 350px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+}
+
+.login_input_box {
+  margin-bottom: 20px;
+}
+
+.login_input_box input {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+/* 로그인 버튼 */
+.login_button {
+  width: 100%;
+  padding: 10px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.login_button_text {
+  font-size: 16px;
+}
+/* 로그인 하단부: 아이디/비밀번호 찾기 및 회원가입 */
+.login_links_container {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px; /* 로그인 버튼과의 간격 */
+  gap: 10px;
+  padding: 5px;
+}
+
+.login_link_text {
+  font-size: 10px;
+  color: #000;
+  cursor: pointer;
+  text-align: center;
+  padding: 5px 0px; /* 버튼처럼 보이도록 패딩 추가 */
+  /* margin: 5px; */
+  background-color: #000; /* 검정색 배경 */
+  color: #fff; /* 흰색 텍스트 */
+  border-radius: 8px; /* 둥근 모서리 */
+  width: 100%; /* 양쪽 버튼이 균등하게 나뉘도록 너비 설정 */
+  box-sizing: border-box; /* 패딩 포함 너비 계산 */
+}
+
+
+.login_link {
+  cursor: pointer;
+  font-size: 14px;
+  width: 50%;
+  padding: 10px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.login_link_text {
+  font-size: 14px;
+  color: white;
+}
+
