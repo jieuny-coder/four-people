@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
 const UserLogin = () => {
-    const [selected, setSelected] = useState(null);
+    const [selectedMode, setSelectedMode] = useState('user');
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleClick = (type) => {
-        setSelected(type);
+    const handleClick = (mode) => {
+        setSelectedMode(mode);
     };
 
     const handleSubmit = (e) => {
@@ -30,10 +30,18 @@ const UserLogin = () => {
             </div>
 
             <div className="login_selection_container">
-                <div className="login_selection_box" onClick={() => handleClick('user')}>
+                <div
+                    className={`login_selection_box ${selectedMode === 'user' ? 'selected' : ''}`} 
+                    id='userMode'
+                    onClick={() => handleClick('user')}
+                >
                     사용자
                 </div>
-                <div className="login_selection_box login_option_admin" onClick={() => handleClick('admin')}>
+                <div
+                    className={`login_selection_box ${selectedMode === 'manager' ? 'selected' : ''}`} 
+                    id='ManagerMode'
+                    onClick={() => handleClick('manager')}
+                >
                     관리자
                 </div>
             </div>

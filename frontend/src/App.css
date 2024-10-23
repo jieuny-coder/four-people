@@ -3,12 +3,11 @@
   position: relative;
   width: 390px;
   height: 844px;
-  /* 아이폰 이미지 크기 */
   display: flex;
   margin: 0 auto;
   flex-direction: column;
-  border-radius:67px;
-    /* overflow: hidden; */
+  border-radius: 67px;
+  overflow: hidden;
 }
 
 /* 아이폰 이미지 크기 조정 */
@@ -19,22 +18,18 @@
   top: 0;
   left: 0;
   z-index: 998;
-  /* 프레임이 제일앞에 오도록 z-index 설정 */
 }
 
 /* 텍스트를 이미지 위에 위치 */
 .content {
   position: absolute;
   z-index: 2;
-  /* 휴대폰 프레임보다 아래 z-index 설정 */
   color: black;
   font-size: 24px;
-  /* 화면 중앙으로 조정 */
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  /* 텍스트를 정확히 중앙에 배치 */
 }
 
 /* Buttons에 들어가는 CSS */
@@ -42,10 +37,10 @@
   position: absolute;
   height: 100%;
   width: 100%;
-  top: 0%;
-  right: 0%;
-  bottom: 0%;
-  left: 0%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   border-radius: 8px;
   background-color: #000;
 }
@@ -71,14 +66,11 @@
   top: 24px;
   left: 0;
   width: 100%;
-  /* 전체 가로 크기 */
-  padding: 10px 30px 10px 0px;
+  padding: 10px 30px 10px 0;
   z-index: 998;
   display: flex;
   justify-content: space-around;
-  /* 아이콘이 양 끝에 위치하도록 설정 */
   align-items: center;
-  /* 아이콘이 수직 중앙에 위치하도록 설정 */
   gap: 115px;
 }
 
@@ -93,27 +85,24 @@
 .status-icons {
   display: flex;
   gap: 10px;
-  /* 아이콘 사이의 간격 */
 }
 
 /* 아이콘의 공통 스타일 */
 .icon {
   width: 20px;
-  /* 아이콘 크기 */
   height: 20px;
 }
 
-/* Header컴포넌트 CSS */
+/* Header 컴포넌트 CSS */
 .header_container {
   position: absolute;
   top: 60px;
   left: 0;
   width: 100%;
   z-index: 997;
-  /* margin-top: 8px; */
 }
 
-/* 버튼하단바 CSS */
+/* 버튼 하단바 CSS */
 .bottom-bar {
   position: absolute;
   display: flex;
@@ -124,7 +113,6 @@
   justify-content: space-around;
   width: 100%;
   z-index: 2;
-  /*기본 z-인덱스*/
 }
 
 .button {
@@ -147,13 +135,11 @@
   content: "";
   display: block;
   width: 100px;
-  /* 밑줄 길이 */
   height: 2px;
   background-color: white;
   margin: 0 auto;
   position: absolute;
   bottom: 10px;
-  /* 밑줄 위치 */
 }
 
 /* 로그인 페이지 컴포넌트 CSS */
@@ -162,10 +148,8 @@
   width: 390px;
   height: 844px;
   margin: -4px auto;
-  /* overflow: hidden; */
 }
 
-/* 배경 이미지 */
 .login_background {
   width: 100%;
   height: 100%;
@@ -181,7 +165,6 @@
   top: 145px;
   left: 40px;
   width: 100%;
-  /* padding: 20px; */
   box-sizing: border-box;
   z-index: 2;
 }
@@ -197,52 +180,6 @@
   letter-spacing: 0.05em;
 }
 
-/* 사용자 / 관리자 선택 */
-.login_selection_container {
-  position: absolute;
-  top: 265px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-.login_selection_box {
-  background-color: #000;
-  /* 기본 검정색 배경 */
-  color: #fff;
-  /* 기본 흰색 텍스트 */
-  width: 150px;
-  height: 50px;
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-
-.login_selection_box.selected {
-  background-color: #fff;
-  /* 선택된 버튼 흰색 배경 */
-  color: #000;
-  /* 선택된 버튼 검정색 텍스트 */
-}
-
-.login_option {
-  font-size: 16px;
-  color: #000;
-  cursor: pointer;
-}
-
-.login_option_admin {
-  background-color: #000;
-  color: #fff;
-  cursor: pointer;
-}
-
-/* 입력 박스 및 로그인 버튼 */
 .login_input_wrapper {
   background-color: rgba(255, 255, 255, 0.9);
   padding: 20px;
@@ -253,30 +190,6 @@
   margin: 20px auto;
 }
 
-
-/* 입력 박스 및 로그인 버튼 */
-.login_input_container {
-  position: absolute;
-  top: 350px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80%;
-}
-
-.login_input_box {
-  margin-bottom: 20px;
-}
-
-.login_input_box input {
-  width: 100%;
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-sizing: border-box;
-}
-
-/* 로그인 버튼 */
 .login_button {
   width: 100%;
   padding: 10px;
@@ -292,70 +205,12 @@
   font-size: 16px;
 }
 
-/* 로그인 하단부: 아이디/비밀번호 찾기 및 회원가입 */
-.login_links_container {
-  display: flex;
-  justify-content: center;
-  margin-top: 5px;
-  /* 로그인 버튼과의 간격 */
-  gap: 10px;
-  padding: 5px;
-}
-
-.login_link_text {
-  font-size: 10px;
-  color: #000;
-  cursor: pointer;
-  text-align: center;
-  padding: 5px 0px;
-  /* 버튼처럼 보이도록 패딩 추가 */
-  /* margin: 5px; */
-  background-color: #000;
-  /* 검정색 배경 */
-  color: #fff;
-  /* 흰색 텍스트 */
-  border-radius: 8px;
-  /* 둥근 모서리 */
-  width: 100%;
-  /* 양쪽 버튼이 균등하게 나뉘도록 너비 설정 */
-  box-sizing: border-box;
-  /* 패딩 포함 너비 계산 */
-}
-
-
-.login_link {
-  cursor: pointer;
-  font-size: 14px;
-  width: 50%;
-  padding: 10px;
-  background-color: #000;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  text-align: center;
-}
-
-.login_link_text {
-  font-size: 14px;
-  color: white;
-}
-
-/* 버튼 컴포넌트 CSS */
-/* 전체 버튼을 감싸는 컨테이너 */
-.button-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px; /* 버튼 간격 */
-}
-
 /* 검정색 버튼 스타일 */
 .black-button {
   background-color: #000;
-  width: 200px;
+  width: 100px;
   height: 50px;
-  border-radius: 20px;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -363,7 +218,7 @@
 
 .black-button .button-text {
   color: white;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 /* 노란색 버튼 스타일 */
@@ -382,311 +237,97 @@
   font-size: 16px;
 }
 
-/* 버튼 내부 공통 스타일 */
-.button-inner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.button-child {
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
-}
-
-.button-text {
-  font-size: 16px;
-  text-align: center;
-}
-
-/* << 라인만 있는 선택버튼 CSS >> */
-/* 버튼들을 감싸는 전체 컨테이너 */
-.button_box_container {
+/* 관리자 회원가입 페이지 CSS */
+.manager-signup-page-container {
   width: 100%;
   position: relative;
-  border-radius: 5px;
-  /* border: 1px dashed #9747ff; */
-  box-sizing: border-box;
-  height: 156.2px;
-  overflow: hidden;
-  text-align: left;
-  font-size: 16px;
-  color: #000;
-  font-family: 'Inter', sans-serif;
-  z-index: 1000;
-}
-
-/* 버튼 텍스트 스타일 */
-.button_label {
-  position: relative;
-  font-weight: 500;
-}
-
-/* 흰색 버튼 */
-.white_button {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  border-radius: 6px;
-  background-color: #fff;
-  border: 1px solid #000;
-  box-sizing: border-box;
-  width: 177.9px;
-  height: 50.1px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: 0px 20px;
-  cursor: pointer; /* 클릭 가능한 버튼으로 설정 */
-  z-index: 1001;
-}
-
-/* 노란색 버튼 */
-.yellow_button {
-  position: absolute;
-  top: 20px; /* 위치는 동일하게 유지 */
-  left: 20px;
-  border-radius: 6px;
-  background-color: #ffda38;
-  width: 177.9px;
-  height: 50.1px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: 0px 20px;
-  box-sizing: border-box;
-  cursor: pointer; /* 클릭 가능한 버튼으로 설정 */
-  z-index: 1001;
-}
-
-
-/* ************************************************************* */
-/* 사용자 검색 필터링 페이지 CSS */
-/* 상단 조회하기 헤더 */
-.filter-page-container {
-  background-color: #fff;
-  width: 90%;
-  padding: 20px;
-}
-
-/* 차량 번호 입력 섹션 */
-.vehicle-input-section {
-  margin-top: 20px;
-}
-
-.vehicle-input-label {
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.vehicle-input-box input {
-  width: 95%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #999;
-}
-
-/* 조회 시간 버튼 섹션 */
-.query-time-section {
-  margin-top: 20px;
-}
-
-.query-time-label {
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.query-time-buttons{
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  width: 100%;
-}
-
-.query-order-buttons {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-  width: 100%;
-  gap: 5px;
-}
-.line-box.box_len {
-  width: 80%;
-}
-
-/* 시간 조회 섹션 */
-.time-query-section {
-  margin-top: 20px;
-}
-
-.time-query-label {
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.time-query-inputs {
-  display: flex;
-  justify-content: space-between;
-}
-
-.time-query-inputs input {
-  width: 45%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #999;
-}
-
-.time-query-inputs span {
-  display: inline-block;
-  margin: 10px;
-}
-
-/* 조회하기 버튼 섹션 */
-.submit-button-section {
-  margin-top: 20px;
-}
-
-.submit-button {
-  width: 100%;
-  padding: 15px;
-  background-color: #000;
-  color: #fff;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-/* LineBox 스타일 */
-.line-box {
-  width: 110px;
-  height: 50px;
-  border-radius: 6px;
-  background-color: #fff;
-  border: 1px solid #000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.line-box.selected {
-  background-color: #ffda38;
-}
-
-.line-box-label {
-  font-size: 16px;
-  font-weight: 500;
-}
-
-/* *************************************************** */
-/* 관리자 다운로드 페이지 컴포넌트 CSS */
-/* 다운로드 페이지 컨테이너 */
-.download-page-container {
-  width: 100%;
-  position: relative;
-  background-color: #fff;
-  height: 852px;
-  text-align: center;
-  font-size: 16px;
-  color: #000;
-  font-family: 'Noto Sans';
-}
-
-/* 헤더 배경 */
-.download-header-bg {
-  position: absolute;
   height: 100%;
-  width: 100%;
-  top: 0%;
-  right: 0%;
-  bottom: 0%;
-  left: 0%;
-  border-radius: 5px;
-  background-color: #ffda38;
-}
-
-/* 헤더 아이콘 */
-.download-icon {
-  position: absolute;
-  width: 4.33%;
-  top: 0px;
-  right: 95.67%;
-  left: 0%;
-  max-width: 100%;
-  overflow: hidden;
-  height: 19.5px;
-}
-
-/* 다운로드 텍스트 */
-.download-title {
-  position: absolute;
-  height: 97.5%;
-  width: 31.48%;
-  top: 1.28%;
-  left: 68.53%;
-  letter-spacing: -0.02em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* 다운로드 버튼 */
-.download-button-section {
-  position: absolute;
-  top: 690px;
-  left: calc(50% - 180px);
-  width: 360px;
-  height: 50px;
-  color: #fff;
-  font-family: 'Noto Sans KR';
-}
-
-.download-button-bg {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0%;
-  right: 0%;
-  bottom: 0%;
-  left: 0%;
-  border-radius: 8px;
-  background-color: #000;
-}
-
-.download-button-text {
-  position: absolute;
-  top: 22.92%;
-  left: calc(50% - 36px);
-  letter-spacing: -0.5px;
-  line-height: 160%;
-}
-
-/* 다운로드 대기 섹션 */
-.download-waiting-section {
-  position: absolute;
-  top: 50%; /* 화면의 세로 중앙 */
-  left: 50%; /* 화면의 가로 중앙 */
-  transform: translate(-50%, -50%); /* 요소의 중심을 기준으로 중앙 정렬 */
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+  background-color: #fff;
+  padding-bottom: 60px;
+}
+
+.manager-signup-background {
+  position: absolute;
+  top: 0;
+  width: 390px;
+  height: 650px;
+  object-fit: cover;
+}
+
+.manager-signup-form-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+/* 관리자용 InputBox 사이즈 조절 */
+.manager-signup-input {
+  width: 100%;
+  max-width: 340px;
+  padding: 10px;
+  box-sizing: border-box;
+  flex: 1;
+  margin-right: 10px;
+}
+
+.custom-input-size.input {
+  width: 70%;
+}
+
+.manager-signup-form-field {
+  position: relative;
+  width: 100%;
+  height: 85px;
+}
+
+.manager-signup-label-error-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.manager-signup-form-label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.manager-signup-error-text {
+  color: red;
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+.manager-email-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.manager-email-separator {
+  margin: 0 10px;
+}
+
+.manager-signup-button-container {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
   justify-content: center;
 }
 
-.download-waiting-icon {
+.manager-signup-input-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.custom-btn-size {
   width: 100px;
-  height: 100px;
-  overflow: hidden;
+  height: 50px;
 }
-
-.download-waiting-text {
-  margin-top: 20px;
-  font-size: 14px;
-  letter-spacing: -0.41px;
-  line-height: 22px;
-  text-align: center;
-}
-
