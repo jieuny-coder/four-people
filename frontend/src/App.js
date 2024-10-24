@@ -3,6 +3,9 @@ import Header from './components/Header';
 import U_login from './pages/U_login';
 import BannerBox from './components/BannerBox';
 import Download from './pages/Download';
+import M_btnBar from './components/M_btnBar';
+import Filtering from './pages/Filtering';
+import Setting from './pages/Setting';
 
 
 function App() {
@@ -18,10 +21,16 @@ function App() {
         {/* Header 컴포넌트 추가 */}
         <Header/>
         {/* BannerBox 컴포넌트 추가 - Header 바로 아래에 위치 */}
-        <BannerBox/>
+        {/* <BannerBox/> */}
+
         {/* 이곳에 콘텐츠 추가 */}
         {/* <U_login/> */}
-        <Download/>
+        {/* <Download/> */}
+        {/* <Filtering/> */}
+        <Setting/>
+
+         {/* M_btnBar 컴포넌트 추가 */}
+         <M_btnBar/>
       </div>
     </div>
   );

@@ -272,7 +272,7 @@ body {
 .download_container {
   background-color: white;
   padding: 20px;
-  height: 60%; /* 컨테이너의 높이를 설정 */
+  height: 61%; /* 컨테이너의 높이를 설정 */
   display: flex;
   flex-direction: column;
   justify-content: center; /* 세로 중앙 정렬 */
@@ -299,4 +299,245 @@ body {
   width: 100%;/* 버튼이 가로로 꽉 차도록 설정 */
   margin-top: auto; /* 자동으로 아래로 밀림 */
   margin-bottom: 10px;
+}
+
+
+/********************************** 관리자용 버튼바(M_btnBar)컴포넌트 **********************/
+.btn_bar_container {
+  position: relative;
+}
+.btn_bar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: black;
+  height: 90px;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  z-index: 10;
+  /* margin-bottom: 10px; */
+  /* margin-top: 10px; */
+}
+.home_bar {
+  position: fixed;
+  bottom: 10px; /* 홈바를 화면 하단에 고정 */
+  width: 100%;
+  display: flex;
+  justify-content: center; /* 홈바를 중앙에 배치 */
+  z-index: 20; /* 홈바가 버튼바 위로 오도록 설정 */
+}
+.home_bar_icon {
+  width: 420px; /* 홈바 크기 */
+  height: auto;
+}
+
+.btn_item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.btn_icon {
+  width: 24px; /* 아이콘 크기 조절 */
+  height: auto;
+}
+
+.btn_item p {
+  margin: 0;
+  font-size: 12px;
+}
+
+.btn_item.active {
+  color: yellow; /* 활성화된 버튼을 강조 */
+}
+
+
+/* ****************필터링(Filtering)페이지 컴포넌트************** */
+/********************************* Filtering Page CSS *********************************/
+
+.filtering-page-container {
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60%; /* 화면 전체에 적용 */
+}
+
+.filtering-page-box {
+  background-color: white; /* 하얀색 배경 */
+  padding: 14px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  width: 100%;
+  max-width: 400px; /* 최대 너비 제한 */
+  min-height: 450px;
+}
+
+
+.filtering-input-group {
+  margin-bottom: 20px;
+}
+
+.filtering-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+.filtering_line {
+  border: none;
+  border-bottom: 1px solid #ccc; /* 얇은 회색 선 */
+  margin: 20px 0; /* 위아래 간격 */
+}
+
+.filtering-input {
+  width: 92%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.filtering-time-section, .filtering-time-range {
+  margin-bottom: 20px;
+}
+
+.filtering-section-title {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.filtering-time-buttons, .filtering-order-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.filtering-time-buttons button, .filtering-order-buttons button {
+  flex: 1; /* 버튼을 동일한 비율로 배치 */
+  padding: 10px 20px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  background-color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 5px; /* 버튼 간 간격을 추가 */
+  width: 100%; /* 버튼의 너비를 100%로 설정 */
+}
+
+.filtering-time-buttons button.filtering-active, .filtering-order-buttons button.filtering-active {
+  background-color: yellow;
+}
+
+.filtering-time-inputs {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filtering-time-divider {
+  margin: 0 10px;
+}
+
+.filtering-search-button {
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+/* ******************설정(Setting) 페이지 컴포넌트*************** */
+.setting-page-container-unique {
+  background-color: white; 
+  padding: 14px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 400px;
+  margin: 108px auto;
+  height: calc(100% - 100px); /* 화면에서 버튼바 높이만큼 뺀 높이 */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-bottom: 100px; /* 버튼바 공간을 위한 여백 추가 */
+}
+
+.setting-section-unique {
+  margin-bottom: 10px;
+}
+
+.setting-section-title-unique {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.setting-item-unique {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.divider-unique {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  margin: 0 0;
+}
+
+.section-divider-unique {
+  border: none;
+  border-bottom: 2px solid #000;
+  margin: 0 0;
+}
+
+.toggle-switch-unique {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+}
+
+.toggle-switch-unique input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider-unique {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  border-radius: 34px;
+  transition: .4s;
+}
+
+.slider-unique:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  border-radius: 50%;
+  transition: .4s;
+}
+
+input:checked + .slider-unique {
+  background-color: #2196F3;
+}
+
+input:checked + .slider-unique:before {
+  transform: translateX(24px);
 }
