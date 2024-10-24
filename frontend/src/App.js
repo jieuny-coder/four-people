@@ -1,39 +1,30 @@
-import './index.css';
-import SearchFilter from './pages/SearchFilter';
+import './App.css';
+import Header from './components/Header';
+import U_login from './pages/U_login';
+import BannerBox from './components/BannerBox';
+import Download from './pages/Download';
+
 
 function App() {
   return (
-    <div>
-      <SearchFilter/>
+
+    <div className="mobile_frame">
+      {/* 휴대폰 프레임 이미지 */}
+      <img className="mobile_frame_img" src="/images/mobile.png" alt="iPhone Frame" />
+      <div
+        className="mobile_content"
+        style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/background.png)` }}
+      >
+        {/* Header 컴포넌트 추가 */}
+        <Header/>
+        {/* BannerBox 컴포넌트 추가 - Header 바로 아래에 위치 */}
+        {/* <BannerBox/> */}
+        {/* 이곳에 콘텐츠 추가 */}
+        <U_login/>
+        {/* <Download/> */}
+      </div>
     </div>
-
-
-);
-// 김지은 사용하는 부분(주석처리해놓음)
-// return (
-//   <div>
-//     <div className="screen-container">
-//       <img className="screen-replace" src="/images/mobile.png" alt="iPhone Frame" />
-//       {/* Topbar 컴포넌트 고정 */}
-//       <Topbar />
-
-//       {/* Header 컴포넌트 */}
-//       <Header />
-//       <BannerBox/>
-
-//       {/* Btnbar를 프레임 하단에 고정 */}
-//       {/* <Btnbar /> */}
-
-//       {/* 페이지 컴포넌트는 필요 시 여기에 추가 */}
-//       {/* <UserLogin/> */}
-//       {/* <BTN/> */}
-//       {/* <LineBox/> */}
-//       {/* <ManagerFilterpage/> */}
-//       <ManagerJoin/>
-//     </div>
-//   </div>
-// )
-
+  );
 }
 
 export default App;
