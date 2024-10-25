@@ -465,11 +465,12 @@ body {
   width: 90%;
   max-width: 400px;
   margin: 108px auto;
-  height: calc(100% - 100px); /* 화면에서 버튼바 높이만큼 뺀 높이 */
+  height: calc(100% - 200px); /* 화면에서 버튼바 높이만큼 뺀 높이 */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   margin-bottom: 100px; /* 버튼바 공간을 위한 여백 추가 */
+  margin-top: -10px;
 }
 
 .setting-section-unique {
@@ -651,3 +652,142 @@ input:checked + .slider-unique:before {
   border-radius: 60%; /* 원형 효과 */
 }
 
+
+
+/* **********관리자모드/위반 상세내역 페이지****** */
+/***********************************
+ * M_detail 컴포넌트 스타일
+ ***********************************/
+
+.m_detail-container-unique {
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  margin: 0 auto;
+  height: 70vh; /* 높이를 유동적으로 설정 */
+  margin-top: 100px;
+}
+
+.m_detail-filter-unique {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.m_detail-filter-btn-unique {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  background-color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.m_detail-photo-unique {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.m_detail-photo-box-unique {
+  width: 100%;
+  height: 200px;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+.m_detail-violation-unique {
+  margin-top: 20px;
+}
+
+.m_detail-violation-row-unique {
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/************* 위반차량정보 페이지(ViolationsList)*********** */
+.violations-list-container {
+  background-color: white; /* 흰색 배경 */
+  padding: 10px;
+  /* border-radius: 10px; */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  width: 90%; /* 너비를 조정해서 가운데 정렬 */
+  margin: 0 auto; /* 가운데 정렬 */
+  min-height: 300px; /* 적절한 최소 높이 설정 */
+  display: flex;
+  flex-direction: column; /* 세로 방향으로 콘텐츠 배치 */
+  justify-content: flex-start;
+  align-items: center;
+  height: 60vh;
+}
+
+/* 개별 위반 내역 행 */
+.violation-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc; /* 각 행 아래에 경계선 추가 */
+  width: 100%;
+  cursor: pointer; /* 클릭 가능한 상태로 표시 */
+  transition: background-color 0.3s ease; /* 배경색 전환 애니메이션 */
+}
+
+.violation-row:hover {
+  background-color: #f0f0f0; /* 마우스를 올렸을 때 배경색 변화 */
+}
+
+.violation-cell {
+  flex: 1;
+  text-align: center; /* 텍스트 중앙 정렬 */
+  padding: 5px;
+  font-size: 12px;
+  white-space: nowrap; /* 텍스트가 여러 줄로 표시하려면 nomal로 바꾸기 */
+  overflow: visible; /* 넘치는 텍스트는 숨기려면 hidden */
+  text-overflow: clip; 
+  word-break: break-all; /* 단어가 길 경우에도 줄 바꿈되도록 설정 */
+}
+/* 데이터의 컬럼표시항목  */
+.violation-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+  font-weight: bold;
+  box-sizing: border-box;
+  background-color: #f0f0f0; /* 컬럼 제목 배경색 */
+  border-bottom: 2px solid #ccc; /* 아래쪽에 선 추가 */
+}
+.violation-cell-header {
+  flex: 1;
+  text-align: center;
+  white-space: nowrap; /* 한 줄로 표시되도록 설정 */
+  overflow: hidden; /* 내용이 넘칠 때 숨기기 */
+  font-size: 14px;
+  padding: 0 10px;
+}
+
+.violation-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  border-bottom: 1px solid #ccc; /* 행마다 선 추가 */
+}
+
+.violation-cell {
+  flex: 1;
+  text-align: center;
+  padding: 0 10px;
+}

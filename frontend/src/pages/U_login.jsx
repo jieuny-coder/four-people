@@ -4,9 +4,13 @@ const U_login = () => {
     const [isUser, setIsUser] = useState(true);  // 기본적으로 사용자 버튼이 활성화됨
 
     const handleTabSwitch = (type) => {
-        console.log(type);  // 클릭한 버튼의 타입을 로그로 확인
+        console.log(`${type} 버튼이 클릭되었습니다.`);  // 버튼 클릭 시 콘솔에 출력
         setIsUser(type === 'user');  // 'user' 클릭 시 true, 'admin' 클릭 시 false
-        console.log("isUser 상태:", type === 'user');
+    };
+
+    const handleLoginClick = () => {
+        console.log('로그인 버튼이 클릭되었습니다.');
+        // 로그인 클릭 시 필요한 동작을 여기에 추가
     };
 
     return (
@@ -38,7 +42,7 @@ const U_login = () => {
                 <div className="login_form">
                     <input type="text" placeholder={isUser ? "아이디를 입력하세요." : "관리자 아이디를 입력하세요."} />
                     <input type="password" placeholder={isUser ? "비밀번호를 입력하세요." : "관리자 비밀번호를 입력하세요."} />
-                    <button className="login_button">로그인</button>
+                    <button className="login_button" onClick={handleLoginClick}>로그인</button> {/* 로그인 버튼 클릭 시 콘솔 출력 */}
                     <div className="login_options">
                         <button className="find_credentials_button">아이디/비밀번호 찾기</button>
                         <button className="register_button">회원가입</button>
