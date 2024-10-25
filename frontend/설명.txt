@@ -8,3 +8,6 @@ npm start
 - 부트스트랩 에러나면 부트스트랩 따로 설치할 것 
 npm install react-bootstrap bootstrap
 npm install bootstrap@latest react-bootstrap@latest
+
+- 달력 라이브러리
+npm install react-calendar

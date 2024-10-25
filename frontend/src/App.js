@@ -6,11 +6,13 @@ import Download from './pages/Download';
 import M_btnBar from './components/M_btnBar';
 import Filtering from './pages/Filtering';
 import Setting from './pages/Setting';
+import M_calender from './pages/M_calender';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 
+function AppContent() {
+  const location = useLocation();
 
-function App() {
   return (
-
     <div className="mobile_frame">
       {/* 휴대폰 프레임 이미지 */}
       <img className="mobile_frame_img" src="/images/mobile.png" alt="iPhone Frame" />
@@ -18,21 +20,32 @@ function App() {
         className="mobile_content"
         style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/background.png)` }}
       >
-        {/* Header 컴포넌트 추가 */}
-        <Header/>
-        {/* BannerBox 컴포넌트 추가 - Header 바로 아래에 위치 */}
-        {/* <BannerBox/> */}
+        {/* Header는 항상 렌더링 */}
+        <Header />
+        
+        {/* 설정 페이지가 아닐 때만 BannerBox 렌더링 */}
+        {location.pathname !== '/setting' && <BannerBox />}
 
-        {/* 이곳에 콘텐츠 추가 */}
-        {/* <U_login/> */}
-        {/* <Download/> */}
-        {/* <Filtering/> */}
-        <Setting/>
+        <Routes>
+          {/* 페이지 라우팅 설정 */}
+          <Route path="/" element={<M_calender />} /> {/* 기본 경로 */}
+          <Route path="/filtering" element={<Filtering />} /> {/* Filtering 페이지 */}
+          <Route path="/setting" element={<Setting />} /> {/* Setting 페이지 */}
+          <Route path="/download" element={<Download />} /> {/* Download 페이지 */}
+        </Routes>
 
-         {/* M_btnBar 컴포넌트 추가 */}
-         <M_btnBar/>
+        {/* M_btnBar 컴포넌트 추가 */}
+        <M_btnBar />
       </div>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
   );
 }
 

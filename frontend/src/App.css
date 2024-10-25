@@ -248,6 +248,9 @@ body {
   z-index: 10;
   /* 다른 요소들보다 위에 표시되도록 설정 */
 }
+.headercontainer{
+  height: 100px;
+}
 
 /* ******************BannerBox: 배너 넣는 부분 ************ */
 .BannerBox {
@@ -541,3 +544,110 @@ input:checked + .slider-unique {
 input:checked + .slider-unique:before {
   transform: translateX(24px);
 }
+/* ************관리자 메임 페이지(M_calender)컴포넌트 CSS******* */
+/* 달력 컨테이너 */
+.m_calender-container-unique {
+  background-color: white;
+  padding: 14px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column; /* 세로 정렬로 변경 */
+  justify-content: flex-start; /* 상단에 위치하도록 */
+  align-items: center; /* 수평 중앙 정렬 */
+  height: 65%;
+}
+.m_calender-time-select-unique {
+  text-align: center;
+  margin-top: 0;
+  width: 100%; /* 너비를 100%로 설정 */
+  max-width: 400px; /* 원하는 최대 너비 */
+  padding: 10px; /* 내부 여백 추가 */
+  box-sizing: border-box; /* 패딩 포함하여 너비 조절 */
+}
+.m_calender-label-unique {
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: left; /* 텍스트 왼쪽 정렬 */
+  width: 100%; /* 텍스트가 차지하는 영역의 너비를 100%로 */
+  padding-left: 10px; /* 원하는 만큼 왼쪽에 여백 추가 */
+}
+.m_calender-time-inputs-unique {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.m_calender-input-unique {
+  width: 45%; /* 두 입력 필드의 너비 조정 */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 0 5px; /* 입력 필드 사이 간격 조정 */
+}
+.m_calender-time-divider-unique {
+  font-size: 24px;
+  color: #333;
+}
+.m_calender-search-button-unique {
+  padding: 12px 30px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%; /* 버튼 너비를 전체로 설정 */
+  max-width: 400px; /* 원하는 최대 너비 제한 */
+  margin: 0 auto; /* 중앙에 위치 */
+}
+/* 달력 자체 */
+.m_calender-unique {
+  width: 100%;
+  max-width: 300px;
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+  height: 55%;
+}
+
+/* 달력 타일 (각 날짜) */
+.m_calender-tile-unique {
+  text-align: center;
+  padding: 10px;
+  border-radius: 50%; /* 원형 날짜 */
+  transition: background-color 0.2s ease;
+}
+
+/* 타일 마우스 오버 시 */
+.m_calender-tile-unique:hover {
+  background-color: #f0f0f0; /* 타일에 마우스 오버 시 배경색 */
+}
+
+/* 선택된 날짜 */
+.m_calender-tile-active-unique {
+  background-color: #4caf50; /* 원하는 색상으로 변경 가능 */
+  color: white;
+  border-radius: 60%; /* 완전히 둥글게 */
+  padding: 10px; /* 크기를 조정할 수 있는 padding 값 */
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 주말 날짜 (토, 일) */
+.m_calender-weekend-unique {
+  color: red; /* 주말의 날짜 색상 */
+}
+
+/* 오늘 날짜 */
+.m_calender-today-unique {
+  background-color: #ff5722; /* 오늘 날짜 강조 */
+  color: white;
+  border-radius: 60%; /* 원형 효과 */
+}
+
