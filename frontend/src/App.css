@@ -7,31 +7,27 @@ body {
 /****************** 휴대폰 테두리  *************/
 /* 모바일 프레임 */
 .mobile_frame {
-  position: fixed;
-  /* 화면에 고정 */
+  position: fixed;  /* 화면에 고정 */
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  /* 화면 중앙에 배치 */
+  transform: translate(-50%, -50%);  /* 화면 중앙에 배치 */
   width: 100%;
   max-width: 400px;
   height: auto;
   overflow: hidden;
   margin: 0 auto;
-  border-radius: 70px;
-  z-index: 2;
-  /* 프레임이 배경 이미지보다 위에 표시되도록 설정 */
+  /* border-radius: 70px; */
+  z-index: 1;  /* 프레임이 배경 이미지보다 위에 표시되도록 설정 */
 }
 
 /* 모바일 프레임 이미지 */
 .mobile_frame_img {
-  position: relative;
-  /* 프레임 이미지를 상대 위치로 설정 */
+  position: relative; /* 프레임 이미지를 상대 위치로 설정 */
   width: 100%;
   height: auto;
   display: block;
-  z-index: 2;
-  /* 배경보다 위에 표시되도록 설정 */
+  z-index: 1; /* 배경보다 위에 표시되도록 설정 */
+  pointer-events: none;  /* 프레임 이미지가 클릭 이벤트를 차단하지 않도록 설정 */
 }
 
 /* 모바일 콘텐츠 (프레임 안에 배경을 설정) */
@@ -61,19 +57,15 @@ body {
   height: 80%;
   padding: 0 20px;
   box-sizing: border-box;
-  margin-top: 50px;
-  /* 전체 래퍼를 조금 더 아래로 */
+  margin-top: 50px;  /* 전체 래퍼를 조금 더 아래로 */
 }
 
 /* 인사말 텍스트 (박스 밖으로 이동) */
 .greeting {
-  /* text-align:left; */
   color: white;
   margin-left: 10px;
-  margin-bottom: 10px;
-  /* 여백 조정 */
-  font-size: 18px;
-  /* 텍스트 크기 조금 키움 */
+  margin-bottom: 10px; /* 여백 조정 */
+  font-size: 18px;  /* 텍스트 크기 조금 키움 */
   font-weight: 600;
   line-height: 1.4;
   z-index: 3;
@@ -85,31 +77,23 @@ body {
   max-width: 350px;
   padding: 20px;
   background-color: #ffffff;
-  border-radius: 10px;
-  /* 흰색 박스 둥근 모서리 */
+  border-radius: 10px;  /* 흰색 박스 둥근 모서리 */
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  margin-top: 30px;
-  /* 탭 버튼이 위에 겹칠 수 있도록 여백 추가 */
-  position: relative;
-  /* 탭 버튼의 절대 위치 기준으로 설정 */
+  margin-top: 30px; /* 탭 버튼이 위에 겹칠 수 있도록 여백 추가 */
+  position: relative;  /* 탭 버튼의 절대 위치 기준으로 설정 */
 }
 
 /* 탭 버튼 */
 .login_tabs {
   display: flex;
   justify-content: space-around;
-  position: absolute;
-  /* 절대 위치로 설정 */
-  top: -20px;
-  /* 흰색 박스 상단과 겹치도록 위로 이동 */
+  position: absolute; /* 절대 위치로 설정 */
+  top: -20px; /* 흰색 박스 상단과 겹치도록 위로 이동 */
   left: 0;
   width: 100%;
-  border-radius: 10px;
-  /* 전체 탭 그룹에 경계선 추가 */
-  overflow: visible;
-  /* 둥근 모서리 안에서 내용이 넘치지 않도록 설정 */
-  z-index: 10;
-  /* 흰색 박스 위에 겹치도록 설정 */
+  border-radius: 10px; /* 전체 탭 그룹에 경계선 추가 */
+  overflow: visible;  /* 둥근 모서리 안에서 내용이 넘치지 않도록 설정 */
+  z-index: 10; /* 흰색 박스 위에 겹치도록 설정 */
 }
 
 /* 탭 버튼 스타일 */
@@ -121,21 +105,19 @@ body {
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
   border-radius: 10px;
+  border: none;
 }
 
 /* 사용자 버튼 (왼쪽 버튼) */
 .login_tabs button:first-child {
   flex: 1;
   padding: 10px;
-  background-color: #ffffff;
-  /* 비활성화된 버튼의 배경은 흰색 */
-  border: none;
-  /* 개별 경계선 제거 */
+  background-color: #ffffff;  /* 비활성화된 버튼의 배경은 흰색 */
+  border: none;  /* 개별 경계선 제거 */
   color: black;
   font-size: 1rem;
   cursor: pointer;
-  border-radius: 10px 0 0 0;
-  /* 왼쪽 상단만 둥글게 */
+  border-radius: 10px 0 0 0;  /* 왼쪽 상단만 둥글게 */
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -143,20 +125,17 @@ body {
 .login_tabs button:last-child {
   flex: 1;
   padding: 10px;
-  background-color: black;
-  /* 비활성화된 버튼의 배경은 검정색 */
-  border: none;
-  /* 개별 경계선 제거 */
+  background-color: black;  /* 비활성화된 버튼의 배경은 검정색 */
+  border: none;  /* 개별 경계선 제거 */
   color: white;
   font-size: 1rem;
   cursor: pointer;
-  border-radius: 0 10px 0 0;
-  /* 오른쪽 상단만 둥글게 */
+  border-radius: 0 10px 0 0;  /* 오른쪽 상단만 둥글게 */
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* 활성화된 탭 */
-.login_tabs .active {
+.login_tabs button.active {
   background-color: white;
   color: black;
 }
@@ -172,8 +151,7 @@ body {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin-top: 10px;
-  /* 로그인 폼과 탭 버튼 간의 간격 추가 */
+  margin-top: 10px;  /* 로그인 폼과 탭 버튼 간의 간격 추가 */
 }
 
 /* 입력 필드 */
@@ -184,8 +162,7 @@ body {
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 1rem;
-  background-color: rgba(255, 255, 255, 0.9);
-  /* 입력 필드 배경을 더 밝게 */
+  background-color: rgba(255, 255, 255, 0.9);  /* 입력 필드 배경을 더 밝게 */
 }
 
 /* 로그인 버튼 */
@@ -212,8 +189,7 @@ body {
 .login_options button {
   background: none;
   border: none;
-  color: black;
-  /* 검정색 텍스트 */
+  color: black;  /* 검정색 텍스트 */
   font-size: 0.9rem;
   cursor: pointer;
   text-decoration: underline;
@@ -221,49 +197,59 @@ body {
 }
 
 .login_options button:hover {
-  color: black;
-  /* 호버 상태에서도 검정색 유지 */
+  color: black;  /* 호버 상태에서도 검정색 유지 */
 }
 
 /* 수평선 스타일 */
 .divider_line {
   width: 100%;
-  border-bottom: 2px solid white;
-  /* 수평선을 회색으로 */
-  margin: 10px 0;
-  /* 수평선 위아래 여백 조정 */
+  border-bottom: 2px solid white;  /* 수평선을 회색으로 */
+  margin: 10px 0;  /* 수평선 위아래 여백 조정 */
 }
 
 /* ******************Header컴포넌트(노란색) CSS***** */
 /* Header 컴포넌트 스타일 */
-.header_container {
+.header_custom_container {
   width: 100%;
-  height: 60px;
-  /* Header의 높이를 노란색 부분만큼 조정 */
+  /* max-width: 393px; */
+  height: 100px;
+  background-color: #FFDA38;
   display: flex;
   align-items: center;
-  justify-content: center;
-  background-color: #FFDA38;
-  /* 노란색 배경 */
-  z-index: 10;
-  /* 다른 요소들보다 위에 표시되도록 설정 */
+  padding: 0 16px;
+  box-sizing: border-box;
+  border-top-left-radius: 0; /* 둥근 모서리를 없애고 싶으면 0으로 설정 */
+  border-top-right-radius: 0;
+  border-bottom: 2px solid #ccc;
+  /* 둥근 효과를 원하면 아래와 같이 조정 */
+  /* border-top-left-radius: 20px;
+     border-top-right-radius: 20px; */
 }
-.headercontainer{
-  height: 100px;
+
+.header_custom_back_button {
+  font-size: 24px;
+  color: black;
+  cursor: pointer;
+  margin-right: 16px;
 }
+
+.header_custom_title {
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+}
+
 
 /* ******************BannerBox: 배너 넣는 부분 ************ */
 .BannerBox {
-  width: 100%;
-  /* 너비 */
-  height: 150px;
-  /* 높이 */
-  background-color: lightgray;
-  /* 배경색 */
-  margin-top: 60px;
-  /* Header의 높이만큼 여백 추가 */
+  width: 100%; /* 너비 */
+  height: auto;  /* 높이 */
+  background-color: lightgray;  /* 배경색 */
 }
-
+.banner_img{
+  width: 100%;
+  margin: -2px;
+}
 
 
 /* *******************다운로드페이지 컴포넌트 CSS******* */
@@ -273,16 +259,40 @@ body {
 }
 
 .download_container {
+  margin: -2px;
   background-color: white;
   padding: 20px;
-  height: 61%; /* 컨테이너의 높이를 설정 */
+  height: 62%; /* 컨테이너의 높이를 설정 */
   display: flex;
   flex-direction: column;
   justify-content: center; /* 세로 중앙 정렬 */
   align-items: center; /* 가로 중앙 정렬 */
   text-align: center;
-  border-radius: 10px;
+  position: relative; /* 메시지를 겹쳐 표시하기 위해 position 설정 */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.download_preview {
+  width: 100%;
+  padding: 20px;
+  background-color: #f5f5f5;
+  transition: filter 0.3s ease; /* 희미해지는 효과 */
+}
+.download_preview.blur {
+  filter: blur(4px); /* 다운로드 시 흐려짐 효과 */
+}
+.download_message_overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8); /* 반투명 배경 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 0.3s ease; /* 희미해지는 효과 */
 }
 .download_message {
   display: flex;
@@ -431,7 +441,8 @@ body {
 }
 
 .filtering-time-buttons button.filtering-active, .filtering-order-buttons button.filtering-active {
-  background-color: yellow;
+  background-color: #FFDA38;
+  color: black;
 }
 
 .filtering-time-inputs {
@@ -550,15 +561,16 @@ input:checked + .slider-unique:before {
 .m_calender-container-unique {
   background-color: white;
   padding: 14px;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-  max-width: 400px;
-  margin: 0 auto;
+  /* max-width: 400px; */
+  /* margin: 0 auto; */
+  margin-top: -1px;
   display: flex;
   flex-direction: column; /* 세로 정렬로 변경 */
   justify-content: flex-start; /* 상단에 위치하도록 */
   align-items: center; /* 수평 중앙 정렬 */
-  height: 65%;
+  height: 75%;
 }
 .m_calender-time-select-unique {
   text-align: center;
@@ -651,6 +663,65 @@ input:checked + .slider-unique:before {
   color: white;
   border-radius: 60%; /* 원형 효과 */
 }
+/* 달력화면에서 기간 조회 드롭박스 버튼 CSS */
+/* 드롭다운 전체 영역 스타일 */
+.time-dropdown-container {
+  background-color: #f8f8f8; /* 드롭다운 배경색 설정 */
+  border-radius: 10px; /* 둥근 모서리 */
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100px; /* 원하는 드롭다운 너비 */
+}
+
+/* 개별 선택 아이템 스타일 */
+.time-dropdown-container .dropdown-item {
+  font-size: 18px; /* 아이템 폰트 크기 */
+  padding: 8px;
+  color: #000; /* 텍스트 색상 */
+  text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+/* 선택된 아이템 강조 스타일 */
+.time-dropdown-container .dropdown-item.selected {
+  background-color: #e0e0e0; /* 선택된 아이템 배경색 */
+  color: #000; /* 선택된 텍스트 색상 */
+  font-weight: bold;
+}
+
+/* 오전/오후 버튼 스타일 */
+.time-dropdown-container .ampm-toggle {
+  background-color: #f8f8f8; /* 배경색 */
+  font-size: 18px;
+  color: #333;
+  border: none;
+  cursor: pointer;
+  padding: 8px 0;
+  width: 100%; /* 너비를 꽉 채움 */
+  text-align: center;
+}
+
+/* 선택된 AM/PM 강조 스타일 */
+.time-dropdown-container .ampm-toggle.selected {
+  background-color: #e0e0e0;
+  color: #000;
+  font-weight: bold;
+}
+
+/* 스크롤바 스타일 */
+.time-dropdown-container .scrollable {
+  max-height: 150px;
+  overflow-y: scroll;
+}
+
+/* iOS 스타일처럼 화면 중앙 정렬 및 크기 조정 */
+.time-dropdown-container .centered-item {
+  background-color: #ffffff;
+  padding: 15px;
+  font-size: 20px;
+  color: #333;
+  border-radius: 8px;
+  text-align: center;
+}
 
 
 
@@ -662,12 +733,10 @@ input:checked + .slider-unique:before {
 .m_detail-container-unique {
   padding: 20px;
   background-color: white;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 90%;
-  margin: 0 auto;
   height: 70vh; /* 높이를 유동적으로 설정 */
-  margin-top: 100px;
 }
 
 .m_detail-filter-unique {
@@ -719,9 +788,9 @@ input:checked + .slider-unique:before {
 .violations-list-container {
   background-color: white; /* 흰색 배경 */
   padding: 10px;
-  /* border-radius: 10px; */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-  width: 90%; /* 너비를 조정해서 가운데 정렬 */
+  width: 100%; /* 너비를 조정해서 가운데 정렬 */
+  overflow-x: auto; /* 가로 스크롤 가능 */
   margin: 0 auto; /* 가운데 정렬 */
   min-height: 300px; /* 적절한 최소 높이 설정 */
   display: flex;
@@ -734,6 +803,7 @@ input:checked + .slider-unique:before {
 /* 개별 위반 내역 행 */
 .violation-row {
   display: flex;
+  flex-wrap: nowrap; /* 행의 셀들이 한 줄에 유지되도록 설정 */
   justify-content: space-between;
   align-items: center;
   padding: 10px;
@@ -751,8 +821,9 @@ input:checked + .slider-unique:before {
   flex: 1;
   text-align: center; /* 텍스트 중앙 정렬 */
   padding: 5px;
-  font-size: 12px;
-  white-space: nowrap; /* 텍스트가 여러 줄로 표시하려면 nomal로 바꾸기 */
+  font-size: 10px;
+  white-space: normal; /* 텍스트가 한줄로 표시하려면 nowrap 바꾸기 */
+  overflow-wrap: break-word; /* 단어가 길 경우 줄바꿈 */
   overflow: visible; /* 넘치는 텍스트는 숨기려면 hidden */
   text-overflow: clip; 
   word-break: break-all; /* 단어가 길 경우에도 줄 바꿈되도록 설정 */
@@ -791,3 +862,70 @@ input:checked + .slider-unique:before {
   text-align: center;
   padding: 0 10px;
 }
+/* **************메인 이미지 화면************** */
+.main_bg_img_div {
+  width: 100%; /* 화면 전체 너비 */
+  height: 100%; /* 화면 전체 높이 */
+  overflow: hidden; /* 이미지가 div 밖으로 넘치지 않도록 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.main_bg_img {
+  width: 100%; /* 이미지가 div 너비를 채우도록 설정 */
+  height: 100%; /* 이미지가 div 높이를 채우도록 설정 */
+  object-fit: cover; /* 비율을 유지하면서 div에 맞춰 이미지를 크기 조정 */
+}
+/* Main 페이지 전용 스타일 */
+.main_background {
+  cursor: pointer; /* 클릭 가능한 상태로 표시 */
+  position: relative;
+}
+
+.main_background .background_image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* ********회원가입 컴포넌트 CSS ********** */
+.join-wrapper {
+  background-color: white;
+  padding: 20px;  /* border-radius: 10px; */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  display: block;
+  /* font-weight: bold; */
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.join-button {
+  width: 100%;
+  padding: 12px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+
