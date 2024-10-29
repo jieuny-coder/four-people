@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // 페이지 이동 설정을 위해 useNavigate 사용
+import { useNavigate } from 'react-router-dom';
 
 const ViolationsList = () => {
   const navigate = useNavigate();
@@ -22,32 +22,33 @@ const ViolationsList = () => {
     },
   ];
 
-  // 특정 위반 내역을 클릭 시 상세 페이지로 이동
   const handleRowClick = (violation) => {
     navigate(`/detail`, { state: { violation } });
+  };
+
+  const handleDownloadPageNavigation = () => {
+    navigate(`/download`, { state: { previewData: exampleData } });
   };
 
   return (
     <div className="violations-list-container">
       {/* 컬럼 제목 */}
-      {exampleData.length > 0 && (
-        <div className="violation-header">
-          <div className="violation-cell-header">날짜</div>
-          <div className="violation-cell-header">차량번호</div>
-          <div className="violation-cell-header">장소</div>
-          <div className="violation-cell-header">주차시간</div>
-          <div className="violation-cell-header">이용구역</div>
-        </div>
-      )}
+      <div className="violation-header">
+        <div className="violation-cell-header">날짜</div>
+        <div className="violation-cell-header">차량번호</div>
+        <div className="violation-cell-header">장소</div>
+        <div className="violation-cell-header">주차시간</div>
+        <div className="violation-cell-header">이용구역</div>
+      </div>
 
-      {/* 데이터 목록 */}
+      {/* 데이터 목록 또는 "위반 내역이 없습니다." 메시지 */}
       {exampleData.length > 0 ? (
         exampleData.map((violation, index) => (
           <div
             key={index}
             className="violation-row"
             onClick={() => handleRowClick(violation)}
-            style={{ cursor: 'pointer' }} // 커서 모양을 손가락으로 변경
+            style={{ cursor: 'pointer' }}
           >
             <div className="violation-cell">{violation.날짜}</div>
             <div className="violation-cell">{violation.차량번호}</div>
@@ -61,6 +62,11 @@ const ViolationsList = () => {
           위반 내역이 없습니다.
         </p>
       )}
+      
+      {/* 다운로드 페이지로 이동하는 버튼 */}
+      <button className="to_download" onClick={handleDownloadPageNavigation}>
+        다운로드페이지로
+      </button>
     </div>
   );
 };

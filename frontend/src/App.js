@@ -1,3 +1,4 @@
+// App.js
 import './App.css';
 import Header from './components/Header';
 import U_login from './pages/U_login';
@@ -10,11 +11,32 @@ import Setting from './pages/Setting';
 import M_calender from './pages/M_calender';
 import Main from './pages/Main';
 import ViolationsList from './pages/ViolationsList';
-import M_detail from './pages/M_detail'; // M_detail 컴포넌트 추가
+import M_detail from './pages/M_detail';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { useState } from 'react';
 
 function AppContent() {
   const location = useLocation();
+  const [violationsData, setViolationsData] = useState([]);
+  const [detailData, setDetailData] = useState([]);
+
+  // 현재 경로에 따라 페이지 이름 설정
+  const getPageTitle = (pathname) => {
+    console.log("Checking path:", pathname); // 현재 경로 확인용
+
+    switch (pathname) {
+      case '/join': return '회원가입';
+      case '/filtering': return '원하는 검색 조건을 입력하세요.';
+      case '/setting': return '설정';
+      case '/download': return 'Download';
+      case '/M_calender': return 'Manager Main';
+      case '/Violations': return '위반 차량 목록';
+      case '/detail': return '상세 정보';
+      default: return '페이지 제목 없음'; // 디폴트 제목 추가
+    }
+};
+
+  const pageTitle = getPageTitle(location.pathname);
 
   return (
     <div className="mobile_frame">
@@ -23,24 +45,25 @@ function AppContent() {
         className="mobile_content"
         style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/background.png)` }}
       >
-        {/* Header와 BannerBox는 Main, Login 페이지를 제외한 모든 페이지에서 렌더링 */}
-        {location.pathname !== '/' && location.pathname !== '/login' && <Header />}
+        {/* Main, Login 페이지를 제외한 모든 페이지에서 Header와 BannerBox 렌더링 */}
+        {location.pathname !== '/' && location.pathname !== '/login' && <Header title={pageTitle} />}
         {location.pathname !== '/' && location.pathname !== '/login' && <BannerBox />}
 
         <Routes>
-          <Route path="/" element={<Main />} /> {/* Main 페이지 */}
-          <Route path="/login" element={<U_login />} /> {/* 로그인 페이지 */}
-          <Route path="/join" element={<Join />} /> {/* 회원가입 페이지 */}
-          <Route path="/filtering" element={<Filtering />} /> {/* Filtering 페이지 */}
-          <Route path="/setting" element={<Setting />} /> {/* Setting 페이지 */}
-          <Route path="/download" element={<Download />} /> {/* Download 페이지 */}
-          <Route path="/m_calender" element={<M_calender />} /> {/* 관리자 페이지 */}
-          <Route path="/violations" element={<ViolationsList />} /> {/* 위반 차량 정보 페이지 */}
-          <Route path="/detail" element={<M_detail />} /> {/* M_detail 페이지 추가 */}
+          <Route path="/" element={<Main />} />
+          <Route path="/login" element={<U_login />} />
+          <Route path="/join" element={<Join />} />
+          <Route path="/filtering" element={<Filtering />} />
+          <Route path="/setting" element={<Setting />} />
+          <Route path="/download" element={<Download />} />
+          <Route path="/m_calender" element={<M_calender />} />
+          <Route path="/violations" element={<ViolationsList />} />
+          <Route path="/detail" element={<M_detail />} />
         </Routes>
 
-        {/* M_btnBar는 Main, Login, Join 페이지에서는 보이지 않도록 */}
-        {location.pathname !== '/' && location.pathname !== '/login' && location.pathname !== '/join' && <M_btnBar />}
+        {location.pathname !== '/' && location.pathname !== '/login' && location.pathname !== '/join' &&
+          <M_btnBar violationsData={violationsData} detailData={detailData} />
+        }
       </div>
     </div>
   );

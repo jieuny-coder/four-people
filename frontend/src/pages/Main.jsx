@@ -13,9 +13,9 @@ const Main = () => {
     return (
         <div className='main_background' onClick={handleClick}>
             <img src='/images/start_IMG.png' alt='background_image' className='background_image' />
-            {/* <div className='centered_logo_container'>
-                <img src='/images/logo_IMG.png' alt='centered_logo_image' className='centered_logo_image' />
-            </div> */}
+            <div className='centered_logo_container'>
+                <img src='/images/logo.jpg' alt='centered_logo_image' className='centered_logo_image' />
+            </div>
         </div>
     )
 }

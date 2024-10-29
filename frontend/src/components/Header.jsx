@@ -1,12 +1,15 @@
-import React from 'react'
+// Header.js
+import React from 'react';
 
-const Header = () => {
+const Header = ({ title }) => {
+    console.log("Header title:", title); // title 값을 콘솔에 출력
+
     return (
         <div className="header_custom_container">
             <div className="header_custom_back_button">&#x2190;</div>
-            <h1 className="header_custom_title">페이지 이름 작성하는 공간</h1>
+            <h1 className="header_custom_title">{title}</h1>
         </div>
     );
 };
 
-export default Header
+export default Header;

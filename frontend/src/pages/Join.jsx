@@ -13,7 +13,7 @@ const Join = () => {
     e.preventDefault();
     // 가입 처리 로직 추가
     // 가입이 성공했다는 가정 하에 로그인 페이지로 이동
-    navigate('/login'); // !!!!!!!!!!!!!!!!! 로그인 페이지로 이동
+    navigate('/login'); // 로그인 페이지로 이동
   };
 
   return (

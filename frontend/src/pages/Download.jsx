@@ -1,22 +1,52 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const Download = () => {
   const [isDownloading, setIsDownloading] = useState(false); // 다운로드 상태 관리
+  const location = useLocation();
+
+  // ViolationsList에서 전달된 데이터
+  const previewData = location.state?.previewData || [];
 
   const handleDownloadClick = () => {
-    setIsDownloading(true); // 다운로드 시작 시 true로 설정
-    // 다운로드 로직을 추가할 수 있습니다.
+    setIsDownloading(true);
+    setTimeout(() => {
+      setIsDownloading(false);
+      alert('다운로드가 완료되었습니다.');
+    }, 2000);
   };
 
   return (
     <div className="download_container">
-      {/* 다운로드 미리보기 */}
       <div className={`download_preview ${isDownloading ? 'blur' : ''}`}>
-        {/* 여기에 detail 페이지에서 조회한 데이터 미리보기 컴포넌트를 넣어주세요 */}
-        <p>Detail 페이지의 데이터를 여기에 표시</p>
+        {previewData.length > 0 ? (
+          <table className="preview_table">
+            <thead>
+              <tr>
+                <th>날짜</th>
+                <th>차량번호</th>
+                <th>장소</th>
+                <th>주차시간</th>
+                <th>이용구역</th>
+              </tr>
+            </thead>
+            <tbody>
+              {previewData.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.날짜}</td>
+                  <td>{item.차량번호}</td>
+                  <td>{item.장소}</td>
+                  <td>{item.주차시간}</td>
+                  <td>{item.이용구역}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>다운로드할 데이터가 없습니다.</p>
+        )}
       </div>
 
-      {/* 다운로드 메시지 (다운로드 중일 때만 표시) */}
       {isDownloading && (
         <div className="download_message_overlay">
           <img src="/images/DownIMG.jpg" alt="Download Icon" className="download_icon" />
