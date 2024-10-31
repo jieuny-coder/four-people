@@ -56,6 +56,7 @@ function AppContent() {
         {location.pathname !== '/' && location.pathname !== '/login' && <BannerBox />}
 
         <Routes>
+          {/* 사용자/ 관리자  */}
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<U_login />} />
           <Route path="/join" element={<Join />} />
@@ -65,6 +66,7 @@ function AppContent() {
           <Route path="/m_calender" element={<M_calender />} />
           <Route path="/violations" element={<ViolationsList />} />
           <Route path="/detail" element={<M_detail />} />
+          {/* 사용자 */}
           <Route path="/Parkinglot01" element={<Parkinglot01 />} />
           <Route path="/parkinglot02" element={<Parkinglot02 />} />
           <Route path="/parkinglot03" element={<><ParkingMa /><Parkinglot03 /></>} />
