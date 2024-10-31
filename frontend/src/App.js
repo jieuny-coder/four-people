@@ -14,6 +14,12 @@ import ViolationsList from './pages/ViolationsList';
 import M_detail from './pages/M_detail';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import { useState } from 'react';
+import { Parkinglot01 } from './pages/Parkinglot01';
+import Parkinglot02 from './pages/Parkinglot02';
+import { Parkinglot03 } from './pages/Parkinglot03';
+import { Parkinglot04 } from './pages/Parkinglot04';
+import { Parkinglot05 } from './pages/Parkinglot05';
+import ParkingMa from './components/ParkingMa';
 
 function AppContent() {
   const location = useLocation();
@@ -59,6 +65,11 @@ function AppContent() {
           <Route path="/m_calender" element={<M_calender />} />
           <Route path="/violations" element={<ViolationsList />} />
           <Route path="/detail" element={<M_detail />} />
+          <Route path="/Parkinglot01" element={<Parkinglot01 />} />
+          <Route path="/parkinglot02" element={<Parkinglot02 />} />
+          <Route path="/parkinglot03" element={<><ParkingMa /><Parkinglot03 /></>} />
+          <Route path="/Parkinglot04" element={<Parkinglot04 />} />
+          <Route path="/parkinglot05" element={<Parkinglot05 />} />
         </Routes>
 
         {location.pathname !== '/' && location.pathname !== '/login' && location.pathname !== '/join' &&
