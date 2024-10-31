@@ -2,7 +2,7 @@ import Btnbar from '../components/Btnbar';
 import Topbar from '../components/Topbar';
 import '../index.css';
 
-export const Parkinglot01 = () => {
+export const Myparking_place = () => {
    
 
     return (

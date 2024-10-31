@@ -3,7 +3,7 @@ import Btnbar from '../components/Btnbar';
 import '../index.css';
 import BannerBox from '../components/BannerBox';
 
-const Parkinglot02 = () => {
+const ParkingList = () => {
   return (
     <div>
       {/* css 텍스트 div 19  */}
@@ -60,4 +60,4 @@ const Parkinglot02 = () => {
   )
 }
 
-export default Parkinglot02
+export default ParkingList

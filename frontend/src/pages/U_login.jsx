@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const U_login = () => {
+const U_login = ({ setIsAdmin }) => {
     const [isUser, setIsUser] = useState(true);  // 기본적으로 사용자 버튼이 활성화됨
     const navigate = useNavigate();
 
@@ -13,7 +13,7 @@ const U_login = () => {
     const handleLoginClick = () => {
         console.log('로그인 버튼이 클릭되었습니다.');
         if (isUser) {
-            navigate('/user-dashboard'); // 사용자 로그인 성공 시 이동 경로
+            navigate('/userMain'); // 사용자 로그인 성공 시 이동 경로
         } else {
             navigate('/M_calender'); // 관리자 로그인 성공 시 이동 경로
         }

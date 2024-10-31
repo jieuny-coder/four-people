@@ -1,48 +1,48 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Btnbar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const click01=()=>{
-    navigate('/parkinglot01')
-  }
-
-  const click02=()=>{
-    navigate('/parkinglot02')
-  }
-
-  const click03=()=>{
-    navigate('/parkinglot03')
-  }
-
-  const click04=()=>{
-    navigate('/parkinglot04')
-  } 
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
 
   return (
     <div className="bottom-bar">
-      <Button className="button" onClick={click04}>
-          <img src="/images/house.png" alt="" />
-          <br />
-          <div>HOME</div>
-      </Button>
-      <Button className="button" onClick={click03}>
-          <img src="/images/search.png" alt="" />
-          <br />
-          <div>주차장 찾기</div>
-      </Button>
-      <Button className="button" onClick={click02}>
-          <img src="/images/stars.png" alt="" />
-          <br />
-          <div>즐겨찾기</div>
-      </Button>
-      <Button className="button" onClick={click01}>
-          <img src="/images/setting.png" alt="" />
-          <br />
-          <div>설정</div>
-      </Button>
+      <div
+        className={`btn_item ${location.pathname === '/userMain' ? 'active' : ''}`}
+        onClick={() => handleNavigation('/userMain')}
+        style={{ cursor: 'pointer' }}
+      >
+        <img src="/images/house.png" alt="사용자메인" className="btn_icon" />
+        <p>HOME</p>
+      </div>
+      <div
+        className={`btn_item ${location.pathname === '/parkingSearch' ? 'active' : ''}`}
+        onClick={() => handleNavigation('/parkingSearch')}
+        style={{ cursor: 'pointer' }}
+      >
+        <img src="/images/search.png" alt="주차장찾기" className="btn_icon" />
+        <p>주차장 찾기</p>
+      </div>
+      <div
+        className={`btn_item ${location.pathname === '/parkinglist' ? 'active' : ''}`}
+        onClick={() => handleNavigation('/parkinglist')}
+        style={{ cursor: 'pointer' }}
+      >
+        <img src="/images/stars.png" alt="즐겨찾기" className="btn_icon" />
+        <p>즐겨찾기</p>
+      </div>
+      <div
+        className={`btn_item ${location.pathname === '/myparking_place' ? 'active' : ''}`}
+        onClick={() => handleNavigation('/myparking_place')}
+        style={{ cursor: 'pointer' }}
+      >
+        <img src="/images/setting.png" alt="설정" className="btn_icon" />
+        <p>설정</p>
+      </div>
     </div>
   );
 };

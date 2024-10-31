@@ -14,17 +14,20 @@ import ViolationsList from './pages/ViolationsList';
 import M_detail from './pages/M_detail';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import { Parkinglot01 } from './pages/Parkinglot01';
-import Parkinglot02 from './pages/Parkinglot02';
-import { Parkinglot03 } from './pages/Parkinglot03';
-import { Parkinglot04 } from './pages/Parkinglot04';
-import { Parkinglot05 } from './pages/Parkinglot05';
+import { Myparking_place } from './pages/Myparking_place';
+import ParkingList from './pages/ParkingList';
+import { ParkingSearch  } from './pages/ParkingSearch ';
+import { UserMain } from './pages/UserMain';
+import EditProfile from './pages/EditProfile ';
+import Btnbar from './components/Btnbar';
+
 import ParkingMa from './components/ParkingMa';
 
 function AppContent() {
   const location = useLocation();
   const [violationsData, setViolationsData] = useState([]);
   const [detailData, setDetailData] = useState([]);
+  const [ isAdmin, setIsAdmin ] = useState(null) // 사용자용버튼바 or 관리자용버튼바 교체
 
   // 현재 경로에 따라 페이지 이름 설정
   const getPageTitle = (pathname) => {
@@ -43,6 +46,8 @@ function AppContent() {
 };
 
   const pageTitle = getPageTitle(location.pathname);
+   // 사용자 버튼바가 나타나야 하는 경로 확인
+  const userPages = ['/myparking_place', '/parkinglist', '/parkingSearch', '/userMain'];
 
   return (
     <div className="mobile_frame">
@@ -58,7 +63,7 @@ function AppContent() {
         <Routes>
           {/* 사용자/ 관리자  */}
           <Route path="/" element={<Main />} />
-          <Route path="/login" element={<U_login />} />
+          <Route path="/login" element={<U_login setIsAdmin={setIsAdmin}/>} />
           <Route path="/join" element={<Join />} />
           <Route path="/filtering" element={<Filtering />} />
           <Route path="/setting" element={<Setting />} />
@@ -67,15 +72,20 @@ function AppContent() {
           <Route path="/violations" element={<ViolationsList />} />
           <Route path="/detail" element={<M_detail />} />
           {/* 사용자 */}
-          <Route path="/Parkinglot01" element={<Parkinglot01 />} />
-          <Route path="/parkinglot02" element={<Parkinglot02 />} />
-          <Route path="/parkinglot03" element={<><ParkingMa /><Parkinglot03 /></>} />
-          <Route path="/Parkinglot04" element={<Parkinglot04 />} />
-          <Route path="/parkinglot05" element={<Parkinglot05 />} />
+          <Route path="/myparking_place" element={<Myparking_place />} />
+          <Route path="/parkinglist" element={<ParkingList/>} />
+          <Route path="/parkingSearch" element={<><ParkingMa /><ParkingSearch/></>} />
+          <Route path="/userMain" element={<UserMain/>} />
+          <Route path="/editprofile" element={<EditProfile/>} />
         </Routes>
 
+        {/* 사용자 버튼바 또는 관리자 버튼바 조건부 렌더링 */}
         {location.pathname !== '/' && location.pathname !== '/login' && location.pathname !== '/join' &&
-          <M_btnBar violationsData={violationsData} detailData={detailData} />
+          (isAdmin ? (
+            <M_btnBar violationsData={violationsData} detailData={detailData} />
+          ) : (
+            userPages.includes(location.pathname) && <Btnbar />
+          ))
         }
       </div>
     </div>

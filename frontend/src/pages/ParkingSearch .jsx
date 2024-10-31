@@ -5,7 +5,7 @@ import BannerBox from '../components/BannerBox';
 import ParkingMa from '../components/ParkingMa';
 
 
-export const Parkinglot03 = () => {
+export const ParkingSearch  = () => {
   
   
 
