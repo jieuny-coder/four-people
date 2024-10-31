@@ -7,13 +7,7 @@ const ParkingMa = ({ searchTerm }) => {
 
     const [markers, setMarkers] = useState([]);
     const [map, setMap] = useState(null);
-    const [favorites, setFavorites] = useState([]);
     const [selectedPlace, setSelectedPlace] = useState(null);
-
-    const addToFavorites = (name, address) => {
-        setFavorites([...favorites, { name, address }]);
-        alert(`${name}이(가) 즐겨찾기에 추가되었습니다.`);
-    };
 
     const displayPlaces = useCallback((places) => {
         if (!map) return;
@@ -62,23 +56,16 @@ const ParkingMa = ({ searchTerm }) => {
         });
     }, [map, searchTerm, displayPlaces]);
 
-    const handleAddToFavorites = () => {
-        if (selectedPlace) {
-            addToFavorites(selectedPlace.name, selectedPlace.address);
-            setSelectedPlace(null); // 선택된 장소 초기화
-        }
-    };
-
     if (!window.kakao) {
         return <div>Loading...</div>;
     }
 
     return (
-        <div>
+        <div className="map-container">
             <Map
                 id="map"
                 center={{ lat: 35.147290, lng: 126.922347 }}
-                style={{ width: "380px", height: "350px" }}
+                style={{ width: "100%", height: "100%" }}
                 level={3}
                 onCreate={setMap}
             >
@@ -100,24 +87,11 @@ const ParkingMa = ({ searchTerm }) => {
             </Map>
 
             {selectedPlace && (
-                <div style={{ position: 'absolute', bottom: '10px', left: '10px', background: '#fff', padding: '10px', borderRadius: '5px' }}>
+                <div className="selected-place">
                     <div>{selectedPlace.name}</div>
                     <div>{selectedPlace.address}</div>
-                    <button onClick={handleAddToFavorites}>즐겨찾기 추가</button>
-                    <button onClick={() => setSelectedPlace(null)}>닫기</button>
                 </div>
             )}
-
-            <div>
-                <h3>즐겨찾기 목록</h3>
-                <ul>
-                    {favorites.map((favorite, index) => (
-                        <li key={index}>
-                            {favorite.name} - {favorite.address}
-                        </li>
-                    ))}
-                </ul>
-            </div>
         </div>
     );
 };

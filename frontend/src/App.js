@@ -74,7 +74,7 @@ function AppContent() {
           {/* 사용자 */}
           <Route path="/myparking_place" element={<Myparking_place />} />
           <Route path="/parkinglist" element={<ParkingList/>} />
-          <Route path="/parkingSearch" element={<><ParkingMa /><ParkingSearch/></>} />
+          <Route path="/parkingSearch" element={<ParkingSearch/>} />
           <Route path="/userMain" element={<UserMain/>} />
           <Route path="/editprofile" element={<EditProfile/>} />
         </Routes>
