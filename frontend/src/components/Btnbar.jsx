@@ -36,8 +36,8 @@ const Btnbar = () => {
         <p>즐겨찾기</p>
       </div>
       <div
-        className={`btn_item ${location.pathname === '/myparking_place' ? 'active' : ''}`}
-        onClick={() => handleNavigation('/myparking_place')}
+        className={`btn_item ${location.pathname === '/setting' ? 'active' : ''}`}
+        onClick={() => handleNavigation('/setting')}
         style={{ cursor: 'pointer' }}
       >
         <img src="/images/setting.png" alt="설정" className="btn_icon" />

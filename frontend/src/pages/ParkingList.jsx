@@ -2,20 +2,28 @@ import React from 'react'
 import Btnbar from '../components/Btnbar';
 import '../index.css';
 import BannerBox from '../components/BannerBox';
+import { useNavigate } from 'react-router-dom'
 
 const ParkingList = () => {
+
+  const navigate = useNavigate();
+
+  const parkingMove = () => {
+    navigate('/Myparking_place')
+  }
+
   return (
     <div>
       {/* css 텍스트 div 19  */}
-      <div><Btnbar/></div>
-      <div><BannerBox/></div>
+      <Btnbar/>
       <div className='rectangle-parent01'>
         <div className= 'numbers'>번호</div>
         <p className='div20'>주소</p>
       </div>
+      <hr/>
       <div className="rectangle-parent02">
       <p className='number'>1</p>
-      <div className="div19">주차장 주소 나타내는 부분</div>
+      <button className="div19" onClick={parkingMove} >주차장 주소 나타내는 부분</button>
       <img className="icon02" alt="" src="images/stars.png" />
     </div>
     <div className="rectangle-parent03">

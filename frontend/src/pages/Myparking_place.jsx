@@ -13,7 +13,7 @@ export const Myparking_place = () => {
                     <img className="vector-3-icon" alt="" src="vector-3.svg" />
                 </div>
             </div>
-            <div><Topbar/>
+            <div>
                 <div className="div1">주차장 상태</div>
             </div>
             <div><Btnbar/></div>
@@ -28,7 +28,8 @@ export const Myparking_place = () => {
                 </div>
             </div>
             <div className="inner">
-            <div className="or">주차장 상태 사진 or 이미지</div>
+                <div className="or">주차장 상태 사진 or 이미지</div>
+                <img className='pariking_image' alt="" src="/images/parking_image.jpg"/>
             </div>
             <div className="rectangle-group">
                 <div className="group-child"></div>

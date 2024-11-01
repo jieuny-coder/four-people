@@ -5,7 +5,7 @@ const useKakaoLoader = () => {
 
         const loaded = useKakaoLoaderOrigin({
           
-          appkey: process.env.REACT_APP_MAP_KAKAOMAPS_PARKING,
+          appkey: "901fd1648461594b0c964018195d06b2" ,
           libraries: ["clusterer", "drawing", "services"],
         });
 
