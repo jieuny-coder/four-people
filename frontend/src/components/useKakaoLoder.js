@@ -1,17 +1,17 @@
-import { useKakaoLoader as useKakaoLoaderOrigin } from "react-kakao-maps-sdk"
+import { useKakaoLoader as useKakaoLoaderOrigin } from "react-kakao-maps-sdk";
+import { useEffect } from "react";
 
 const useKakaoLoader = () => {
-    
+    const loaded = useKakaoLoaderOrigin({
+        appkey: process.env.REACT_APP_PARKING_API_KEY,
+        libraries: ["clusterer", "drawing", "services"],
+    });
 
-        const loaded = useKakaoLoaderOrigin({
-          
-          appkey: "901fd1648461594b0c964018195d06b2" ,
-          libraries: ["clusterer", "drawing", "services"],
-        });
-
+    useEffect(() => {
         console.log("Kakao Maps API loaded:", loaded);
-        return loaded; // 로드 여부 반환
+    }, [loaded]);
 
+    return loaded;
 }
 
-export default useKakaoLoader
+export default useKakaoLoader;
