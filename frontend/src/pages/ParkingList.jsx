@@ -1,69 +1,42 @@
 import React from 'react'
-import Btnbar from '../components/Btnbar';
 import '../index.css';
-import BannerBox from '../components/BannerBox';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import ParkingList_Item from '../components/ParkingList_Item';
 
 const ParkingList = () => {
 
   const navigate = useNavigate();
+
+  const parkingData = [
+    { number: 1, address: '주차장 주소 나타내는 부분 1' },
+    { number: 2, address: '주차장 주소 나타내는 부분 2' },
+    { number: 3, address: '주차장 주소 나타내는 부분 3' },
+    { number: 4, address: '주차장 주소 나타내는 부분 4' },
+    { number: 5, address: '주차장 주소 나타내는 부분 5' },
+    { number: 6, address: '주차장 주소 나타내는 부분 6' },
+    { number: 7, address: '주차장 주소 나타내는 부분 7' },
+    { number: 8, address: '주차장 주소 나타내는 부분 8' },
+  ];
 
   const parkingMove = () => {
     navigate('/Myparking_place')
   }
 
   return (
-    <div className='parkinglist_container'>
-      {/* css 텍스트 div 19  */}
-      {/* <Btnbar/> */}
-      <div className='rectangle-parent01'>
-        <div className= 'numbers'>번호</div>
-        <p className='div20'>주소</p>
+    <div className="parking_list_container">
+      <div className="parking_list_header">
+        <div className="parking_list_header_number">번호</div>
+        <p className="parking_list_header_address">주소</p>
       </div>
-      <hr/>
-      <div className="rectangle-parent02">
-      <p className='number'>1</p>
-      <div className="div19" onClick={parkingMove} >주차장 주소 나타내는 부분</div>
-      <img className="icon02" alt="" src="images/stars.png" />
-    </div>
-    <div className="rectangle-parent03">
-      <p className='number'>2</p>
-      <div className="div19">주차장 주소 나타내는 부분</div>
-      <img className="icon02" alt="" src="images/stars.png" />
-    </div>
-    <div className="rectangle-parent04">
-      <p className='number'>3</p>
-      <div className="div19">주차장 주소 나타내는 부분</div>
-      <img className="icon02" alt="" src="images/stars.png" />
-    </div>
-    <div className="rectangle-parent05">
-      <p className='number'>4</p>
-      <div className="div19">주차장 주소 나타내는 부분</div>
-      <img className="icon02" alt="" src="images/stars.png" />
-    </div>
-    <div className="rectangle-parent06">
-      <p className='number'>5</p>
-      <div className="div19">주차장 주소 나타내는 부분</div>
-      <img className="icon02" alt="" src="images/stars.png" />
-    </div>
-    <div className="rectangle-parent07">
-      <p className='number'>6</p>
-      <div className="div19">주차장 주소 나타내는 부분</div>
-      <img className="icon02" alt="" src="images/stars.png" />
-    </div>
-    <div className="rectangle-parent08">
-      <p className='number'>7</p>
-      <div className="div19">주차장 주소 나타내는 부분</div>
-      <img className="icon02" alt="" src="images/stars.png" />
-    </div>
-    <div className="rectangle-parent09">
-      <p className='number'>8</p>
-      <div className="div19">주차장 주소 나타내는 부분</div>
-      <img className="icon02" alt="" src="images/stars.png" />
-    </div>
-
-        
-
+      <hr />
+      {parkingData.map((item) => (
+        <ParkingList_Item
+          key={item.number}
+          number={item.number}
+          address={item.address}
+          onAddressClick={parkingMove}
+        />
+      ))}
     </div>
   )
 }

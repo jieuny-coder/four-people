@@ -2227,10 +2227,135 @@ input:checked + .slider-unique:before {
 }
 
 
-/*********** parkinglist 페이지  ***********/
-.parkinglist_container{
+/********************* parkinglist 페이지  ***********************/
+/* 주차장 상태 관련 이미지 및 텍스트 컨테이너 */
+.parkinglist_container {
+  padding: 20px;
   background-color: white;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.div19:hover{
+
+/* 주차장 리스트 전체 컨테이너 */
+.parking_list_container {
+  padding: 10px;
+  background-color: white;
+  width: 100%;
+  height: 70%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 주차장 헤더 */
+.parking_list_header {
+  display: grid;
+  grid-template-columns: 1fr 3fr; /* 번호와 주소의 비율을 맞춤 */
+  /* justify-content: space-between; */
+  width: 100%;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  box-sizing: border-box;
+  border-bottom: 2px solid #ddd;
+}
+
+/* 번호와 주소 텍스트 정렬 */
+.parking_list_header_number,
+.parking_list_header_address {
+  /* flex: 1; */
+  text-align: left; /* 왼쪽 정렬 */
+  padding-left: 10px; /* 왼쪽으로 약간 이동 */
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 */
+}
+
+/* 주차 항목 행 */
+.parking_list_item_row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  box-sizing: border-box;
+}
+
+/* 번호 */
+.parking_item_number {
+  flex: 1;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* 주소 텍스트 */
+.parking_item_address {
+  flex: 3;
+  text-align: left;
+  padding-left: 10px;
   cursor: pointer;
+}
+
+/* 별 아이콘 */
+.parking_item_star_icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+/* 주소 텍스트에 마우스 호버 효과 */
+.parking_item_address:hover {
+  text-decoration: underline;
+}
+
+/* 즐겨찾기 아이콘 클릭 시 활성화 스타일 */
+.parking_item_star_icon.favorite {
+  filter: brightness(0) saturate(100%) invert(72%) sepia(86%) saturate(220%) hue-rotate(1deg) brightness(101%) contrast(96%);
+}
+
+
+/* parking_item_container 컴포넌트 스타일 */
+.parking_item_container {
+  display: flex; /* 가로 배치를 위해 flex 사용 */
+  align-items: center; /* 수직 정렬 */
+  justify-content: space-between; /* 좌우 간격 확보 */
+  width: 100%;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+  box-sizing: border-box;
+}
+
+/* 번호 스타일 */
+.parking_item_number {
+  flex: 1; /* 번호 영역이 고정되지 않도록 */
+  text-align: center;
+  font-weight: bold;
+}
+
+/* 주소 텍스트 */
+.parking_item_address {
+  flex: 3; /* 주소가 넓은 공간을 차지하도록 */
+  text-align: left;
+  padding-left: 10px;
+  cursor: pointer;
+}
+
+/* 즐겨찾기 아이콘 */
+.parking_item_star_icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin-left: 10px; /* 아이콘과 텍스트 간격 추가 */
+}
+
+/* 즐겨찾기 활성화 스타일 */
+.parking_item_star_icon.favorite {
+  filter: brightness(0) saturate(100%) invert(72%) sepia(86%) saturate(220%) hue-rotate(1deg) brightness(101%) contrast(96%);
 }
