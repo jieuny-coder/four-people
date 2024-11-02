@@ -2359,3 +2359,136 @@ input:checked + .slider-unique:before {
 .parking_item_star_icon.favorite {
   filter: brightness(0) saturate(100%) invert(72%) sepia(86%) saturate(220%) hue-rotate(1deg) brightness(101%) contrast(96%);
 }
+
+
+/* ************Myparking_place  즐겨찾기 주차장 상세정보 **********/
+/* 주차장 상태 관련 이미지 및 텍스트 컨테이너 */
+.parkinglot-status-container {
+  position: relative;
+  padding: 10px;
+  width: 95%;
+  max-width: 400px;
+  height: 70%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+}
+
+/* 주차장 상태 주소와 별 아이콘 */
+.parkinglot-address-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f2f2f2;
+  width: 100%;
+  max-width: 360px;
+  padding: 5px 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.parkinglot-address {
+  color: #000;
+  font-size: 14px;
+  flex: 1;
+}
+
+.parkinglot-star-icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+/* 주차장 상태 이미지 */
+.parkinglot-image {
+  width: 100%; 
+  height: auto; 
+  max-height: 160px; 
+  object-fit: cover; 
+  border-radius: 10px;
+}
+
+.parkinglot-image-container {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  height: 160px;
+  background-color: #d9d9d9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+/* 주차장 정보와 이벤트 버튼 스타일 */
+.parkinglot-info-button {
+  width: 100%;
+  max-width: 360px;
+  height: 38px;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  font-size: 14px;
+  font-weight: bold;
+  color: black;
+  margin: 5px 0;
+}
+.parkinglot-event-button {
+  width: 100%;
+  max-width: 360px;
+  height: 38px;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  font-size: 14px;
+  font-weight: bold;
+  color: black;
+  margin: 5px 0;
+}
+
+/* 주차장 정보와 이벤트 텍스트 리스트 */
+.parkinglot-info-details {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 360px;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin: 5px 0; /* 상하 간격을 좁혀서 5px로 설정 */
+}
+
+.parkinglot-info-text {
+  font-size: 14px;
+  color: #333;
+  margin: 5px 0;
+}
+
+.parkinglot-event-details {
+  display: flex;
+  flex-direction: column; /* 세로 배치 */
+  width: 90%;
+  max-width: 360px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px; /* 내부 여백 추가 */
+  margin-top: 5px;
+
+}
+
+.parkinglot-event-text {
+  font-size: 14px;
+  color: #333;
+  padding: 5px 0;
+  display: flex;
+  justify-content: space-between; /* 텍스트와 상태를 양쪽으로 정렬 */
+}
+
