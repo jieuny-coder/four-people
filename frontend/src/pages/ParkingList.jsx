@@ -13,9 +13,9 @@ const ParkingList = () => {
   }
 
   return (
-    <div>
+    <div className='parkinglist_container'>
       {/* css 텍스트 div 19  */}
-      <Btnbar/>
+      {/* <Btnbar/> */}
       <div className='rectangle-parent01'>
         <div className= 'numbers'>번호</div>
         <p className='div20'>주소</p>
@@ -23,7 +23,7 @@ const ParkingList = () => {
       <hr/>
       <div className="rectangle-parent02">
       <p className='number'>1</p>
-      <button className="div19" onClick={parkingMove} >주차장 주소 나타내는 부분</button>
+      <div className="div19" onClick={parkingMove} >주차장 주소 나타내는 부분</div>
       <img className="icon02" alt="" src="images/stars.png" />
     </div>
     <div className="rectangle-parent03">

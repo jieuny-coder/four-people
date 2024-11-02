@@ -32,7 +32,7 @@ const Btnbar = () => {
         onClick={() => handleNavigation('/parkinglist')}
         style={{ cursor: 'pointer' }}
       >
-        <img src="/images/stars.png" alt="즐겨찾기" className="btn_icon" />
+        <img src="/images/stars_btn.png" alt="즐겨찾기" className="btn_icon" />
         <p>즐겨찾기</p>
       </div>
       <div

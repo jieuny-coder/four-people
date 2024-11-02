@@ -227,10 +227,17 @@ body {
 }
 
 .header_custom_back_button {
-  font-size: 24px;
-  color: black;
-  cursor: pointer;
-  margin-right: 16px;
+  font-size: 24px;      /* 화살표 크기 */
+  font-weight: bold; /* 텍스트 굵기 조정 */
+  color: black;         /* 화살표 색상 */
+  cursor: pointer;      /* 마우스 커서 */
+  margin-right: 16px;   /* 제목과의 간격 */
+  padding: 8px;         /* 여백 추가 */
+  transition: color 0.3s ease; /* 호버 시 부드러운 색상 전환 효과 */
+}
+.header_custom_back_button:hover {
+  color: white; /* 호버 시 노란색으로 강조 */
+  transform: scale(1.1); /* 호버 시 약간 확대 */
 }
 
 .header_custom_title {
@@ -2112,7 +2119,7 @@ input:checked + .slider-unique:before {
   bottom: 0px;
   left: 0px;
   width: 100%;
-  height: 90px; /* 관리자용 버튼바와 동일한 높이 */
+  height: 80px; /* 관리자용 버튼바와 동일한 높이 */
   z-index: 20;
 }
 
@@ -2217,4 +2224,13 @@ input:checked + .slider-unique:before {
   padding: 10px;
   border-radius: 5px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+/*********** parkinglist 페이지  ***********/
+.parkinglist_container{
+  background-color: white;
+}
+.div19:hover{
+  cursor: pointer;
 }

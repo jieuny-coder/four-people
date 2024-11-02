@@ -13,8 +13,10 @@ const U_login = ({ setIsAdmin }) => {
     const handleLoginClick = () => {
         console.log('로그인 버튼이 클릭되었습니다.');
         if (isUser) {
+            setIsAdmin(false); // 사용자로 설정
             navigate('/userMain'); // 사용자 로그인 성공 시 이동 경로
         } else {
+            setIsAdmin(true); // 관리자 모드로 설정
             navigate('/M_calender'); // 관리자 로그인 성공 시 이동 경로
         }
     };

@@ -21,8 +21,6 @@ import { UserMain } from './pages/UserMain';
 import EditProfile from './pages/EditProfile ';
 import Btnbar from './components/Btnbar';
 
-import ParkingMa from './components/ParkingMa';
-
 function AppContent() {
   const location = useLocation();
   const [violationsData, setViolationsData] = useState([]);
