@@ -1,32 +1,54 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Join = () => {
   const [adminCode, setAdminCode] = useState('');
   const navigate = useNavigate();
+  const [userData, setUserData] = useState({
+    id:'',
+    pw:'',
+    name:'',
+    phonenumber:'',
+    email:''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserData({
+      ...userData,
+      [name]: value
+    });
+  };
 
   const handleAdminCodeChange = (e) => {
     setAdminCode(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     // 가입 처리 로직 추가
     // 가입이 성공했다는 가정 하에 로그인 페이지로 이동
+    try{
+      const response = await axios.post('http://localhost:4000/user/join',userData);
+      console.log(response.data);
+    }catch(error){
+      console.error('Error during regisration',error)
+    }
     navigate('/login'); // 로그인 페이지로 이동
   };
 
   return (
     <div className="join-wrapper">
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
+      <div className="form-group">
           <label>아이디</label>
-          <input type="text" placeholder="아이디를 입력하세요" required />
+          <input type="text" name="id" placeholder="아이디를 입력하세요" value={userData.username} onChange={handleChange} required />
         </div>
 
         <div className="form-group">
           <label>비밀번호</label>
-          <input type="password" placeholder="비밀번호를 입력하세요" required />
+          <input type="password" name="pw" placeholder="비밀번호를 입력하세요" value={userData.password} onChange={handleChange} required />
         </div>
 
         <div className="form-group">
@@ -36,17 +58,17 @@ const Join = () => {
 
         <div className="form-group">
           <label>이름</label>
-          <input type="text" placeholder="이름을 입력하세요" required />
+          <input type="text" name="name" placeholder="이름을 입력하세요" value={userData.name} onChange={handleChange} required />
         </div>
 
         <div className="form-group">
           <label>전화번호</label>
-          <input type="tel" placeholder="전화번호를 입력하세요" required />
+          <input type="tel" name="phonenumber" placeholder="전화번호를 입력하세요" value={userData.phonenumber} onChange={handleChange} required />
         </div>
 
         <div className="form-group">
           <label>이메일 주소</label>
-          <input type="email" placeholder="이메일을 입력하세요" required />
+          <input type="email" name="email" placeholder="이메일을 입력하세요" value={userData.email} onChange={handleChange} required />
         </div>
 
         <div className="form-group">
