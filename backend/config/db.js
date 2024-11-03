@@ -5,7 +5,7 @@ const conn = mysql.createConnection({
     user:'Insa5_JSB_final_1',
     password:'aischool1',
     port:'3307',
-    database:'nodejs'
+    database:'Insa5_JSB_final_1'
 })
 
 conn. connect();
