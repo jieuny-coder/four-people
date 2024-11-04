@@ -7,12 +7,6 @@ const U_login = ({ setIsAdmin }) => {
     const [username, setUsername] = useState(''); // 아이디 입력 상태
     const [password, setPassword] = useState(''); // 비밀번호 입력 상태
     const navigate = useNavigate();
-<<<<<<< HEAD
-    const sessionlogin = window.sessionStorage.getItem("login")
-    const [ login,setLogin ] = useState(sessionlogin || "");
-=======
-
->>>>>>> 80e725c623f8c32006f9a732e02b8e3358faf9e7
     const [loginData, setLoginData] = useState({
         id: '',
         pw: ''
@@ -35,16 +29,6 @@ const U_login = ({ setIsAdmin }) => {
     // 로그인 클릭 시 처리
     const handleLoginClick = async () => {
         console.log('로그인 버튼이 클릭되었습니다.');
-<<<<<<< HEAD
-        if (isUser) {
-            try {
-                const response = await axios.post('http://localhost:4000/user/U_login', loginData);
-                
-                if (response.data.result === 'success') {
-                    sessionStorage.setItem('userId', loginData.id); // 사용자 아이디를 세션스토리지 저장
-                    setIsAdmin(false); 
-                    navigate('/userMain');
-=======
         console.log('전송할 데이터:', loginData);  // 디버깅 추가
 
         const endpoint = isUser 
@@ -62,7 +46,6 @@ const U_login = ({ setIsAdmin }) => {
                     setIsAdmin(false); // 사용자로 설정
                     console.log("Setting isAdmin to false");
                     navigate('/userMain'); // 사용자 로그인 성공 시 이동 경로
->>>>>>> 80e725c623f8c32006f9a732e02b8e3358faf9e7
                 } else {
                     setIsAdmin(true); // 관리자 모드로 설정
                     console.log("Setting isAdmin to true");
@@ -83,8 +66,8 @@ const U_login = ({ setIsAdmin }) => {
     };
 
     useEffect(()=>{
-        window.sessionStorage.setItem("login",login);
-    },[login]);
+        window.sessionStorage.setItem("login",loginData);
+    },[loginData]);
 
     return (
         <div className="login_wrapper">

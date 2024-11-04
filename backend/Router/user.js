@@ -8,25 +8,6 @@ router.post('/join', async (req, res) => {
     console.log('회원가입 요청');
     console.log('요청데이터 출력:', req.body);
 
-<<<<<<< HEAD
-    // 포스트로 넘긴 데이터는 req안에 body로 존재한다.
-    
-    // db와 연결
-    let { id, pw, name, email, phonenumber } = req.body; // name은 제거
-    let sql = 'insert into member_tbl (user_id, user_pw, user_name, user_phonenumber, user_email) VALUES(?, ?, ?, ?, ?)';
-    
-    // 2번째 
-    conn.query(sql,[id, pw, name, phonenumber, email],(err, rows) => {
-        console.log("db insurt:",rows);
-        if(rows){
-            res.send({ result: 'success' });
-        }else{
-            res.send({ result: 'failed' });
-        }
-        
-       
-    });
-=======
     const { id, pw, name, phone, email,carNumber, adminCode } = req.body; // id와 pw 사용
     const username = id; // id를 username에 할당
     const password = pw; // pw를 password에 할당
@@ -59,7 +40,6 @@ router.post('/join', async (req, res) => {
         console.error('회원가입 에러:', error);
         res.status(500).json({ error: '서버 에러' });
     }
->>>>>>> 80e725c623f8c32006f9a732e02b8e3358faf9e7
 });
 
 
@@ -101,14 +81,6 @@ router.post('/login', (req, res) => {
 });
 
 
-<<<<<<< HEAD
-// 회원정보 수정 부분
-router.post('/UserMain',(req,res)=>{
-    console.log('회원정보 수정요청',req.body);
-    let { name,pw,car_number,phonenumber,email } = req.body;
-    let sql = 'select * from member_tbl (user_name, user_pw, user_car_number, user_phonenumber, user_email) VALUES(?,?,?,?,?)';
-=======
->>>>>>> 80e725c623f8c32006f9a732e02b8e3358faf9e7
 
 
 
@@ -147,9 +119,4 @@ router.post('/admin-login', (req, res) => {
 });
 
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 80e725c623f8c32006f9a732e02b8e3358faf9e7
 module.exports = router;
