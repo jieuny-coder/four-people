@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const U_login = ({ setIsAdmin }) => {
     const [isUser, setIsUser] = useState(true); 
     const navigate = useNavigate();
+    const sessionlogin = window.sessionStorage.getItem("login")
+    const [ login,setLogin ] = useState(sessionlogin || "");
     const [loginData, setLoginData] = useState({
         id: '',
         pw: ''
@@ -30,6 +32,7 @@ const U_login = ({ setIsAdmin }) => {
                 const response = await axios.post('http://localhost:4000/user/U_login', loginData);
                 
                 if (response.data.result === 'success') {
+                    sessionStorage.setItem('userId', loginData.id); // 사용자 아이디를 세션스토리지 저장
                     setIsAdmin(false); 
                     navigate('/userMain');
                 } else {
@@ -48,6 +51,10 @@ const U_login = ({ setIsAdmin }) => {
     const handleRegisterClick = () => {
         navigate('/join');
     };
+
+    useEffect(()=>{
+        window.sessionStorage.setItem("login",login);
+    },[login]);
 
     return (
         <div className="login_wrapper">

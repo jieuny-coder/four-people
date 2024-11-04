@@ -1,8 +1,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import axios from 'axios';
+
 
 const ViolationsList = () => {
   const navigate = useNavigate();
+  const [violations, setViolations] = useState([]); // 저장할 곳 
+  const [loading, setLoading] = useState(true); 
+  const [error,setError] = useState('') // 에러를 표시
 
   // 예시 데이터
   const exampleData = [
@@ -22,6 +29,31 @@ const ViolationsList = () => {
     },
   ];
 
+  
+
+  useEffect(() => {
+    const fetchViolations = async () => {
+      const id = sessionStorage.getItem('id'); // 아이디를 가져오기
+      if (!id) {
+        console.log('아이디가 없습니다.');
+        return;
+      }
+
+      try {
+        const response = await axios.get(`http://localhost:4000/user/violations/${id}`);
+        if (response.data.result === 'success') {
+          setViolations(response.data.data);
+        } else {
+          console.log('위반 차량 불러오는데 실패하였습니다.');
+        }
+      } catch (error) {
+        console.error('서버 오류:', error);
+      }
+    };
+  
+    fetchViolations();
+  },[]);
+
   const handleRowClick = (violation) => {
     navigate(`/detail`, { state: { violation } });
   };
@@ -29,6 +61,14 @@ const ViolationsList = () => {
   const handleDownloadPageNavigation = () => {
     navigate(`/download`, { state: { previewData: exampleData } });
   };
+
+  if (loading){
+    return<p>로딩 중.....</p>
+  }
+
+  if (error) {
+    return<p style={{ color:'red' }}>{error}</p>
+  }
 
   return (
     <div className="violations-list-container">

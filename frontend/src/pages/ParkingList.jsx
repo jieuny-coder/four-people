@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../index.css';
 import { useNavigate } from 'react-router-dom';
 import ParkingList_Item from '../components/ParkingList_Item';
@@ -8,7 +8,7 @@ const ParkingList = () => {
   const navigate = useNavigate();
 
   const parkingData = [
-    { number: 1, address: '주차장 주소 나타내는 부분 1' },
+    { number: 1, address: '주차장 주소 나타내는 부분 1',latitude: 37.5665, longitude: 126.978  },
     { number: 2, address: '주차장 주소 나타내는 부분 2' },
     { number: 3, address: '주차장 주소 나타내는 부분 3' },
     { number: 4, address: '주차장 주소 나타내는 부분 4' },
@@ -18,9 +18,12 @@ const ParkingList = () => {
     { number: 8, address: '주차장 주소 나타내는 부분 8' },
   ];
 
-  const parkingMove = () => {
-    navigate('/Myparking_place')
-  }
+
+  const parkingMove = (latitude,longitude) => {
+    navigate('/Myparking_place',{state:{latitude,longitude}}); // 위도 경도 전달
+  };
+
+  
 
   return (
     <div className="parking_list_container">
@@ -34,7 +37,7 @@ const ParkingList = () => {
           key={item.number}
           number={item.number}
           address={item.address}
-          onAddressClick={parkingMove}
+          onAddressClick={()=>parkingMove(item.latitude,item.longitude, item.address)} // 클릭시 이동
         />
       ))}
     </div>

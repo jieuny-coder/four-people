@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import ParkingMa from '../components/ParkingMa';
+import { useNavigate } from 'react-router-dom';
 
 export const ParkingSearch = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
 
   const handleSearch = () => {
     const inputValue = document.getElementById('searchInput').value;
     setSearchTerm(inputValue);
   };
+  // 주소를 클릭 하면 목록 페이지로 이동하며 주소 전달
+  const handleAddressClick = (address) => {
+    navigate('/address-list',{state : {address}});
+  }
 
   return (
     <div className="parking-container">
@@ -36,7 +42,7 @@ export const ParkingSearch = () => {
       </div>
       {/* 지도 컴포넌트가 parking_search 아래에 위치 */}
       <div className="map-container">
-        <ParkingMa searchTerm={searchTerm} />
+        <ParkingMa searchTerm={searchTerm} onAddressClick={handleAddressClick}/>
       </div>
     </div>
   );

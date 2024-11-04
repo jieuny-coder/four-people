@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Map, MapMarker, MapTypeControl, ZoomControl } from "react-kakao-maps-sdk";
 import useKakaoLoader from './useKakaoLoder';
+import axios from 'axios';
 
 const ParkingMa = ({ searchTerm }) => {
     useKakaoLoader();
@@ -9,6 +10,8 @@ const ParkingMa = ({ searchTerm }) => {
     const [map, setMap] = useState(null);
     const [favorites, setFavorites] = useState([]);
     const [selectedPlace, setSelectedPlace] = useState(null);
+    // const [latitude, setLatitude] = useState(35.147396); // 초기값 설정
+    // const [longitude, setLongitude] = useState(126.922090); // 초기값 설정
 
     const addToFavorites = (name, address) => {
         setFavorites([...favorites, { name, address }]);
@@ -49,6 +52,22 @@ const ParkingMa = ({ searchTerm }) => {
         map.setBounds(bounds);
     }, [map]);
 
+    // useEffect(() => {
+    //     const fetchLocationData = async () => {
+    //         try {
+    //             const response = await axios.get('');
+    //             console.log('API 응답:', response.data); // 응답 데이터 확인
+    //             setLatitude(response.data.documents[0].address.y);
+    //             setLongitude(response.data.documents[0].address.x);
+    //         } catch (error) {
+    //             console.error('위치 데이터를 가져오는 데 실패했습니다:', error.response ? error.response.data : error.message);
+    //         }
+    //     };
+    
+    //     fetchLocationData();
+    // }, []);
+    
+
     useEffect(() => {
         if (!map || !searchTerm) return;
 
@@ -77,7 +96,7 @@ const ParkingMa = ({ searchTerm }) => {
         <div>
             <Map
                 id="map"
-                center={{ lat: 35.147290, lng: 126.922347 }}
+                center={{ lat: 35.146738, lng: 126.922251 }}
                 style={{ width: "380px", height: "300px" }}
                 level={3}
                 onCreate={setMap}
