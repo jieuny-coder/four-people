@@ -12,6 +12,12 @@ const Setting = () => {
     setSettings({ ...settings, [setting]: !settings[setting] });
   };
 
+  const handleLogout = () => {
+    // 로그아웃 로직
+    localStorage.removeItem('token'); // 예시: 토큰 제거
+    window.location.href = '/login';  // 로그인 페이지로 리다이렉트
+  };
+
   // 1. 자동 삭제 기능 (예제)
   useEffect(() => {
     if (settings.setting1) {
@@ -116,6 +122,10 @@ const Setting = () => {
             <span className="slider-unique"></span>
           </label>
         </div>
+      </div>
+      <div className="logout-section">
+        <button onClick={handleLogout} className="logout-button">로그아웃</button>
+        
       </div>
     </div>
   );
