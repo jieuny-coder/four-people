@@ -34,7 +34,7 @@ const U_login = ({ setIsAdmin }) => {
 
         const endpoint = isUser 
             ? 'http://localhost:4000/user/login'  // 사용자 로그인 엔드포인트
-            : 'http://localhost:4000/auth/admin-login'; // 관리자 로그인 엔드포인트
+            : 'http://localhost:4000/user/admin-login'; // 관리자 로그인 엔드포인트
 
         try {
             const response = await axios.post(endpoint, {
@@ -63,7 +63,7 @@ const U_login = ({ setIsAdmin }) => {
     };
 
     const handleRegisterClick = () => {
-        navigate('/join');
+        navigate('/join', { state: { mode: isUser ? 'user' : 'admin' } });
     };
 
     return (

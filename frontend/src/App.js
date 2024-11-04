@@ -47,7 +47,7 @@ function AppContent() {
 
   // 사용자 버튼바가 나타나야 하는 경로 확인
   const userPages = ['/myparking_place', '/parkinglist', '/parkingSearch', '/userMain'];
-  const adminPages = ['/filtering', '/setting', '/download', '/m_calender', '/violations', '/detail'];
+  const adminPages = ['/filtering', '/setting', '/download', '/M_calender', '/Violations', '/detail'];
 
   return (
     <div className="mobile_frame">
@@ -64,19 +64,19 @@ function AppContent() {
           {/* 사용자/ 관리자 */}
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<U_login setIsAdmin={setIsAdmin} />} />
-          <Route path="/join" element={<Join />} />
-          <Route path="/filtering" element={<Filtering />} />
-          <Route path="/setting" element={<Setting />} />
-          <Route path="/download" element={<Download />} />
-          <Route path="/m_calender" element={<M_calender />} />
-          <Route path="/violations" element={<ViolationsList />} />
-          <Route path="/detail" element={<M_detail />} />
+          <Route path="/join" element={<Join/>} />
+          <Route path="/filtering" element={<Filtering/>} />
+          <Route path="/setting" element={<Setting/>} />
+          <Route path="/download" element={<Download/>} />
+          <Route path="/m_calender" element={<M_calender/>} />
+          <Route path="/violations" element={<ViolationsList/>} />
+          <Route path="/detail" element={<M_detail/>} />
           {/* 사용자 */}
-          <Route path="/myparking_place" element={<Myparking_place />} />
-          <Route path="/parkinglist" element={<ParkingList />} />
-          <Route path="/parkingSearch" element={<ParkingSearch />} />
-          <Route path="/userMain" element={<UserMain />} />
-          <Route path="/editprofile" element={<EditProfile />} />
+          <Route path="/myparking_place" element={<Myparking_place/>} />
+          <Route path="/parkinglist" element={<ParkingList/>} />
+          <Route path="/parkingSearch" element={<ParkingSearch/>} />
+          <Route path="/userMain" element={<UserMain/>} />
+          <Route path="/editprofile" element={<EditProfile/>} />
         </Routes>
 
         {/* 사용자 버튼바 또는 관리자 버튼바 조건부 렌더링 */}

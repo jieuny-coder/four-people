@@ -8,18 +8,20 @@ router.post('/join', async (req, res) => {
     console.log('회원가입 요청');
     console.log('요청데이터 출력:', req.body);
 
-    const { id, pw, name, phone, email, adminCode } = req.body; // id와 pw 사용
+    const { id, pw, name, phone, email,carNumber, adminCode } = req.body; // id와 pw 사용
     const username = id; // id를 username에 할당
     const password = pw; // pw를 password에 할당
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10); // 비밀번호 해시화
 
-        const userQuery = `INSERT INTO TEST_USER (USERNAME, PASSWORD, NAME, PHONE, EMAIL) VALUES (?, ?, ?, ?, ?)`;
-        const adminQuery = `INSERT INTO TEST_ADMIN (USERNAME, PASSWORD, NAME, PHONE, EMAIL) VALUES (?, ?, ?, ?, ?)`;
+        const userQuery = `INSERT INTO USER (user_id, user_pw, user_email, car_number, user_joined, user_name, user_phone, handicap) VALUES (?, ?, ?, ?, ?, ?, ? ,?)`;
+        const adminQuery = `INSERT INTO ADMIN (admin_id, admin_pw, admin_email, admin_joined, admin_name, admin_phone) VALUES (?, ?, ?, ?, ?, ?)`;
 
         const query = adminCode ? adminQuery : userQuery;
-        const params = [username, hashedPassword, name, phone, email];
+        const params = adminCode 
+            ? [username, hashedPassword, email, new Date(), name, phone]
+            : [username, hashedPassword, email, carNumber, new Date(), name, phone, 0];
 
         // 실행할 쿼리와 파라미터를 로그로 출력
         console.log('Executing query:', query);
@@ -49,7 +51,7 @@ router.post('/login', (req, res) => {
     console.log('서버에서 로그인 요청 수신:', req.body);
 
     const { username, password } = req.body; // 클라이언트에서 받은 데이터
-    const query = `SELECT * FROM TEST_USER WHERE USERNAME = ?`;
+    const query = `SELECT * FROM USER WHERE user_id = ?`;
 
     conn.query(query, [username], (err, results) => {
         if (err) {
@@ -59,7 +61,7 @@ router.post('/login', (req, res) => {
             const user = results[0];
 
             // 비밀번호 비교
-            bcrypt.compare(password, user.PASSWORD, (err, isPasswordValid) => {
+            bcrypt.compare(password, user.user_pw, (err, isPasswordValid) => {
                 if (err) {
                     console.error('비밀번호 비교 중 에러:', err);
                     res.status(500).json({ error: '서버 에러' });
@@ -77,5 +79,44 @@ router.post('/login', (req, res) => {
         }
     });
 });
+
+
+
+
+
+// 관리자 로그인
+router.post('/admin-login', (req, res) => {
+    console.log('관리자 로그인 요청 수신:', req.body);
+
+    const { username, password } = req.body; // 클라이언트에서 받은 데이터
+    const query = `SELECT * FROM ADMIN WHERE admin_id = ?`;
+
+    conn.query(query, [username], (err, results) => {
+        if (err) {
+            console.error('관리자 로그인 에러:', err);
+            res.status(500).json({ error: '서버 에러' });
+        } else if (results.length > 0) {
+            const admin = results[0];
+
+            // 비밀번호 비교
+            bcrypt.compare(password, admin.admin_pw, (err, isPasswordValid) => {
+                if (err) {
+                    console.error('비밀번호 비교 중 에러:', err);
+                    res.status(500).json({ error: '서버 에러' });
+                } else if (isPasswordValid) {
+                    console.log('관리자 로그인 성공!');
+                    res.json({ message: '관리자 로그인 성공', admin });
+                } else {
+                    console.log('비밀번호 불일치');
+                    res.status(401).json({ error: '아이디 또는 비밀번호가 일치하지 않습니다.' });
+                }
+            });
+        } else {
+            console.log('관리자 정보 없음');
+            res.status(401).json({ error: '아이디 또는 비밀번호가 일치하지 않습니다.' });
+        }
+    });
+});
+
 
 module.exports = router;
