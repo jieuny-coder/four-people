@@ -1,0 +1,10 @@
+opencv-python
+opencv-python-headless
+numpy
+idna
+certifi
+charset-normalizer
+pip
+requests
+setuptools
+urllib3
