@@ -311,7 +311,7 @@ body {
 .download_button {
   background-color: black;
   color: white;
-  padding: 10px 20px;
+  padding: 12px 30px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -509,6 +509,31 @@ input:checked + .slider-unique {
 input:checked + .slider-unique:before {
   transform: translateX(24px);
 }
+.logout-section {
+  display: flex;
+  justify-content: flex-end;
+  /* padding: 20px; */
+  
+}
+
+.logout-button {
+  background-color: #ccc;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  text-align: center;
+  color: white;
+}
+
+.logout-button:hover {
+  background-color: #aaa;
+}
+
+
+
+
+
 /* ************관리자 메임 페이지(M_calender)컴포넌트 CSS******* */
 /* 달력 컨테이너 */
 .m_calender-container-unique {
@@ -1816,14 +1841,13 @@ input:checked + .slider-unique:before {
 .to_download{
   background-color: black;
   color: white;
-  padding: 8px 20px;
+  padding: 12px 30px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 14px;
-  width: 86%;/* 버튼이 가로로 꽉 차도록 설정 */
-  margin-top: auto; /* 자동으로 아래로 밀림 */
-  margin-bottom: 10px;
+  font-size: 16px;
+  width: 100%;
+  margin: 0 auto;
 }
 /* **************메인 이미지 화면************** */
 .main_bg_img_div {

@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from 'axios'; 
 
 const U_login = ({ setIsAdmin }) => {
-    const [isUser, setIsUser] = useState(true); 
+    const [isUser, setIsUser] = useState(true);  // 기본적으로 사용자 버튼이 활성화됨
+    const [username, setUsername] = useState(''); // 아이디 입력 상태
+    const [password, setPassword] = useState(''); // 비밀번호 입력 상태
     const navigate = useNavigate();
+
     const [loginData, setLoginData] = useState({
         id: '',
         pw: ''
@@ -18,30 +21,44 @@ const U_login = ({ setIsAdmin }) => {
         });
     };
 
+    // 사용자와 관리자 탭 전환 핸들링
     const handleTabSwitch = (type) => {
         console.log(`${type} 버튼이 클릭되었습니다.`);
         setIsUser(type === 'user');
     };
 
+    // 로그인 클릭 시 처리
     const handleLoginClick = async () => {
         console.log('로그인 버튼이 클릭되었습니다.');
-        if (isUser) {
-            try {
-                const response = await axios.post('http://localhost:4000/user/U_login', loginData);
-                
-                if (response.data.result === 'success') {
-                    setIsAdmin(false); 
-                    navigate('/userMain');
+        console.log('전송할 데이터:', loginData);  // 디버깅 추가
+
+        const endpoint = isUser 
+            ? 'http://localhost:4000/user/login'  // 사용자 로그인 엔드포인트
+            : 'http://localhost:4000/auth/admin-login'; // 관리자 로그인 엔드포인트
+
+        try {
+            const response = await axios.post(endpoint, {
+                username: loginData.id,  // 수정: id를 username으로 매핑
+                password: loginData.pw   // 수정: pw를 password로 매핑
+        });
+            if (response.status === 200) {
+                alert('로그인 성공!');
+                if (isUser) {
+                    setIsAdmin(false); // 사용자로 설정
+                    console.log("Setting isAdmin to false");
+                    navigate('/userMain'); // 사용자 로그인 성공 시 이동 경로
                 } else {
-                    alert('로그인 실패: 아이디 또는 비밀번호가 올바르지 않습니다.');
+                    setIsAdmin(true); // 관리자 모드로 설정
+                    console.log("Setting isAdmin to true");
+                    navigate('/M_calender'); // 관리자 로그인 성공 시 이동 경로
                 }
-            } catch (error) {
-                console.error('로그인 요청 중 오류 발생:', error);
-                alert('로그인 요청 중 오류가 발생했습니다.');
             }
-        } else {
-            setIsAdmin(true); 
-            navigate('/M_calender'); 
+        } catch (error) {
+            if (error.response && error.response.status === 401) {
+                alert('아이디 또는 비밀번호가 잘못되었습니다.');
+            } else {
+                alert('로그인 중 오류가 발생했습니다. 다시 시도해주세요.');
+            }
         }
     };
 
