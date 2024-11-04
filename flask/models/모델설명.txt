@@ -1,0 +1,5 @@
+plact_ocr 
+yolov5s + paddleocr
+
+assist_2
+yolov5s 목발, 휠체어 탐지
