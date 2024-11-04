@@ -1,5 +1,5 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
 import shutil
 from pathlib import Path
 import torch
@@ -12,10 +12,10 @@ app = FastAPI()
 UPLOAD_DIR = Path("uploads")
 UPLOAD_DIR.mkdir(exist_ok=True)
 
-# 학습된 모델 로드 (예: PyTorch)
-MODEL_PATH = "models/best.pt"  # 모델 파일 경로
-model = torch.hub.load('ultralytics/yolov5', 'custom', path=MODEL_PATH)
-model.eval()
+# # 학습된 모델 로드 (예: PyTorch)
+# MODEL_PATH = "models/plate_ocr.pt"  # 모델 파일 경로
+# model = torch.hub.load('ultralytics/yolov5', 'custom', path=MODEL_PATH, trust_repo=True)
+# model.eval()
 
 @app.post("/upload/")
 async def upload_file(file: UploadFile = File(...)):
@@ -29,35 +29,52 @@ async def upload_file(file: UploadFile = File(...)):
             shutil.copyfileobj(file.file, buffer)
 
         # 모델 분석 수행
-        result = analyze_image(file_location)
+        # result = analyze_image(file_location)
 
-        return JSONResponse(content={"filename": file.filename, "result": result})
+        return JSONResponse(content={"filename": file.filename, "result": "File uploaded successfully"}) # "result": result
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-def analyze_image(file_path: Path):
-    """
-    이미지 파일을 로드하여 모델로 분석합니다.
-    """
-    image = Image.open(file_path)
-    # 모델 입력 형식으로 변환 및 예측 수행
-    results = model(image)
+# def analyze_image(file_path: Path):
+#     """
+#     이미지 파일을 로드하여 모델로 분석합니다.
+#     """
+#     image = Image.open(file_path)
+#     # 모델 입력 형식으로 변환 및 예측 수행
+#     results = model(image)
 
-    # 분석 결과 처리 (예시: 검출된 객체들의 클래스, 좌표 등 반환)
-    output = []
-    for *box, conf, cls in results.xyxy[0]:  # xyxy format, confidence, class
-        output.append({
-            "box": [int(coord) for coord in box],  # [x1, y1, x2, y2]
-            "confidence": float(conf),
-            "class": int(cls)
-        })
+#     # 분석 결과 처리 (예시: 검출된 객체들의 클래스, 좌표 등 반환)
+#     output = []
+#     for *box, conf, cls in results.xyxy[0]:  # xyxy format, confidence, class
+#         output.append({
+#             "box": [int(coord) for coord in box],  # [x1, y1, x2, y2]
+#             "confidence": float(conf),
+#             "class": int(cls)
+#         })
 
-    return output
+#     return output
+
+# 추가된 파일 확인 엔드포인트
+@app.get("/files/")
+async def list_files():
+    """업로드된 파일 리스트를 반환합니다."""
+    files = [f.name for f in UPLOAD_DIR.iterdir() if f.is_file()]
+    return {"files": files}
+
+@app.get("/files/{filename}")
+async def get_file(filename: str):
+    """특정 파일을 반환합니다."""
+    file_path = UPLOAD_DIR / filename
+    if file_path.exists():
+        return FileResponse(file_path)
+    else:
+        raise HTTPException(status_code=404, detail="File not found")
 
 @app.get("/")
 async def root():
     return {"message": "FastAPI Server is running!"}
+
 
 
 
