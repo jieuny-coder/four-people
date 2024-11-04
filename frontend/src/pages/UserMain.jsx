@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 export const UserMain = () => {
   const navigate = useNavigate();
+  const [revise,setRivis] = useState({
+    name:'',
+    pw:'',
+    car_number:'',
+    phonenumber:'',
+    email:''
+  });
 
-  const clean = () => {
+  const clean = async() => {
     navigate('/editprofile');
   };
 
