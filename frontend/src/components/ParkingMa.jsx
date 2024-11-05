@@ -44,6 +44,7 @@ const ParkingMa = ({ searchTerm }) => {
                     marker
                 });
             });
+            
 
             bounds.extend(position);
         });
@@ -117,26 +118,6 @@ const ParkingMa = ({ searchTerm }) => {
                     />
                 ))}
             </Map>
-
-            {selectedPlace && (
-                <div style={{ position: 'absolute', bottom: '10px', left: '10px', background: '#fff', padding: '10px', borderRadius: '5px' }}>
-                    <div>{selectedPlace.name}</div>
-                    <div>{selectedPlace.address}</div>
-                    <button onClick={handleAddToFavorites}>즐겨찾기 추가</button>
-                    <button onClick={() => setSelectedPlace(null)}>닫기</button>
-                </div>
-            )}
-
-            <div className='map_list'>
-                <h3>즐겨찾기 목록</h3>
-                <ul>
-                    {favorites.map((favorite, index) => (
-                        <li key={index}>
-                            {favorite.name} - {favorite.address}
-                        </li>
-                    ))}
-                </ul>
-            </div>
         </div>
     );
 };

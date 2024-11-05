@@ -48,6 +48,7 @@ router.post('/join', async (req, res) => {
 
 // 사용자 로그인
 router.post('/login', (req, res) => {
+    
     console.log('서버에서 로그인 요청 수신:', req.body);
 
     const { username, password } = req.body; // 클라이언트에서 받은 데이터
@@ -60,24 +61,33 @@ router.post('/login', (req, res) => {
         } else if (results.length > 0) {
             const user = results[0];
 
-            // 비밀번호 비교
-            bcrypt.compare(password, user.user_pw, (err, isPasswordValid) => {
-                if (err) {
-                    console.error('비밀번호 비교 중 에러:', err);
-                    res.status(500).json({ error: '서버 에러' });
-                } else if (isPasswordValid) {
-                    console.log('로그인 성공!');
-                    res.json({ message: '로그인 성공', user });
-                } else {
-                    console.log('비밀번호 불일치');
-                    res.status(401).json({ error: '아이디 또는 비밀번호가 일치하지 않습니다.' });
-                }
-            });
-        } else {
-            console.log('사용자 정보 없음');
-            res.status(401).json({ error: '아이디 또는 비밀번호가 일치하지 않습니다.' });
-        }
-    });
+        // 비밀번호 비교
+        bcrypt.compare(password, user.user_pw, (err, isPasswordValid) => {
+            if (err) {
+                console.error('비밀번호 비교 중 에러:', err);
+                return res.status(500).json({ error: '서버 에러' });
+            }
+
+            if (isPasswordValid) {
+                // 로그인 성공, 세션에 사용자 정보 저장
+                req.session.user_id = user.user_id;  // 세션에 user_id 저장
+                req.session.user_name = user.user_name;  // 세션에 user_name 저장
+
+                // 세션 값 확인
+                console.log('세션 등록 완료:', req.session);
+
+                return res.json({
+                    message: '로그인 성공',
+                    user_id: user.user_id  // 클라이언트에 사용자 ID를 반환
+                });
+            } else {
+                return res.status(401).json({ error: '아이디 또는 비밀번호가 일치하지 않습니다.' });
+            }
+        });
+    } else {
+        return res.status(401).json({ error: '아이디 또는 비밀번호가 일치하지 않습니다.' });
+    }
+});
 });
 
 
@@ -117,6 +127,8 @@ router.post('/admin-login', (req, res) => {
         }
     });
 });
+
+
 
 
 module.exports = router;

@@ -33,14 +33,16 @@ const ViolationsList = () => {
 
   useEffect(() => {
     const fetchViolations = async () => {
-      const id = sessionStorage.getItem('id'); // 아이디를 가져오기
-      if (!id) {
+      const userId = sessionStorage.getItem('user_id'); // 아이디를 가져오기 - 이쪽에 검색창을 만들어서 :id로 조회하여 이력을 검색하기
+      if (!userId) {
         console.log('아이디가 없습니다.');
         return;
       }
 
       try {
-        const response = await axios.get(`http://localhost:4000/user/violations/${id}`);
+        const response = await axios.get(`http://localhost:4000/user/violations/${userId}`,{
+          withCredentials:true // 세션 쿠키 포함 
+        });
         if (response.data.result === 'success') {
           setViolations(response.data.data);
         } else {

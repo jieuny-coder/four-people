@@ -1,11 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../index.css';
 import { useNavigate } from 'react-router-dom';
 import ParkingList_Item from '../components/ParkingList_Item';
 
 const ParkingList = () => {
+  const [id,setId] = useState();
 
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    setId(sessionStorage.getItem('id'))
+  },[])
 
   const parkingData = [
     { number: 1, address: '주차장 주소 나타내는 부분 1',latitude: 37.5665, longitude: 126.978  },

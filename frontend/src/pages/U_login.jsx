@@ -46,10 +46,12 @@ const U_login = ({ setIsAdmin }) => {
                     setIsAdmin(false); // 사용자로 설정
                     console.log("Setting isAdmin to false");
                     navigate('/userMain'); // 사용자 로그인 성공 시 이동 경로
+                    window.sessionStorage.setItem("login",loginData);
                 } else {
                     setIsAdmin(true); // 관리자 모드로 설정
                     console.log("Setting isAdmin to true");
                     navigate('/M_calender'); // 관리자 로그인 성공 시 이동 경로
+                    window.sessionStorage.setItem("login",loginData);
                 }
             }
         } catch (error) {
@@ -67,6 +69,9 @@ const U_login = ({ setIsAdmin }) => {
 
     useEffect(()=>{
         window.sessionStorage.setItem("login",loginData);
+        const a = sessionStorage.getItem('id')
+        console.log("sessionStorage 조민근",a);
+        
     },[loginData]);
 
     return (

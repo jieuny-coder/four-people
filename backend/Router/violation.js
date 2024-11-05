@@ -7,7 +7,7 @@ const app = express();
 app.get('/user/violations/:id',(req,res)=>{
     console.log('id에 접근',req.body);
 
-    let { user_id } = req.body;
+    let { id } = req.body;
     let sql = 'SELECT * FROM violations WHERE user_id = ?';
 
     conn.query(sql,[id],(err,rows)=>{
