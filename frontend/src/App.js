@@ -20,6 +20,7 @@ import { ParkingSearch } from './pages/ParkingSearch';
 import { UserMain } from './pages/UserMain';
 import EditProfile from './pages/EditProfile';
 import Btnbar from './components/Btnbar';
+import Handicap_car from './pages/Handicap_car';
 
 function AppContent() {
   const location = useLocation();
@@ -36,9 +37,10 @@ function AppContent() {
       case '/filtering': return '원하는 검색 조건을 입력하세요.';
       case '/setting': return '설정';
       case '/download': return 'Download';
-      case '/m_calender': return 'Manager Main';
-      case '/violations': return '위반 차량 목록';
+      case '/M_calender': return 'Manager Main';
+      case '/Violations': return '위반 차량 목록';
       case '/detail': return '상세 정보';
+      case '/register-car': return '장애인 주차구역 등록 차량'; // 추가된 경로에 대한 제목
       default: return '페이지 제목 없음'; // 디폴트 제목 추가
     }
   };
@@ -71,6 +73,7 @@ function AppContent() {
           <Route path="/m_calender" element={<M_calender/>} />
           <Route path="/violations" element={<ViolationsList/>} />
           <Route path="/detail" element={<M_detail/>} />
+          <Route path='/register-car' element={<Handicap_car/>}/>
           {/* 사용자 */}
           <Route path="/myparking_place" element={<Myparking_place/>} />
           <Route path="/parkinglist" element={<ParkingList/>} />

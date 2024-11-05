@@ -21,6 +21,7 @@ const M_btnBar = ({ previewData }) => { // previewData prop 추가
   return (
     <div className="btn_bar_container">
       <div className="btn_bar">
+        {/* Home Button */}
         <div
           className={`btn_item ${location.pathname === '/M_calender' ? 'active' : ''}`}
           onClick={() => handleNavigation('/M_calender')}
@@ -29,14 +30,25 @@ const M_btnBar = ({ previewData }) => { // previewData prop 추가
           <img src={`${process.env.PUBLIC_URL}/images/house.png`} alt="Home Icon" className="btn_icon" />
           <p>HOME</p>
         </div>
+        {/* 등록차량 Button */}
+        <div
+          className={`btn_item ${location.pathname === '/register-car' ? 'active' : ''}`}
+          onClick={() => handleNavigation('/register-car')}
+          style={{ cursor: 'pointer' }}
+        >
+          <img src={`${process.env.PUBLIC_URL}/images/car.png`} alt="Car Icon" className="btn_icon" />
+          <p>등록차량</p>
+        </div>
+        {/* 위반차량정보 Button */}
         <div
           className={`btn_item ${location.pathname === '/Violations' ? 'active' : ''}`}
           onClick={() => handleNavigation('/Violations')}
           style={{ cursor: 'pointer' }}
         >
-          <img src={`${process.env.PUBLIC_URL}/images/car.png`} alt="Car Icon" className="btn_icon" />
+          <img src={`${process.env.PUBLIC_URL}/images/violations.png`} alt="Violations Icon" className="btn_icon" />
           <p>위반차량정보</p>
         </div>
+        {/* 다운로드 Button */}
         <div
           className={`btn_item ${location.pathname === '/download' ? 'active' : ''}`}
           onClick={handleDownload}
@@ -45,6 +57,7 @@ const M_btnBar = ({ previewData }) => { // previewData prop 추가
           <img src={`${process.env.PUBLIC_URL}/images/download.png`} alt="Download Icon" className="btn_icon" />
           <p>다운로드</p>
         </div>
+        {/* 설정 Button */}
         <div
           className={`btn_item ${location.pathname === '/setting' ? 'active' : ''}`}
           onClick={() => handleNavigation('/setting')}
