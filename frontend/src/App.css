@@ -2090,6 +2090,12 @@ input:checked + .slider-unique:before {
   cursor: pointer;
   font-size: 14px;
 }
+.update-message {
+  color: white;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
 
 /* 주차장 조회하기 박스 */
 .parking_search_box {

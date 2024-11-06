@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const EditProfile = () => {
+  const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({
     name: '',
     carNumber: '',
@@ -74,7 +76,10 @@ const EditProfile = () => {
       );
 
       if (response.status === 200) {
-        setUpdateMessage('회원정보가 성공적으로 수정되었습니다.');
+        setUpdateMessage('회원정보가 성공적으로 수정되었습니다!');
+        setTimeout(() => {
+          navigate('/userMain'); // 사용자 메인 페이지로 이동
+        }, 1000); // 1초 후에 페이지 이동
       }
     } catch (error) {
       if (error.response && error.response.data.error) {
@@ -151,7 +156,7 @@ const EditProfile = () => {
 
         <button type="submit" className="edit-profile-submit-button">수정하기</button>
       </form>
-      {updateMessage && <p>{updateMessage}</p>}
+      {updateMessage && <p className="update-message">{updateMessage}</p>}
     </div>
   );
 };
