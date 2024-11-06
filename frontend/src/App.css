@@ -880,7 +880,6 @@ input:checked + .slider-unique:before {
 }
 /* Main 페이지 전용 스타일 */
 .main_background {
-  cursor: pointer; /* 클릭 가능한 상태로 표시 */
   position: relative;
 }
 
@@ -888,6 +887,7 @@ input:checked + .slider-unique:before {
   width: 100%;
   height: auto;
   object-fit: cover;
+  cursor: default; /* 기본 커서 설정 */
 }
 
 /* ********회원가입 컴포넌트 CSS ********** */
