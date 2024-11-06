@@ -40,7 +40,7 @@ const ViolationsList = () => {
       }
 
       try {
-        const response = await axios.get(`http://localhost:4000/user/violations/${userId}`,{
+        const response = await axios.get(`http://localhost:4000/user/Violations/${userId}`,{
           withCredentials:true // 세션 쿠키 포함 
         });
         if (response.data.result === 'success') {
