@@ -2,10 +2,16 @@ import cv2
 import requests
 import time
 import os
+import boto3
 
 # 서버 및 클라우드 URL
-SERVER_URL = 'http://<fastapi-server-ip>:8000/upload/'  # FastAPI 서버 URL
-CLOUD_UPLOAD_URL = 'https://kr.object.ncloudstorage.com/upload'  # 네이버 클라우드 URL
+SERVER_URL = 'http://192.168.20.144:8000/upload/'  # FastAPI 서버 URL
+endpoint_url = 'https://kr.object.ncloudstorage.com'  # 네이버 클라우드 URL
+service_name = 's3'
+bucket_name = 'four-people-project'
+region_name = 'kr-standard'
+ACCESS_KEY = ''
+SECRET_KEY = ''
 
 # 저장 경로 설정
 VIDEO_PATH = '/home/pi/videos/'
@@ -53,10 +59,17 @@ def upload_to_cloud(file_path):
     """
     클라우드에 동영상 업로드
     """
-    with open(file_path, 'rb') as f:
-        files = {'file': f}
-        response = requests.post(CLOUD_UPLOAD_URL, files=files)
-        return response.json()
+    s3 = boto3.client(service_name, endpoint_url=endpoint_url, aws_access_key_id=ACCESS_KEY,
+                      aws_secret_access_key=SECRET_KEY)
+    filename = os.path.basename(file_path)
+
+    try:
+        s3.upload_file(file_path, bucket_name, filename)
+        print(f'Successfully uploaded {filename} to {bucket_name}')
+        return {'message': 'Upload successful'}
+    
+    except Exception as e :
+        print(f'Failed to upload {filename}: {str(e)}')
 
 # 실행 흐름
 if __name__ == "__main__":
