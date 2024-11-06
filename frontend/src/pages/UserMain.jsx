@@ -1,8 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const UserMain = () => {
   const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useState({ user_name: '', car_number: '' });
+
+  useEffect(() => {
+    // 세션 기반으로 사용자 정보를 서버에서 가져옴
+    fetch('http://localhost:4000/user/userinfo',{
+      credentials: 'include' // 세션 쿠키를 포함하여 요청
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          console.error("오류:", data.error);
+          if (data.error === '로그인이 필요합니다.') {
+            navigate('/login'); // 로그인 필요 시 로그인 페이지로 이동
+          }
+        } else {
+          setUserInfo(data); // 사용자 정보 상태 설정
+        }
+      })
+      .catch(error => console.error("API 호출 오류:", error));
+  }, [navigate]);
 
 
   const clean = () => {
@@ -24,8 +44,8 @@ export const UserMain = () => {
           <img src='#' alt='프사' />
         </div>
         <div className='user_info'>
-          <p>이름 :</p>
-          <p>번호 :</p>
+          <p>이름 : {userInfo.user_name}</p>
+          <p>번호 : {userInfo.car_number}</p>
           <button className='members_edit_btn' onClick={clean}>회원정보수정</button>
         </div>
       </div>
