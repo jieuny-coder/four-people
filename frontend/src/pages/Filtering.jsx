@@ -14,6 +14,11 @@ const Filtering = () => {
   const queryParams = new URLSearchParams(location.search);
   const selectedDate = queryParams.get('date'); // 달력에서 선택한 날짜
 
+  // 날짜와 시간을 포함한 DateTime 형식으로 변환하는 함수
+  const formatDateTime = (date, time) => {
+    return `${date} ${time}:00`; // "YYYY-MM-DD HH:MM:SS" 형식
+  };
+
   // 조회시간 버튼 클릭 시 처리
   const handleTimeClick = (time) => {
     const now = new Date();
@@ -28,8 +33,8 @@ const Filtering = () => {
     }
 
     setSelectedTime(time);
-    setStartTime(start.toISOString().substring(11, 16)); // "HH:MM" 형식
-    setEndTime(now.toISOString().substring(11, 16));      // 현재 시간 설정
+    setStartTime(formatDateTime(selectedDate, start.toTimeString().slice(0, 5))); // DateTime 형식으로 설정
+    setEndTime(formatDateTime(selectedDate, now.toTimeString().slice(0, 5))); // 현재 시간 설정
   };
 
   // 정렬 버튼 클릭 시 처리
@@ -110,7 +115,7 @@ const Filtering = () => {
             <select
               value={startTime}
               onChange={(e) => {
-                setStartTime(e.target.value);
+                setStartTime(formatDateTime(selectedDate, e.target.value));
                 setSelectedTime(''); // 조회시간 선택 해제
               }}
               className="filtering-input"
@@ -124,7 +129,7 @@ const Filtering = () => {
             <select
               value={endTime}
               onChange={(e) => {
-                setEndTime(e.target.value);
+                setEndTime(formatDateTime(selectedDate, e.target.value));
                 setSelectedTime(''); // 조회시간 선택 해제
               }}
               className="filtering-input"

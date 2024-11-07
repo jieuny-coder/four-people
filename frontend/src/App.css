@@ -41,15 +41,7 @@ body {
   z-index: 1;  /* 프레임이 배경 이미지보다 위에 표시되도록 설정 */
 }
 
-/* 모바일 프레임 이미지 */
-.mobile_frame_img {
-  position: relative; /* 프레임 이미지를 상대 위치로 설정 */
-  width: 100%;
-  height: auto;
-  display: block;
-  z-index: 1; /* 배경보다 위에 표시되도록 설정 */
-  pointer-events: none;  /* 프레임 이미지가 클릭 이벤트를 차단하지 않도록 설정 */
-}
+
 
 /* 모바일 콘텐츠 (프레임 안에 배경을 설정) */
 .mobile_content {
@@ -729,38 +721,33 @@ input:checked + .slider-unique:before {
  * M_detail 컴포넌트 스타일
  ***********************************/
 
-.m_detail-container-unique {
+ .m_detail-container-unique {
   padding: 20px;
   background-color: white;
-  /* border-radius: 10px; */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 90%;
-  height: 70vh; /* 높이를 유동적으로 설정 */
+  height: 80%;
+  max-height: 80vh; /* 최대 높이 설정 */
 }
 
 .m_detail-filter-unique {
-  text-align: center;
-  margin-bottom: 20px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px; /* 하단 여백 추가 */
+  width: 95%;
 }
 
-.m_detail-filter-btn-unique {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  background-color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 100%;
-}
 
 .m_detail-photo-unique {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 
 .m_detail-photo-box-unique {
   width: 100%;
-  height: 200px;
+  height: 160px;
   background-color: #f0f0f0;
   display: flex;
   justify-content: center;
@@ -770,7 +757,12 @@ input:checked + .slider-unique:before {
 }
 
 .m_detail-violation-unique {
-  margin-top: 20px;
+  /* padding: 10px; */
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%; 
+  box-sizing: border-box; /* 내부 여백을 포함한 너비 설정 */
 }
 
 .m_detail-violation-row-unique {
@@ -783,84 +775,48 @@ input:checked + .slider-unique:before {
   box-sizing: border-box;
 }
 
-/************* 위반차량정보 페이지(ViolationsList)*********** */
-.violations-list-container {
-  background-color: white; /* 흰색 배경 */
-  padding: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-  width: 100%; /* 너비를 조정해서 가운데 정렬 */
-  overflow-x: auto; /* 가로 스크롤 가능 */
-  margin: 0 auto; /* 가운데 정렬 */
-  min-height: 300px; /* 적절한 최소 높이 설정 */
-  display: flex;
-  flex-direction: column; /* 세로 방향으로 콘텐츠 배치 */
-  justify-content: flex-start;
-  align-items: center;
-  height: 60vh;
-}
-
-/* 개별 위반 내역 행 */
-.violation-row {
-  display: flex;
-  flex-wrap: nowrap; /* 행의 셀들이 한 줄에 유지되도록 설정 */
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #ccc; /* 각 행 아래에 경계선 추가 */
+/* M_detail페이지 표로 정리되는 부분 */
+.violation-table {
   width: 100%;
-  cursor: pointer; /* 클릭 가능한 상태로 표시 */
-  transition: background-color 0.3s ease; /* 배경색 전환 애니메이션 */
+  border-collapse: collapse; /* 테이블 테두리 겹침 방지 */
+  margin-top: 20px;
 }
 
-.violation-row:hover {
-  background-color: #f0f0f0; /* 마우스를 올렸을 때 배경색 변화 */
-}
-
-.violation-cell {
-  flex: 1;
+.violation-table th,
+.violation-table td {
+  border: 1px solid #ccc; /* 셀 테두리 설정 */
+  padding: 8px; /* 내부 여백 추가 (조정) */
   text-align: center; /* 텍스트 중앙 정렬 */
-  padding: 5px;
-  font-size: 10px;
-  white-space: normal; /* 텍스트가 한줄로 표시하려면 nowrap 바꾸기 */
-  overflow-wrap: break-word; /* 단어가 길 경우 줄바꿈 */
-  overflow: visible; /* 넘치는 텍스트는 숨기려면 hidden */
-  text-overflow: clip; 
-  word-break: break-all; /* 단어가 길 경우에도 줄 바꿈되도록 설정 */
-}
-/* 데이터의 컬럼표시항목  */
-.violation-header {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: 10px;
-  font-weight: bold;
-  box-sizing: border-box;
-  background-color: #f0f0f0; /* 컬럼 제목 배경색 */
-  border-bottom: 2px solid #ccc; /* 아래쪽에 선 추가 */
-}
-.violation-cell-header {
-  flex: 1;
-  text-align: center;
-  white-space: nowrap; /* 한 줄로 표시되도록 설정 */
-  overflow: hidden; /* 내용이 넘칠 때 숨기기 */
-  font-size: 14px;
-  padding: 0 10px;
+  font-size: 12px; /* 폰트 크기 줄임 */
+  word-wrap: break-word; /* 단어 줄바꿈 */
+  overflow-wrap: break-word; /* 긴 단어가 셀 밖으로 넘치지 않도록 설정 */
+  white-space: normal; /* 텍스트가 줄바꿈되도록 설정 */
 }
 
-.violation-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  width: 100%;
-  box-sizing: border-box;
-  border-bottom: 1px solid #ccc; /* 행마다 선 추가 */
+.violation-table th {
+  background-color: #f0f0f0; /* 헤더 배경색 */
+  /* font-weight: bold; */
 }
 
-.violation-cell {
-  flex: 1;
-  text-align: center;
-  padding: 0 10px;
+.filter-table {
+  width: 100%;
+  border-collapse: collapse; /* 테이블 경계선 겹침 방지 */
+  margin-bottom: 20px; /* 테이블과 사진 간의 여백 */
 }
+
+.filter-table td {
+  padding: 8px;
+  border: 1px solid #ccc; /* 셀 경계선 설정 */
+  text-align: left; /* 텍스트 왼쪽 정렬 */
+  font-size: 12px; /* 글씨 크기 조정 */
+}
+
+.filter-table tr:nth-child(even) {
+  background-color: #f9f9f9; /* 짝수 행의 배경색 설정 */
+}
+
+
+
 /* **************메인 이미지 화면************** */
 .main_bg_img_div {
   width: 100%; /* 화면 전체 너비 */
@@ -928,37 +884,9 @@ input:checked + .slider-unique:before {
 }
 
 
-body {
-  padding-left: 16px;
-  padding-right: 16px;
-  box-sizing: border-box; /* 내부 padding을 포함한 전체 너비 설정 */
-}
 
-/****************** 휴대폰 테두리  *************/
-/* 모바일 프레임 */
-.mobile_frame {
-  position: fixed;  /* 화면에 고정 */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);  /* 화면 중앙에 배치 */
-  width: 100%;
-  max-width: 400px;
-  height: auto;
-  overflow: hidden;
-  margin: 0 auto;
-  /* border-radius: 70px; */
-  z-index: 1;  /* 프레임이 배경 이미지보다 위에 표시되도록 설정 */
-}
 
-/* 모바일 프레임 이미지 */
-.mobile_frame_img {
-  position: relative; /* 프레임 이미지를 상대 위치로 설정 */
-  width: 100%;
-  height: auto;
-  display: block;
-  z-index: 1; /* 배경보다 위에 표시되도록 설정 */
-  pointer-events: none;  /* 프레임 이미지가 클릭 이벤트를 차단하지 않도록 설정 */
-}
+
 
 /* 모바일 콘텐츠 (프레임 안에 배경을 설정) */
 .mobile_content {
@@ -971,295 +899,6 @@ body {
   background-position: center;
   z-index: 1;
   /* 배경 이미지가 프레임보다 뒤에 위치 */
-}
-
-
-/* *************************로그인 페이지 CSS************************* */
-/******************** U_login 페이지 CSS ********************/
-
-/* 전체 래퍼 */
-.login_wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-  justify-content: center;
-  height: 80%;
-  padding: 0 20px;
-  box-sizing: border-box;
-  margin-top: 50px;  /* 전체 래퍼를 조금 더 아래로 */
-}
-
-/* 인사말 텍스트 (박스 밖으로 이동) */
-.greeting {
-  color: white;
-  margin-left: 10px;
-  margin-bottom: 10px; /* 여백 조정 */
-  font-size: 18px;  /* 텍스트 크기 조금 키움 */
-  font-weight: 600;
-  line-height: 1.4;
-  z-index: 3;
-}
-
-/* 로그인 컨테이너 */
-.login_container {
-  width: 90%;
-  max-width: 350px;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 10px;  /* 흰색 박스 둥근 모서리 */
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  margin-top: 30px; /* 탭 버튼이 위에 겹칠 수 있도록 여백 추가 */
-  position: relative;  /* 탭 버튼의 절대 위치 기준으로 설정 */
-}
-
-/* 탭 버튼 */
-.login_tabs {
-  display: flex;
-  justify-content: space-around;
-  position: absolute; /* 절대 위치로 설정 */
-  top: -20px; /* 흰색 박스 상단과 겹치도록 위로 이동 */
-  left: 0;
-  width: 100%;
-  border-radius: 10px; /* 전체 탭 그룹에 경계선 추가 */
-  overflow: visible;  /* 둥근 모서리 안에서 내용이 넘치지 않도록 설정 */
-  z-index: 10; /* 흰색 박스 위에 겹치도록 설정 */
-}
-
-/* 탭 버튼 스타일 */
-.login_tabs button {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  border-radius: 10px;
-  border: none;
-}
-
-/* 사용자 버튼 (왼쪽 버튼) */
-.login_tabs button:first-child {
-  flex: 1;
-  padding: 10px;
-  background-color: #ffffff;  /* 비활성화된 버튼의 배경은 흰색 */
-  border: none;  /* 개별 경계선 제거 */
-  color: black;
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 10px 0 0 0;  /* 왼쪽 상단만 둥글게 */
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* 관리자 버튼 (오른쪽 버튼) */
-.login_tabs button:last-child {
-  flex: 1;
-  padding: 10px;
-  background-color: black;  /* 비활성화된 버튼의 배경은 검정색 */
-  border: none;  /* 개별 경계선 제거 */
-  color: white;
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 0 10px 0 0;  /* 오른쪽 상단만 둥글게 */
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* 활성화된 탭 */
-.login_tabs button.active {
-  background-color: white;
-  color: black;
-}
-
-.login_tabs button:not(.active) {
-  background-color: black;
-  color: white;
-}
-
-/* 로그인 폼 */
-.login_form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  margin-top: 10px;  /* 로그인 폼과 탭 버튼 간의 간격 추가 */
-}
-
-/* 입력 필드 */
-.login_form input {
-  width: 95%;
-  padding: 12px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 1rem;
-  background-color: rgba(255, 255, 255, 0.9);  /* 입력 필드 배경을 더 밝게 */
-}
-
-/* 로그인 버튼 */
-.login_button {
-  width: 100%;
-  padding: 12px;
-  background-color: black;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  margin-top: 10px;
-}
-
-/* 로그인 옵션 (아이디/비밀번호 찾기, 회원가입) */
-.login_options {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-top: 10px;
-}
-
-.login_options button {
-  background: none;
-  border: none;
-  color: black;  /* 검정색 텍스트 */
-  font-size: 0.9rem;
-  cursor: pointer;
-  text-decoration: underline;
-  padding: 5px;
-}
-
-.login_options button:hover {
-  color: black;  /* 호버 상태에서도 검정색 유지 */
-}
-
-/* 수평선 스타일 */
-.divider_line {
-  width: 100%;
-  border-bottom: 2px solid white;  /* 수평선을 회색으로 */
-  margin: 10px 0;  /* 수평선 위아래 여백 조정 */
-}
-
-/* ******************Header컴포넌트(노란색) CSS***** */
-/* Header 컴포넌트 스타일 */
-.header_custom_container {
-  position: relative; /* 필요에 따라 absolute로 변경 */
-  width: 100%;
-  /* max-width: 393px; */
-  height: 100px;
-  background-color: #FFDA38;
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
-  box-sizing: border-box;
-  border-bottom: 2px solid #ccc;
-  z-index: 5; /* 배경보다 높은 값으로 설정 */
-  /* 둥근 효과를 원하면 아래와 같이 조정 */
-  /* border-top-left-radius: 20px;
-     border-top-right-radius: 20px; */
-}
-
-.header_custom_back_button {
-  font-size: 24px;
-  color: black;
-  cursor: pointer;
-  margin-right: 16px;
-}
-
-.header_custom_title {
-  font-size: 18px;
-  font-weight: bold;
-  color: black;
-}
-
-
-/* ******************BannerBox: 배너 넣는 부분 ************ */
-.BannerBox {
-  width: 100%; /* 너비 */
-  height: auto;  /* 높이 */
-  background-color: lightgray;  /* 배경색 */
-}
-.banner_img{
-  width: 100%;
-  margin: -2px;
-}
-
-
-/* *******************다운로드페이지 컴포넌트 CSS******* */
-.download_icon {
-  width: 80px;
-  height: auto;
-}
-
-.download_container {
-  margin: -2px;
-  background-color: white;
-  padding: 20px;
-  height: 65%; /* 컨테이너의 높이를 설정 */
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* 세로 중앙 정렬 */
-  align-items: center; /* 가로 중앙 정렬 */
-  text-align: center;
-  position: relative; /* 메시지를 겹쳐 표시하기 위해 position 설정 */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-.download_preview {
-  width: 100%;
-  padding: 20px;
-  background-color: #f5f5f5;
-  transition: filter 0.3s ease; /* 희미해지는 효과 */
-}
-.download_preview.blur {
-  filter: blur(4px); /* 다운로드 시 흐려짐 효과 */
-}
-.download_message_overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.8); /* 반투명 배경 */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  opacity: 1;
-  transition: opacity 0.3s ease; /* 희미해지는 효과 */
-}
-.download_message {
-  display: flex;
-  flex-direction: column; /* 아이콘과 텍스트를 세로로 배치 */
-  justify-content: center; /* 세로 중앙 정렬 */
-  align-items: center; /* 가로 중앙 정렬 */
-  height: 100%; /* 다운로드 메시지가 컨테이너 중앙에 위치하도록 설정 */
-}
-.download_button {
-  background-color: black;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  width: 100%;/* 버튼이 가로로 꽉 차도록 설정 */
-  margin-top: auto; /* 자동으로 아래로 밀림 */
-  margin-bottom: 10px;
-}
-.preview_table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-  margin-top: 10px;
-}
-
-.preview_table th, .preview_table td {
-  padding: 8px;
-  border: 1px solid #ddd;
-  font-size: 10px;
-}
-
-.preview_table th {
-  background-color: #f2f2f2;
-  font-weight: bold;
-  font-size: 12px;
 }
 
 
@@ -1553,234 +1192,6 @@ input:checked + .slider-unique:before {
   transition: font-size 0.3s ease;
 }
 
-/* ************관리자 메임 페이지(M_calender)컴포넌트 CSS******* */
-/* 달력 컨테이너 */
-.m_calender-container-unique {
-  background-color: white;
-  padding: 14px;
-  /* border-radius: 10px; */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-  /* max-width: 400px; */
-  /* margin: 0 auto; */
-  margin-top: -1px;
-  display: flex;
-  flex-direction: column; /* 세로 정렬로 변경 */
-  justify-content: flex-start; /* 상단에 위치하도록 */
-  align-items: center; /* 수평 중앙 정렬 */
-  height: 75%;
-}
-.m_calender-time-select-unique {
-  text-align: center;
-  margin-top: 0;
-  width: 100%; /* 너비를 100%로 설정 */
-  max-width: 400px; /* 원하는 최대 너비 */
-  padding: 10px; /* 내부 여백 추가 */
-  box-sizing: border-box; /* 패딩 포함하여 너비 조절 */
-}
-.m_calender-label-unique {
-  font-weight: bold;
-  margin-bottom: 10px;
-  text-align: left; /* 텍스트 왼쪽 정렬 */
-  width: 100%; /* 텍스트가 차지하는 영역의 너비를 100%로 */
-  padding-left: 10px; /* 원하는 만큼 왼쪽에 여백 추가 */
-}
-.m_calender-time-inputs-unique {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
-}
-.m_calender-input-unique {
-  width: 45%; /* 두 입력 필드의 너비 조정 */
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin: 0 5px; /* 입력 필드 사이 간격 조정 */
-}
-.m_calender-time-divider-unique {
-  font-size: 24px;
-  color: #333;
-}
-.m_calender-search-button-unique {
-  padding: 12px 30px;
-  background-color: black;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  width: 100%; /* 버튼 너비를 전체로 설정 */
-  max-width: 400px; /* 원하는 최대 너비 제한 */
-  margin: 0 auto; /* 중앙에 위치 */
-}
-/* 달력 자체 */
-.m_calender-unique {
-  width: 100%;
-  max-width: 300px;
-  background-color: white;
-  border: none;
-  border-radius: 10px;
-  height: 55%;
-}
-
-/* 달력 타일 (각 날짜) */
-.m_calender-tile-unique {
-  text-align: center;
-  padding: 10px;
-  border-radius: 50%; /* 원형 날짜 */
-  transition: background-color 0.2s ease;
-}
-
-/* 타일 마우스 오버 시 */
-.m_calender-tile-unique:hover {
-  background-color: #f0f0f0; /* 타일에 마우스 오버 시 배경색 */
-}
-
-/* 선택된 날짜 */
-.m_calender-tile-active-unique {
-  background-color: #4caf50; /* 원하는 색상으로 변경 가능 */
-  color: white;
-  border-radius: 60%; /* 완전히 둥글게 */
-  padding: 10px; /* 크기를 조정할 수 있는 padding 값 */
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* 주말 날짜 (토, 일) */
-.m_calender-weekend-unique {
-  color: red; /* 주말의 날짜 색상 */
-}
-
-/* 오늘 날짜 */
-.m_calender-today-unique {
-  background-color: #ff5722; /* 오늘 날짜 강조 */
-  color: white;
-  border-radius: 60%; /* 원형 효과 */
-}
-/* 달력화면에서 기간 조회 드롭박스 버튼 CSS */
-/* 드롭다운 전체 영역 스타일 */
-.time-dropdown-container {
-  background-color: #f8f8f8; /* 드롭다운 배경색 설정 */
-  border-radius: 10px; /* 둥근 모서리 */
-  padding: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 100px; /* 원하는 드롭다운 너비 */
-}
-
-/* 개별 선택 아이템 스타일 */
-.time-dropdown-container .dropdown-item {
-  font-size: 18px; /* 아이템 폰트 크기 */
-  padding: 8px;
-  color: #000; /* 텍스트 색상 */
-  text-align: center; /* 텍스트 가운데 정렬 */
-}
-
-/* 선택된 아이템 강조 스타일 */
-.time-dropdown-container .dropdown-item.selected {
-  background-color: #e0e0e0; /* 선택된 아이템 배경색 */
-  color: #000; /* 선택된 텍스트 색상 */
-  font-weight: bold;
-}
-
-/* 오전/오후 버튼 스타일 */
-.time-dropdown-container .ampm-toggle {
-  background-color: #f8f8f8; /* 배경색 */
-  font-size: 18px;
-  color: #333;
-  border: none;
-  cursor: pointer;
-  padding: 8px 0;
-  width: 100%; /* 너비를 꽉 채움 */
-  text-align: center;
-}
-
-/* 선택된 AM/PM 강조 스타일 */
-.time-dropdown-container .ampm-toggle.selected {
-  background-color: #e0e0e0;
-  color: #000;
-  font-weight: bold;
-}
-
-/* 스크롤바 스타일 */
-.time-dropdown-container .scrollable {
-  max-height: 150px;
-  overflow-y: scroll;
-}
-
-/* iOS 스타일처럼 화면 중앙 정렬 및 크기 조정 */
-.time-dropdown-container .centered-item {
-  background-color: #ffffff;
-  padding: 15px;
-  font-size: 20px;
-  color: #333;
-  border-radius: 8px;
-  text-align: center;
-}
-
-
-
-/* **********관리자모드/위반 상세내역 페이지****** */
-/***********************************
- * M_detail 컴포넌트 스타일
- ***********************************/
-
-.m_detail-container-unique {
-  padding: 20px;
-  background-color: white;
-  /* border-radius: 10px; */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 90%;
-  height: 70vh; /* 높이를 유동적으로 설정 */
-}
-
-.m_detail-filter-unique {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.m_detail-filter-btn-unique {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  background-color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 100%;
-}
-
-.m_detail-photo-unique {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.m_detail-photo-box-unique {
-  width: 100%;
-  height: 200px;
-  background-color: #f0f0f0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  font-size: 18px;
-}
-
-.m_detail-violation-unique {
-  margin-top: 20px;
-}
-
-.m_detail-violation-row-unique {
-  padding: 10px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  text-align: center;
-  width: 100%;
-  box-sizing: border-box;
-}
-
 /************* 위반차량정보 페이지(ViolationsList)*********** */
 .violations-list-container {
   background-color: white; /* 흰색 배경 */
@@ -1869,66 +1280,6 @@ input:checked + .slider-unique:before {
   font-size: 16px;
   width: 100%;
   margin: 0 auto;
-}
-/* **************메인 이미지 화면************** */
-.main_bg_img_div {
-  width: 100%; /* 화면 전체 너비 */
-  height: 100%; /* 화면 전체 높이 */
-  overflow: hidden; /* 이미지가 div 밖으로 넘치지 않도록 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  z-index: 2;
-}
-
-.main_bg_img {
-  width: 100%; /* 이미지가 div 너비를 채우도록 설정 */
-  height: 100%; /* 이미지가 div 높이를 채우도록 설정 */
-  object-fit: cover; /* 비율을 유지하면서 div에 맞춰 이미지를 크기 조정 */
-}
-/* Main 페이지 전용 스타일 */
-.main_background {
-  cursor: pointer; /* 클릭 가능한 상태로 표시 */
-  position: relative;
-}
-
-
-/* ********회원가입 컴포넌트 CSS ********** */
-.join-wrapper {
-  background-color: white;
-  padding: 20px;  /* border-radius: 10px; */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  height: 100%;
-}
-
-.form-group {
-  margin-bottom: 10px;
-}
-
-.form-group label {
-  display: block;
-  /* font-weight: bold; */
-  margin-bottom: 5px;
-}
-
-.form-group input {
-  width: 90%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.join-button {
-  width: 100%;
-  padding: 12px;
-  background-color: black;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 20px;
 }
 
 /************************** EditProfile 페이지 CSS **************************/
@@ -2292,7 +1643,7 @@ input:checked + .slider-unique:before {
   padding: 10px;
   background-color: white;
   width: 100%;
-  height: 70%;
+  height: auto;
   max-width: 380px;
   display: flex;
   flex-direction: column;
@@ -2341,31 +1692,11 @@ input:checked + .slider-unique:before {
   font-weight: bold;
 }
 
-/* 주소 텍스트 */
-.parking_item_address {
-  flex: 3;
-  text-align: left;
-  padding-left: 10px;
-  cursor: pointer;
-}
-
-/* 별 아이콘 */
-.parking_item_star_icon {
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-  margin-right: 10px;
-}
-
 /* 주소 텍스트에 마우스 호버 효과 */
 .parking_item_address:hover {
   text-decoration: underline;
 }
 
-/* 즐겨찾기 아이콘 클릭 시 활성화 스타일 */
-.parking_item_star_icon.favorite {
-  filter: brightness(0) saturate(100%) invert(72%) sepia(86%) saturate(220%) hue-rotate(1deg) brightness(101%) contrast(96%);
-}
 
 
 /* parking_item_container 컴포넌트 스타일 */
@@ -2377,13 +1708,6 @@ input:checked + .slider-unique:before {
   padding: 10px 0;
   border-bottom: 1px solid #ddd;
   box-sizing: border-box;
-}
-
-/* 번호 스타일 */
-.parking_item_number {
-  flex: 1; /* 번호 영역이 고정되지 않도록 */
-  text-align: center;
-  font-weight: bold;
 }
 
 /* 주소 텍스트 */

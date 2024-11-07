@@ -17,7 +17,7 @@ router.post('/join', (req, res) => {
     const query = adminCode ? adminQuery : userQuery;
     const params = adminCode
         ? [id, password, email, new Date(), name, phone]
-        : [id, password, email, carNumber, new Date(), name, phone, 0];
+        : [id, password, email, carNumber, new Date(), name, phone, 1];
 
     conn.query(query, params, (err, results) => {
         if (err) {
