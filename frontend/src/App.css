@@ -3,27 +3,6 @@ body {
   padding-right: 16px;
   box-sizing: border-box; /* 내부 padding을 포함한 전체 너비 설정 */
 }
-/* *****로고 이미지 ********* */
-.centered_logo_container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 5; /* 로고가 배경보다 위에 표시되도록 */
-}
-.centered_logo_image {
-  width: 100px; /* 로고 크기 */
-  height: auto;
-  border-radius: 10px;
-  border: 1px solid white;
-  object-fit: contain;
-  transition: transform 0.3s ease, border-color 0.3s ease; /* 부드러운 효과 */
-}
-.centered_logo_image:hover {
-  transform: scale(1.1); /* 크기를 10% 확대 */
-  /* border-color: yellow; */
-}
-
 
 /****************** 휴대폰 테두리  *************/
 /* 모바일 프레임 */
@@ -880,6 +859,7 @@ input:checked + .slider-unique:before {
 }
 /* Main 페이지 전용 스타일 */
 .main_background {
+  cursor: pointer; /* 클릭 가능한 상태로 표시 */
   position: relative;
 }
 
@@ -887,7 +867,6 @@ input:checked + .slider-unique:before {
   width: 100%;
   height: auto;
   object-fit: cover;
-  cursor: default; /* 기본 커서 설정 */
 }
 
 /* ********회원가입 컴포넌트 CSS ********** */
@@ -1893,6 +1872,11 @@ input:checked + .slider-unique:before {
   position: relative;
 }
 
+.main_background .background_image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
 
 /* ********회원가입 컴포넌트 CSS ********** */
 .join-wrapper {
@@ -2090,12 +2074,6 @@ input:checked + .slider-unique:before {
   cursor: pointer;
   font-size: 14px;
 }
-.update-message {
-  color: white;
-  font-weight: bold;
-  margin-top: 10px;
-}
-
 
 /* 주차장 조회하기 박스 */
 .parking_search_box {

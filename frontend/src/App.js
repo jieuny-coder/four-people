@@ -49,7 +49,7 @@ function AppContent() {
 
   // 사용자 버튼바가 나타나야 하는 경로 확인
   const userPages = ['/myparking_place', '/parkinglist', '/parkingSearch', '/userMain'];
-  const adminPages = ['/filtering', '/setting', '/download', '/M_calender', '/Violations', '/detail','/register-car'];
+  const adminPages = ['/filtering', '/setting', '/download', '/M_calender', '/Violations', '/detail'];
 
   return (
     <div className="mobile_frame">
@@ -64,7 +64,7 @@ function AppContent() {
 
         <Routes>
           {/* 사용자/ 관리자 */}
-          <Route path="/" element={<Main/>} />
+          <Route path="/" element={<Main />} />
           <Route path="/login" element={<U_login setIsAdmin={setIsAdmin} />} />
           <Route path="/join" element={<Join/>} />
           <Route path="/filtering" element={<Filtering/>} />
@@ -87,7 +87,7 @@ function AppContent() {
           (isAdmin ? (
             adminPages.includes(location.pathname) ? <M_btnBar violationsData={violationsData} detailData={detailData} /> : null
           ) : (
-            userPages.includes(location.pathname) ? <Btnbar/> : null
+            userPages.includes(location.pathname) ? <Btnbar /> : null
           ))
         }
       </div>

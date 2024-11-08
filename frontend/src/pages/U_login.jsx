@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from 'axios'; 
 
 const U_login = ({ setIsAdmin }) => {
     const [isUser, setIsUser] = useState(true);  // 기본적으로 사용자 버튼이 활성화됨
@@ -31,7 +31,7 @@ const U_login = ({ setIsAdmin }) => {
         console.log('로그인 버튼이 클릭되었습니다.');
         console.log('전송할 데이터:', loginData);  // 디버깅 추가
 
-        const endpoint = isUser
+        const endpoint = isUser 
             ? 'http://localhost:4000/user/login'  // 사용자 로그인 엔드포인트
             : 'http://localhost:4000/user/admin-login'; // 관리자 로그인 엔드포인트
 
@@ -39,24 +39,19 @@ const U_login = ({ setIsAdmin }) => {
             const response = await axios.post(endpoint, {
                 username: loginData.id,  // 수정: id를 username으로 매핑
                 password: loginData.pw   // 수정: pw를 password로 매핑
-            }, { withCredentials: true }); // 세션 쿠키를 포함하여 요청);
+        });
             if (response.status === 200) {
                 alert('로그인 성공!');
                 if (isUser) {
                     setIsAdmin(false); // 사용자로 설정
                     console.log("Setting isAdmin to false");
-
-                    // 사용자 로그인 성공 시 로컬 스토리지에 userId 저장
-                    sessionStorage.setItem("id", loginData.id);
-                    console.log("Navigating to userMain page");
                     navigate('/userMain'); // 사용자 로그인 성공 시 이동 경로
+                    window.sessionStorage.setItem("id",loginData.id);
                 } else {
                     setIsAdmin(true); // 관리자 모드로 설정
                     console.log("Setting isAdmin to true");
-
-                    sessionStorage.setItem("id", loginData.id);
-                    console.log("Navigating to M_calender page");
                     navigate('/M_calender'); // 관리자 로그인 성공 시 이동 경로
+                    window.sessionStorage.setItem("id",loginData.id);
                 }
             }
         } catch (error) {
@@ -72,46 +67,46 @@ const U_login = ({ setIsAdmin }) => {
         navigate('/join', { state: { mode: isUser ? 'user' : 'admin' } });
     };
 
-    useEffect(() => {
-        window.sessionStorage.setItem("login", loginData);
+    useEffect(()=>{
+        window.sessionStorage.setItem("login",loginData);
         const a = sessionStorage.getItem('id')
-        console.log("sessionStorage 조민근", a);
-
-    }, [loginData]);
+        console.log("sessionStorage 조민근",a);
+        
+    },[loginData]);
 
     return (
         <div className="login_wrapper">
-            <h2 className="greeting">반갑습니다!<br />서비스 이용을 위한 <br /> 본인 인증이 필요합니다.</h2>
+            <h2 className="greeting">반갑습니다!<br />서비스 이용을 위한 <br/> 본인 인증이 필요합니다.</h2>
             <div className="divider_line"></div>
             <div className="login_container">
                 <div className="login_tabs">
-                    <button
-                        className={isUser ? 'active' : ''}
+                    <button 
+                        className={isUser ? 'active' : ''} 
                         onClick={() => handleTabSwitch('user')}
                     >
                         사용자
                     </button>
-                    <button
-                        className={!isUser ? 'active' : ''}
+                    <button 
+                        className={!isUser ? 'active' : ''} 
                         onClick={() => handleTabSwitch('admin')}
                     >
                         관리자
                     </button>
                 </div>
                 <div className="login_form">
-                    <input
-                        type="text"
-                        id="id"
-                        value={loginData.id}
-                        onChange={handleChange}
-                        placeholder={isUser ? "아이디를 입력하세요." : "관리자 아이디를 입력하세요."}
+                    <input 
+                        type="text" 
+                        id="id" 
+                        value={loginData.id} 
+                        onChange={handleChange} 
+                        placeholder={isUser ? "아이디를 입력하세요." : "관리자 아이디를 입력하세요."} 
                     />
-                    <input
-                        type="password"
-                        id="pw"
-                        value={loginData.pw}
-                        onChange={handleChange}
-                        placeholder={isUser ? "비밀번호를 입력하세요." : "관리자 비밀번호를 입력하세요."}
+                    <input 
+                        type="password" 
+                        id="pw" 
+                        value={loginData.pw} 
+                        onChange={handleChange} 
+                        placeholder={isUser ? "비밀번호를 입력하세요." : "관리자 비밀번호를 입력하세요."} 
                     />
                     <button className="login_button" onClick={handleLoginClick}>로그인</button>
                     <div className="login_options">

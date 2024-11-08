@@ -14,7 +14,7 @@ const BannerBox = ({ isAdminLoggedIn }) => {
 
   return (
     <div className="BannerBox" onClick={handleClick} style={{ cursor: 'pointer' }}>
-      <img src='/images/BN.png' alt='배너' className='banner_img' />
+      <img src='/images/banner.jpg' alt='배너' className='banner_img' />
     </div>
   );
 };
