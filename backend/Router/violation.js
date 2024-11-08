@@ -33,4 +33,44 @@ router.get('/filter_Violations',(req,res)=>{
     });
 });
 
+
+
+
+
+// 기간으로 위반데이터 조회하기 
+router.get('/filtering_dateRange',(req,res)=>{
+    console.log('라우터 정상작동!');
+
+    let { startDate, endDate } = req.query;
+
+    if(!startDate || !endDate){
+        return res.status(400).json({error:'시작날자와 끝 날짜를 모두 제공해주세요.'});
+    }
+
+    // 시간 부분을 별도로 추가하여 새로운 변수에 저장
+    const startDateTime = `${startDate} 00:00:00`;
+    const endDateTime = `${endDate} 23:59:59`;
+
+
+    // SQL 쿼리 작성 : violation_date와 violation_time을 합친 조건만 사용
+    const sql = `SELECT * 
+                 FROM VIOLATION
+                 WHERE CONCAT(violation_date, ' ', violation_time) BETWEEN ? AND ?`;
+
+    // 쿼리 실행 로그 추가
+    console.log('실행될 쿼리:', sql);
+    console.log('쿼리 파라미터:', [startDateTime, endDateTime]);
+    // 쿼리 실행
+    conn.query(sql, [startDateTime, endDateTime], (err, rows) => {
+        if (err) {
+            console.error('DB 조회 오류:', err);
+            return res.status(500).json({ error: 'DB 조회 중 오류가 발생했습니다.' });
+        } else if (rows.length > 0) {
+            return res.status(200).json(rows);
+        } else {
+            return res.status(200).json({ message: '해당 기간에 대한 데이터가 없습니다.', data: [] });
+        }
+    });
+});
+
 module.exports = router;

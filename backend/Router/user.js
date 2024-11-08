@@ -180,4 +180,35 @@ router.post('/update', (req, res) => {
     });
 });
 
+
+
+// 사용자 차량 번호 조회 API
+router.get('/carNumber', (req, res) => {
+    // 세션에서 사용자 ID 가져오기
+    const userId = req.session.user_id;
+
+    // 로그인되지 않았을 경우
+    if (!userId) {
+        return res.status(401).json({ error: '로그인이 필요합니다.' });
+    }
+
+    // DB에서 사용자 ID로 차량 번호 조회
+    const sql = 'SELECT car_number FROM USER WHERE user_id = ?';
+    conn.query(sql, [userId], (err, result) => {
+        if (err) {
+            console.error('차량 번호 조회 중 오류:', err);
+            return res.status(500).json({ error: '서버 에러' });
+        }
+
+        if (result.length > 0) {
+            res.json({ carNumber: result[0].car_number }); // 차량 번호 반환
+        } else {
+            res.status(404).json({ error: '차량 번호를 찾을 수 없습니다.' });
+        }
+    });
+});
+
+
+
+
 module.exports = router;
