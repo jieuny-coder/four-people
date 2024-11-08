@@ -64,9 +64,9 @@ const ViolationsList = () => {
     navigate(`/download`, { state: { previewData: exampleData } });
   };
 
-  if (loading){
-    return<p>로딩 중.....</p>
-  }
+  // if (loading){
+  //   return<p>로딩 중.....</p>
+  // }
 
   if (error) {
     return<p style={{ color:'red' }}>{error}</p>

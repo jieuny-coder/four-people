@@ -3,15 +3,36 @@ import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import { useNavigate } from 'react-router-dom';
 import 'react-calendar/dist/Calendar.css';
+import { useEffect } from 'react';
 
 const M_calender = () => {
   const [date, setDate] = useState(new Date()); // 기본 날짜
   const [startDate, setStartDate] = useState(null); // 시작 날짜
   const [endDate, setEndDate] = useState(null); // 종료 날짜
+  const [carNumber, setCarNumber] = useState(null); // 차량 번호 저장
   const navigate = useNavigate();
 
+  // 차량 번호 가져오는 useEffect 훅
+  useEffect(() => {
+    fetch('http://localhost:4000/user/carNumber')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch car number');
+        }
+        return response.json();
+      })
+      .then(data => {
+        setCarNumber(data.carNumber);
+        console.log("차량정보 조회되나 보자:", data.carNumber); 
+      })
+      .catch(error => {
+        console.error('Error fetching car number:', error);
+      });
+  }, []);
+
+
   // 조회하기 버튼 클릭 시 실행되는 함수
-  const handleSearch = () => {
+  const handleSearch = async () => {
     if (!startDate || !endDate) {
       alert("시작 기간과 종료 기간을 선택해 주세요.");
       return;
@@ -22,13 +43,36 @@ const M_calender = () => {
       return;
     }
 
-    navigate(`/detail?start=${startDate.toISOString().split("T")[0]}&end=${endDate.toISOString().split("T")[0]}`);
+    try {
+      // API 호출
+      const response = await fetch(`http://localhost:4000/violation/filtering_dateRange?startDate=${startDate.toISOString().split("T")[0]}&endDate=${endDate.toISOString().split("T")[0]}`);
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("기간 조회 데이터:", data); // 확인용 로그
+        // 데이터를 필터링 페이지로 전달하면서 mode=period 파라미터 추가
+        navigate(`/filtering?start=${startDate.toISOString().split("T")[0]}&end=${endDate.toISOString().split("T")[0]}&mode=period`);
+      } else {
+        alert(data.error || '데이터 조회 중 문제가 발생했습니다.');
+      }
+    } catch (error) {
+      console.error('API 호출 중 오류:', error);
+      alert('API 호출 중 오류가 발생했습니다.');
+    }
+  };
+
+  // 날짜에 하루를 더하는 함수
+  const addOneDay = (date) => {
+    const newDate = new Date(date);
+    newDate.setDate(newDate.getDate() + 1); // 하루 추가
+    return newDate;
   };
 
   // 날짜 클릭 시 필터링 페이지로 이동하는 함수
   const handleDayClick = (selectedDate) => {
-    setDate(selectedDate);
-    navigate(`/filtering?date=${selectedDate.toISOString().split("T")[0]}`);
+    const adjustedDate = addOneDay(selectedDate);
+    setDate(adjustedDate);
+    navigate(`/filtering?date=${adjustedDate.toISOString().split("T")[0]}`);
   };
 
   return (

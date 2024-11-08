@@ -5,7 +5,7 @@ import os
 import boto3
 
 # 서버 및 클라우드 URL
-SERVER_URL = 'http://192.168.20.144:8000/upload/'  # FastAPI 서버 URL
+SERVER_URL = 'http://192.168.20.144:8000/upload/'  # FastAPI 서버 URL(컴퓨터 ip)
 endpoint_url = 'https://kr.object.ncloudstorage.com'  # 네이버 클라우드 URL
 service_name = 's3'
 bucket_name = 'four-people-project'

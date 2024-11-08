@@ -2,8 +2,7 @@ const express = require('express');
 const app = express();
 const user = require('./Router/user');
 const main = require('./Router/main');
-const parkingad = require('./Router/parkingad');
-const violation = require('./Router/violation')
+const violation = require('./Router/violation');
 const cors = require('cors');
 
 // CORS 미들웨어를 먼저 설정
@@ -31,13 +30,15 @@ app.use(session({
 app.use('/user', user);
 app.use('/', main);
 app.use('/ParkingSearch', parkingad);
-app.use('./ViolationsList',violation);
+app.use('/violation',violation);
+
+
+
 
 app.set('port', process.env.PORT || 4000)
 app.listen(app.get('port'), ()=>{
     console.log(`Server is running on ${app.get('port')}`);
 });
-
 
 
 
