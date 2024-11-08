@@ -2289,6 +2289,8 @@ input:checked + .slider-unique:before {
   text-align: center;
   box-sizing: border-box;
   border-bottom: 2px solid #ddd;
+  position: relative;
+  bottom: 28px;
 }
 
 /* 번호와 주소 텍스트 정렬 */
@@ -2299,6 +2301,7 @@ input:checked + .slider-unique:before {
   padding-left: 10px; /* 왼쪽으로 약간 이동 */
   display: flex;
   align-items: center; /* 세로 중앙 정렬 */
+  font-size: 18px;
 }
 
 /* 주차 항목 행 */
@@ -2348,13 +2351,15 @@ input:checked + .slider-unique:before {
 
 /* parking_item_container 컴포넌트 스타일 */
 .parking_item_container {
+  position: relative;
   display: flex; /* 가로 배치를 위해 flex 사용 */
   align-items: center; /* 수직 정렬 */
   justify-content: space-between; /* 좌우 간격 확보 */
   width: 100%;
-  padding: 10px 0;
+  padding:10px 0;
   border-bottom: 1px solid #ddd;
   box-sizing: border-box;
+  bottom: 50px;
 }
 
 /* 번호 스타일 */
