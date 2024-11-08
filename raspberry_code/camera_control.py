@@ -3,6 +3,7 @@ import requests
 import time
 import os
 import boto3
+import mysql.connector as mysql
 
 # 서버 및 클라우드 URL
 SERVER_URL = 'http://192.168.20.144:8000/upload/'  # FastAPI 서버 URL(컴퓨터 ip)
@@ -10,8 +11,17 @@ endpoint_url = 'https://kr.object.ncloudstorage.com'  # 네이버 클라우드 U
 service_name = 's3'
 bucket_name = 'four-people-project'
 region_name = 'kr-standard'
-ACCESS_KEY = ''
-SECRET_KEY = ''
+ACCESS_KEY = 'Access key ID'
+SECRET_KEY = 'Secret key'
+
+# MySQL 연결 설정
+DB_CONFIG = {
+    'user': 'Insa5_JSB_final_1',
+    'password':'aischool1',
+    'host':'project-db-stu3.smhrd.com',
+    'database':'Insa5_JSB_final_1',
+    'port':'3307'
+}
 
 # 저장 경로 설정
 VIDEO_PATH = '/home/pi/videos/'
@@ -62,14 +72,48 @@ def upload_to_cloud(file_path):
     s3 = boto3.client(service_name, endpoint_url=endpoint_url, aws_access_key_id=ACCESS_KEY,
                       aws_secret_access_key=SECRET_KEY)
     filename = os.path.basename(file_path)
+    cloud_url = f'{endpoint_url}/{bucket_name}/{filename}'
 
     try:
         s3.upload_file(file_path, bucket_name, filename)
         print(f'Successfully uploaded {filename} to {bucket_name}')
-        return {'message': 'Upload successful'}
+
+        # 메타데이터(동영상url)를 DB에 저장
+        store_metadata_in_db(filename, cloud_url)
+        return {'message': 'Upload successful', 'url': cloud_url}
     
     except Exception as e :
         print(f'Failed to upload {filename}: {str(e)}')
+        return {'error':'str(e)'}
+
+def store_metadata_in_db(filename, url):
+
+    # mysql 데이터 베이스에 업로드된 파일의 메타데이터 저장
+
+    upload_time = time.strftime('%Y-%m-%d %H:%M:%S')
+    conn = None
+
+    try:
+        # MySQL 연결 설정 및 데이터베이스 연결
+        conn = mysql.connect(**DB_CONFIG)
+        cursor = conn.cursor()
+
+        # 메타데이터를 삽입하는 SQL 쿼리
+        sql = 'INSERT INTO VIOLATION (filename, url, upload_time) VALUES (%s, %s, %s)'
+        cursor.execute(sql, (filename, url, upload_time))
+
+        # 변경사항 커밋 후 연결 종료
+        conn.commit()
+        print(f'Metadata for {filename} inserted into database.')
+
+    except mysql.Error as err:
+        print(f'Error: {err}')
+    finally:
+        # 커서와 연결이 정상적으로 생성된 경우에만 닫도록 설정
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 # 실행 흐름
 if __name__ == "__main__":
