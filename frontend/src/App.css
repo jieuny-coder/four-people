@@ -417,6 +417,12 @@ body {
   margin-top: 20px;
 }
 
+.filtering-time-buttons button:disabled, .filtering-order-buttons button:disabled {
+  cursor: not-allowed; /* 비활성화된 상태에서 기본 커서로 표시 */
+}
+
+
+
 /* ******************설정(Setting) 페이지 컴포넌트*************** */
 .setting-page-container-unique {
   background-color: white; 
