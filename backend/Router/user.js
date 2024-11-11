@@ -218,7 +218,8 @@ router.get('/search-by-car-number', (req, res) => {
         return res.status(400).json({ error: '차량 번호를 입력해주세요.' });
     }
 
-    const sql = 'SELECT user_joined, car_number, user_name, user_phone FROM USER WHERE car_number = ?';
+    // handicap 필드를 SELECT 절에 추가
+    const sql = 'SELECT user_joined, car_number, user_name, user_phone, handicap FROM USER WHERE car_number = ?';
     conn.query(sql, [carNumber], (err, results) => {
         if (err) {
             console.error('차량 번호 조회 중 오류:', err);
@@ -232,6 +233,7 @@ router.get('/search-by-car-number', (req, res) => {
         }
     });
 });
+
 
 // 사용자테이블에서 handicap 칼럼 상태 업데이트
 router.post('/update-handicap', (req, res) => {

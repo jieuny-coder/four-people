@@ -25,8 +25,12 @@ const Handicap_car = () => {
       const response = await axios.get('http://localhost:4000/user/search-by-car-number', {
         params: { carNumber },
       });
+      console.log('API 응답 데이터:', response.data); // API 응답 확인
+
+
       if (response.data) {
         setCarData(response.data);
+        console.log('핸디캡 상태 확인:', response.data.handicap); // handicap 값 확인
       } else {
         setCarData(null);
         alert('해당 차량에 대한 데이터가 없습니다.');
@@ -50,7 +54,7 @@ const Handicap_car = () => {
         handicapStatus: newStatus,
       });
       setCarData({ ...carData, handicap: newStatus }); // 상태 업데이트
-      // alert(newStatus ? '등록되었습니다.' : '해제되었습니다.');
+      console.log('핸디캡 상태 업데이트:', newStatus); // 업데이트 후 상태 확인
     } catch (err) {
       console.error('업데이트 중 오류 발생:', err);
       setError('등록/해제 중 오류가 발생했습니다.');
@@ -97,12 +101,16 @@ const Handicap_car = () => {
                 <td>{carData.user_name}</td>
                 <td>{carData.user_phone}</td>
                 <td>
-                  <button
-                    onClick={handleRegisterToggle}
-                    className={carData.handicap ? 'registered' : ''}
-                  >
-                    {carData.handicap ? '해제' : '등록'}
-                  </button>
+                  {carData.handicap !== null && carData.handicap !== undefined ? (
+                    <button
+                      onClick={handleRegisterToggle}
+                      className={carData.handicap ? 'registered' : ''}
+                    >
+                      {carData.handicap ? '해제' : '등록'}
+                    </button>
+                  ) : (
+                    <p>상태를 불러오는 중입니다...</p>
+                  )}
                 </td>
               </tr>
             </tbody>
