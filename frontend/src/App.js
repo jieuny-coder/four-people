@@ -33,14 +33,20 @@ function AppContent() {
     console.log("Checking path:", pathname); // 현재 경로 확인용
 
     switch (pathname) {
+      // 관리자모드
       case '/join': return '회원가입';
-      case '/filtering': return '원하는 검색 조건을 입력하세요.';
-      case '/setting': return ''; // 설정 페이지는 헤더 제목 없음
-      case '/download': return ''; // 다운로드 페이지는 헤더 제목 없음
-      case '/M_calender': return ''; // 관리자 메인 페이지는 헤더 제목 없음
+      case '/filtering': return '조회할 시간을 선택하세요.';
+      case '/setting': return '설정'; 
+      case '/download': return '다운로드'; 
+      case '/M_calender': return '조회할 기간을 선택하세요.';
       case '/Violations': return '위반 차량 목록';
       case '/detail': return '';
-      case '/register-car': return '장애인등록차량 관리'; // 추가된 경로에 대한 제목
+      case '/register-car': return '장애인등록차량 관리'; 
+      // 사용자모드
+      case '/userMain': return '메인페이지'; 
+      case '/editprofile': return '회원정보수정'; 
+      case '/parkingSearch': return '주차장찾기'; 
+      case '/parkinglist': return '즐겨찾기'; 
       default: return '페이지 제목 없음'; // 디폴트 제목 추가
     }
   };
