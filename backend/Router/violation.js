@@ -73,4 +73,27 @@ router.get('/filtering_dateRange',(req,res)=>{
     });
 });
 
+
+
+
+
+
+// 위반데이터 전체 조회하기 
+router.get('/all',(req,res)=>{
+    //쿼리문 : violation_date를 기준으로 내림차순 정렬
+    const sql = 'SELECT * FROM VIOLATION ORDER BY violation_date DESC';
+
+    conn.query(sql,(err,rows)=>{
+        if(err){
+            console.error('DB조회 오류 : ',err);
+            return res.status(500).json({ error : 'DB 조회 중 오류 발생'});            
+        }
+        //조회된 데이터 반환
+        res.status(200).json(rows);
+    });
+});
+
+
+
+
 module.exports = router;

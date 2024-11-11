@@ -1,24 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import PDF_form from '../components/PDF_form';
+
+
+// 날짜 형식을 YYYY-MM-DD로 변환하는 함수
+const formatDate = (isoDate) => {
+  if (!isoDate) {
+    return '날짜 없음'; // null 또는 undefined일 경우 대체 텍스트
+  }
+  const date = new Date(isoDate);
+  if (isNaN(date.getTime())) {
+    return '유효하지 않은 날짜'; // 날짜 형식이 잘못된 경우
+  }
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`; // YYYY-MM-DD 형식
+};
+
 
 const Download = () => {
-  const [isDownloading, setIsDownloading] = useState(false); // 다운로드 상태 관리
   const location = useLocation();
-
-  // ViolationsList에서 전달된 데이터
   const previewData = location.state?.previewData || [];
-
-  const handleDownloadClick = () => {
-    setIsDownloading(true);
-    setTimeout(() => {
-      setIsDownloading(false);
-      alert('다운로드가 완료되었습니다.');
-    }, 2000);
-  };
 
   return (
     <div className="download_container">
-      <div className={`download_preview ${isDownloading ? 'blur' : ''}`}>
+      <div className="download_preview">
         {previewData.length > 0 ? (
           <table className="preview_table">
             <thead>
@@ -33,11 +41,11 @@ const Download = () => {
             <tbody>
               {previewData.map((item, index) => (
                 <tr key={index}>
-                  <td>{item.날짜}</td>
-                  <td>{item.차량번호}</td>
-                  <td>{item.장소}</td>
-                  <td>{item.주차시간}</td>
-                  <td>{item.이용구역}</td>
+                  <td>{formatDate(item.violation_date)}</td>
+                  <td>{item.violation_number}</td>
+                  <td>{item.violation_location}</td>
+                  <td>{item.violation_time}</td>
+                  <td>{item.violation_section}</td>
                 </tr>
               ))}
             </tbody>
@@ -47,14 +55,16 @@ const Download = () => {
         )}
       </div>
 
-      {isDownloading && (
-        <div className="download_message_overlay">
-          <img src="/images/DownIMG.jpg" alt="Download Icon" className="download_icon" />
-          <p>Please wait for a moment ...</p>
-        </div>
+      {previewData.length > 0 && (
+        <PDFDownloadLink
+          document={<PDF_form data={previewData} />}
+          fileName="Violation_Report.pdf"
+        >
+          {({ loading }) =>
+            loading ? 'PDF 생성 중...' : <button className="download_button">Download</button>
+          }
+        </PDFDownloadLink>
       )}
-
-      <button className="download_button" onClick={handleDownloadClick}>Download</button>
     </div>
   );
 };

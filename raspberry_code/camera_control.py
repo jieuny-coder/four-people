@@ -6,7 +6,7 @@ import boto3
 import mysql.connector as mysql
 
 # 서버 및 클라우드 URL
-SERVER_URL = 'http://192.168.20.144:8000/upload/'  # FastAPI 서버 URL
+SERVER_URL = 'http://192.168.20.144:8000/upload/'  # FastAPI 서버 URL(컴퓨터 ip)
 endpoint_url = 'https://kr.object.ncloudstorage.com'  # 네이버 클라우드 URL
 service_name = 's3'
 bucket_name = 'four-people-project'
@@ -99,7 +99,7 @@ def store_metadata_in_db(filename, url):
         cursor = conn.cursor()
 
         # 메타데이터를 삽입하는 SQL 쿼리
-        sql = 'INSERT INTO videos (filename, url, upload_time) VALUES (%s, %s, %s)'
+        sql = 'INSERT INTO VIOLATION (filename, url, upload_time) VALUES (%s, %s, %s)'
         cursor.execute(sql, (filename, url, upload_time))
 
         # 변경사항 커밋 후 연결 종료

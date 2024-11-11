@@ -20,3 +20,8 @@ npm install react-kakao-maps-sdk
 
 - .env 환경 변수 불러오기 설치파일
 npm install dotenv 
+
+
+- 다운로드 라이브러리
+npm install jspdf jspdf-autotable
+npm install @react-pdf/renderer

@@ -210,6 +210,53 @@ router.get('/carNumber', (req, res) => {
 });
 
 
+// 차량 번호로 사용자 정보 조회=> 등록차량 관리페이지에 필요 
+router.get('/search-by-car-number', (req, res) => {
+    const { carNumber } = req.query;
+
+    if (!carNumber) {
+        return res.status(400).json({ error: '차량 번호를 입력해주세요.' });
+    }
+
+    const sql = 'SELECT user_joined, car_number, user_name, user_phone FROM USER WHERE car_number = ?';
+    conn.query(sql, [carNumber], (err, results) => {
+        if (err) {
+            console.error('차량 번호 조회 중 오류:', err);
+            return res.status(500).json({ error: '서버 에러' });
+        }
+
+        if (results.length > 0) {
+            res.status(200).json(results[0]);
+        } else {
+            res.status(404).json({ error: '해당 차량 번호로 사용자를 찾을 수 없습니다.' });
+        }
+    });
+});
+
+// 사용자테이블에서 handicap 칼럼 상태 업데이트
+router.post('/update-handicap', (req, res) => {
+    const { carNumber, handicapStatus } = req.body;
+
+    if (!carNumber || handicapStatus === undefined) {
+        return res.status(400).json({ error: '차량 번호와 handicap 상태를 제공해주세요.' });
+    }
+
+    const sql = 'UPDATE USER SET handicap = ? WHERE car_number = ?';
+    conn.query(sql, [handicapStatus, carNumber], (err, results) => {
+        if (err) {
+            console.error('handicap 상태 업데이트 중 오류:', err);
+            return res.status(500).json({ error: '서버 에러' });
+        }
+
+        if (results.affectedRows > 0) {
+            res.status(200).json({ message: 'handicap 상태가 업데이트되었습니다.' });
+        } else {
+            res.status(404).json({ error: '해당 차량 번호로 사용자를 찾을 수 없습니다.' });
+        }
+    });
+});
+
+
 
 
 

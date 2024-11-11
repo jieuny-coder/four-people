@@ -7,61 +7,38 @@ import axios from 'axios';
 
 const ViolationsList = () => {
   const navigate = useNavigate();
-  const [violations, setViolations] = useState([]); // 저장할 곳 
+  const [violations, setViolations] = useState([]); //  DB에서 가져온 데이터를 저장할 상태 
   const [loading, setLoading] = useState(true); 
   const [error,setError] = useState('') // 에러를 표시
 
-  // 예시 데이터
-  const exampleData = [
-    {
-      날짜: '2024-10-28',
-      차량번호: '49조1543',
-      장소: 'ACC 주차장',
-      주차시간: '2시간',
-      이용구역: '장애인 구역',
-    },
-    {
-      날짜: '2024-10-29',
-      차량번호: '49라3929',
-      장소: 'ACC부설 주차장',
-      주차시간: '1시간 30분',
-      이용구역: '일반 구역',
-    },
-  ];
-
-  
 
   useEffect(() => {
     const fetchViolations = async () => {
-      const userId = sessionStorage.getItem('user_id'); // 아이디를 가져오기 - 이쪽에 검색창을 만들어서 :id로 조회하여 이력을 검색하기
-      if (!userId) {
-        console.log('아이디가 없습니다.');
-        return;
-      }
-
       try {
-        const response = await axios.get(`http://localhost:4000/user/Violations/${userId}`,{
-          withCredentials:true // 세션 쿠키 포함 
+        const response = await axios.get('http://localhost:4000/violation/all', {
+          withCredentials: true
         });
-        if (response.data.result === 'success') {
-          setViolations(response.data.data);
-        } else {
-          console.log('위반 차량 불러오는데 실패하였습니다.');
-        }
+        // null이나 undefined가 아닌 데이터를 필터링하여 상태에 저장
+        const validData = response.data.filter(violation => violation.violation_date);
+        setViolations(validData);
+        setLoading(false);
       } catch (error) {
         console.error('서버 오류:', error);
+        setError('데이터를 불러오는 중 오류가 발생했습니다.');
+        setLoading(false);
       }
     };
   
     fetchViolations();
-  },[]);
+  }, []);
+   // 컴포넌트가 마운트될 때 한 번 실행
 
   const handleRowClick = (violation) => {
     navigate(`/detail`, { state: { violation } });
   };
 
   const handleDownloadPageNavigation = () => {
-    navigate(`/download`, { state: { previewData: exampleData } });
+    navigate(`/download`, { state: { previewData: violations } });
   };
 
   // if (loading){
@@ -71,6 +48,22 @@ const ViolationsList = () => {
   if (error) {
     return<p style={{ color:'red' }}>{error}</p>
   }
+
+  // 날짜 형식을 YYYY-MM-DD로 변환하는 함수
+  const formatDate = (isoDate) => {
+    if (!isoDate) {
+      return '날짜 없음'; // null 또는 undefined일 경우 대체 텍스트
+    }
+    const date = new Date(isoDate);
+    if (isNaN(date.getTime())) {
+      return '유효하지 않은 날짜'; // 날짜 형식이 잘못된 경우
+    }
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`; // YYYY-MM-DD 형식
+  };
+  
 
   return (
     <div className="violations-list-container">
@@ -84,19 +77,19 @@ const ViolationsList = () => {
       </div>
 
       {/* 데이터 목록 또는 "위반 내역이 없습니다." 메시지 */}
-      {exampleData.length > 0 ? (
-        exampleData.map((violation, index) => (
+      {violations.length > 0 ? (
+        violations.map((violation, index) => (
           <div
             key={index}
             className="violation-row"
             onClick={() => handleRowClick(violation)}
             style={{ cursor: 'pointer' }}
           >
-            <div className="violation-cell">{violation.날짜}</div>
-            <div className="violation-cell">{violation.차량번호}</div>
-            <div className="violation-cell">{violation.장소}</div>
-            <div className="violation-cell">{violation.주차시간}</div>
-            <div className="violation-cell">{violation.이용구역}</div>
+            <div className="violation-cell">{formatDate(violation.violation_date)}</div>
+            <div className="violation-cell">{violation.violation_number}</div>
+            <div className="violation-cell">{violation.violation_location}</div>
+            <div className="violation-cell">{violation.violation_time}</div>
+            <div className="violation-cell">{violation.violation_section}</div>
           </div>
         ))
       ) : (

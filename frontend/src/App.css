@@ -279,17 +279,17 @@ body {
 }
 
 .download_container {
-  margin: -2px;
   background-color: white;
   padding: 20px;
-  height: 62%; /* 컨테이너의 높이를 설정 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%; /* 너비를 조정하여 중앙 정렬 */
+  margin: 0 auto;
+  overflow-x: auto; /* 가로 스크롤 가능 */
+  min-height: 300px; /* 최소 높이 설정 */
   display: flex;
   flex-direction: column;
-  justify-content: center; /* 세로 중앙 정렬 */
-  align-items: center; /* 가로 중앙 정렬 */
-  text-align: center;
-  position: relative; /* 메시지를 겹쳐 표시하기 위해 position 설정 */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  height: 70%;
 }
 .download_preview {
   width: 100%;
@@ -297,8 +297,15 @@ body {
   background-color: #f5f5f5;
   transition: filter 0.3s ease; /* 희미해지는 효과 */
 }
+
 .download_preview.blur {
   filter: blur(4px); /* 다운로드 시 흐려짐 효과 */
+}
+
+.preview_table {
+  width: 100%;
+  border-collapse: collapse; /* 테이블 테두리 겹침 방지 */
+  margin-top: 20px;
 }
 .download_message_overlay {
   position: absolute;
@@ -322,6 +329,10 @@ body {
   height: 100%; /* 다운로드 메시지가 컨테이너 중앙에 위치하도록 설정 */
 }
 .download_button {
+  position: fixed; /* 버튼을 화면 하단에 고정 */
+  bottom: 80px; /* 버튼이 하단에 붙어있지만, 하단바와 겹치지 않게 약간 위로 이동 */
+  left: 50%; /* 화면 너비의 절반에 위치 */
+  transform: translateX(-50%); /* 버튼을 중앙으로 정렬 */
   background-color: black;
   color: white;
   padding: 12px 30px;
@@ -329,10 +340,31 @@ body {
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
-  width: 100%;/* 버튼이 가로로 꽉 차도록 설정 */
+  width: 90%;/* 버튼이 가로로 꽉 차도록 설정 */
   margin-top: auto; /* 자동으로 아래로 밀림 */
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
+
+
+.preview_table th,
+.preview_table td {
+  border: 1px solid #ccc; /* 셀 테두리 설정 */
+  padding: 8px; /* 내부 여백 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  font-size: 12px; /* 폰트 크기 */
+  word-wrap: break-word; /* 단어 줄바꿈 */
+  white-space: normal; /* 줄바꿈 허용 */
+}
+
+.preview_table th {
+  background-color: #f0f0f0; /* 컬럼 제목 배경색 */
+  font-weight: bold;
+}
+
+.preview_table tr:nth-child(even) {
+  background-color: #f9f9f9; /* 짝수 행의 배경색 */
+}
+
 
 /* ****************필터링(Filtering)페이지 컴포넌트************** */
 /********************************* Filtering Page CSS *********************************/
@@ -416,7 +448,6 @@ body {
 }
 
 
-
 .filtering-time-inputs {
   display: flex;
   justify-content: space-between;
@@ -438,8 +469,6 @@ body {
   cursor: pointer;
   margin-top: 20px;
 }
-
-
 
 
 
@@ -611,6 +640,7 @@ body {
 }
 
 
+
 /* **********관리자모드/위반 상세내역 페이지****** */
 /***********************************
  * M_detail 컴포넌트 스타일
@@ -740,6 +770,7 @@ body {
   object-fit: cover;
   cursor: default; /* 기본 커서 설정 */
 }
+
 /* ********회원가입 컴포넌트 CSS ********** */
 .join-wrapper {
   background-color: white;
@@ -776,7 +807,6 @@ body {
   cursor: pointer;
   margin-top: 20px;
 }
-
 
 
 /********************************** 관리자용 버튼바(M_btnBar)컴포넌트 **********************/
@@ -821,7 +851,6 @@ body {
 .btn_item.active .btn_icon {
   filter: brightness(0) saturate(100%) invert(72%) sepia(86%) saturate(220%) hue-rotate(1deg) brightness(101%) contrast(96%);
 }
-
 
 
 /* ****************필터링(Filtering)페이지 컴포넌트************** */
@@ -922,7 +951,6 @@ body {
   cursor: pointer;
   margin-top: 20px;
 }
-
 
 /* ******************설정(Setting) 페이지 컴포넌트*************** */
 .setting-page-container-unique {
@@ -1084,7 +1112,7 @@ input:checked + .slider-unique:before {
   flex-direction: column; /* 세로 방향으로 콘텐츠 배치 */
   justify-content: flex-start;
   align-items: center;
-  height:67%;
+  height:80%;
 }
 
 /* 개별 위반 내역 행 */
@@ -1427,7 +1455,6 @@ input:checked + .slider-unique:before {
 }
 
 
-
 /* ParkingSearch 페이지 컴포넌트 */
 .parking-container {
   max-width: 390px;
@@ -1750,7 +1777,7 @@ input:checked + .slider-unique:before {
 
 .handicap_car_content {
   background-color: white;
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -1784,7 +1811,7 @@ input:checked + .slider-unique:before {
 .car_list_header {
   display: flex;
   justify-content: space-between;
-  /* font-weight: bold; */
+  font-size: 12px;
   border-bottom: 1px solid #ccc;
   padding-bottom: 10px;
 }
@@ -1807,4 +1834,49 @@ input:checked + .slider-unique:before {
 .car_list_header button:hover {
   background-color: #FFDA38; /* 호버 시 노란색 배경 */
   color: black; /* 호버 시 텍스트 색상 변경 */
+}
+
+
+.car_list_table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.car_list_table th, .car_list_table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  font-size: 12px; /* 폰트 크기 */
+}
+
+.car_list_table th {
+  background-color: #f2f2f2;
+  /* font-weight: bold; */
+}
+
+.registered {
+  background-color: yellow;
+}
+/* Handicap_car 등록/해제 버튼 스타일 */
+.car_list_table button {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px; /* 내부 여백을 줄여서 버튼 크기 축소 */
+  font-size: 12px; /* 폰트 크기를 줄여서 텍스트를 세로로 쓰이지 않게 함 */
+  cursor: pointer;
+  white-space: nowrap;  /* 텍스트가 줄바꿈되지 않도록 설정 */
+  width: auto; /* 버튼의 너비가 내용에 맞게 조정되도록 설정 */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.car_list_table button.registered {
+  background-color: #FFDA38; /* 노란색 */
+  color: black;
+}
+
+.car_list_table button:hover {
+  opacity: 0.8;
 }
