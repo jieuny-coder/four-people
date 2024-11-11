@@ -3,6 +3,7 @@ const app = express();
 const user = require('./Router/user');
 const main = require('./Router/main');
 const violation = require('./Router/violation');
+const parkingad = require('./Router/parkingad')
 const cors = require('cors');
 
 // CORS 미들웨어를 먼저 설정
@@ -27,7 +28,7 @@ app.use(session({
 // 라우터 설정
 app.use('/user', user);
 app.use('/', main);
-// app.use('/ParkingSearch', parkingad);
+app.use('/ParkingSearch', parkingad);
 app.use('/violation',violation);
 
 
