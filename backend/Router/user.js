@@ -33,6 +33,7 @@ router.post('/join', (req, res) => {
 
 
 
+
 // 사용자 로그인
 router.post('/login', (req, res) => {
 
@@ -113,7 +114,6 @@ router.get('/userinfo', (req, res) => {
 });
 
 
-
 // 회원정보 수정 페이지 컴포넌트 ( 비밀번호 제외 )
 router.get('/profile', (req, res) => {
     if (!req.session.user_id) {
@@ -182,6 +182,7 @@ router.post('/update', (req, res) => {
 
 
 
+
 // 사용자 차량 번호 조회 API
 router.get('/carNumber', (req, res) => {
     // 세션에서 사용자 ID 가져오기
@@ -207,6 +208,7 @@ router.get('/carNumber', (req, res) => {
         }
     });
 });
+
 
 
 
