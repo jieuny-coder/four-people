@@ -35,12 +35,12 @@ function AppContent() {
     switch (pathname) {
       case '/join': return '회원가입';
       case '/filtering': return '원하는 검색 조건을 입력하세요.';
-      case '/setting': return '설정';
-      case '/download': return 'Download';
-      case '/M_calender': return 'Manager Main';
+      case '/setting': return ''; // 설정 페이지는 헤더 제목 없음
+      case '/download': return ''; // 다운로드 페이지는 헤더 제목 없음
+      case '/M_calender': return ''; // 관리자 메인 페이지는 헤더 제목 없음
       case '/Violations': return '위반 차량 목록';
-      case '/detail': return '상세 정보';
-      case '/register-car': return '장애인 주차구역 등록 차량'; // 추가된 경로에 대한 제목
+      case '/detail': return '';
+      case '/register-car': return '장애인등록차량 관리'; // 추가된 경로에 대한 제목
       default: return '페이지 제목 없음'; // 디폴트 제목 추가
     }
   };
