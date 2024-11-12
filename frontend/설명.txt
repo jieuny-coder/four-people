@@ -16,7 +16,7 @@ npm install react-calendar
 - 카카오 지도 API
 npm install react-kakao-maps-sdk
 
-김지은바보
+
 
 - .env 환경 변수 불러오기 설치파일
 npm install dotenv 

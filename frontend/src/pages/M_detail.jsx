@@ -162,23 +162,25 @@ const M_detail = () => {
           </tbody>
         </table>
       </div>
-      {/* PDF 다운로드 버튼 추가 */}
-    {violations.length > 0 && (
-      <>
-        {/* 로그 추가: PDF에 전달될 데이터 확인 */}
-        {console.log('PDF 컴포넌트에 전달되는 데이터:', violations)}
-
+      <div className="m_detail-download-buttons">
         <PDFDownloadLink
           document={<PDF_form data={violations} />}
           fileName="Violation_Report.pdf"
         >
-          {({ loading }) =>
-            loading ? 'PDF 생성 중...' : <button className="download_button">PDF 다운로드</button>
+          {({ loading: pdfLoading }) =>
+            pdfLoading ? (
+              'PDF 생성 중...'
+            ) : (
+              <button className="m_detail-download-button">PDF 다운로드</button>
+            )
           }
         </PDFDownloadLink>
-      </>
-    )}
-  </div>
+
+        <button className="m_detail-download-button">동영상 다운로드</button>
+      </div>
+
+
+    </div>
   );
 };
 

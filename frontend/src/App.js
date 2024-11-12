@@ -40,13 +40,14 @@ function AppContent() {
       case '/download': return '다운로드'; 
       case '/M_calender': return '조회할 기간을 선택하세요.';
       case '/Violations': return '위반 차량 목록';
-      case '/detail': return '';
+      case '/detail': return '세부사항';
       case '/register-car': return '장애인등록차량 관리'; 
       // 사용자모드
       case '/userMain': return '메인페이지'; 
       case '/editprofile': return '회원정보수정'; 
       case '/parkingSearch': return '주차장찾기'; 
       case '/parkinglist': return '즐겨찾기'; 
+      case '/Myparking_place': return '주차장 내부현황'; 
       default: return '페이지 제목 없음'; // 디폴트 제목 추가
     }
   };
