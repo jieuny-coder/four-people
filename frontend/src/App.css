@@ -224,7 +224,7 @@ body {
 /* Header 컴포넌트 스타일 */
 .header_custom_container {
   width: 100%;
-  /* max-width: 393px; */
+  justify-content: flex-start; /* 왼쪽 정렬 (화살표와 제목 왼쪽으로 시작) */
   height: 100px;
   background-color: #FFDA38;
   display: flex;
@@ -249,13 +249,13 @@ body {
   transition: color 0.3s ease; /* 호버 시 부드러운 색상 전환 효과 */
 }
 .header_custom_back_button:hover {
-  color: white; /* 호버 시 노란색으로 강조 */
+  color: white; /* 호버 시 흰색으로 강조 */
   transform: scale(1.1); /* 호버 시 약간 확대 */
 }
 
 .header_custom_title {
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 16px;
+  margin: 0;            /* 기본 마진 제거 */
   color: black;
 }
 
@@ -1577,7 +1577,7 @@ input:checked + .slider-unique:before {
   padding: 10px;
   background-color: white;
   width: 100%;
-  height: auto;
+  height: 80%;
   max-width: 380px;
   display: flex;
   flex-direction: column;
@@ -1657,7 +1657,7 @@ input:checked + .slider-unique:before {
   width: 20px;
   height: 20px;
   cursor: pointer;
-  margin-left: 10px; /* 아이콘과 텍스트 간격 추가 */
+  margin-right: 10px; /* 아이콘과 텍스트 간격 추가 */
 }
 
 /* 즐겨찾기 활성화 스타일 */
