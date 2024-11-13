@@ -469,6 +469,24 @@ body {
   cursor: pointer;
   margin-top: 20px;
 }
+.react-datepicker-wrapper,
+.react-datepicker__input-container {
+  width: 70%;
+}
+
+.filtering-time-inputs .react-datepicker__input-container input {
+  width: 88%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.filtering-time-divider {
+  margin: 0 10px;
+  font-weight: bold;
+}
 
 
 
@@ -682,13 +700,48 @@ body {
 }
 
 .m_detail-violation-unique {
-  /* padding: 10px; */
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%; 
-  box-sizing: border-box; /* 내부 여백을 포함한 너비 설정 */
+  box-sizing: border-box;
+  max-height: 175px; /* 스크롤 높이 */
+  overflow-y: auto; /* 세로 스크롤 활성화 */
+
+  /* Firefox - 기본 상태에서 스크롤바 숨기기 */
+  scrollbar-width: none;
 }
+
+/* Chrome, Edge, Safari에서 기본 상태에서 스크롤바 숨기기 */
+.m_detail-violation-unique::-webkit-scrollbar {
+  display: none;
+}
+
+/* 호버 시에만 스크롤바 표시 */
+.m_detail-violation-unique:hover {
+  scrollbar-width: thin; /* Firefox에서 얇은 스크롤바 */
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent; /* Firefox에서 스크롤 색상 */
+}
+
+.m_detail-violation-unique:hover::-webkit-scrollbar {
+  display: block; /* 호버 시 스크롤바 보이기 */
+  width: 8px; /* 스크롤바 너비 */
+}
+
+.m_detail-violation-unique:hover::-webkit-scrollbar-track {
+  background: transparent; /* 트랙 배경 투명하게 */
+}
+
+.m_detail-violation-unique:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2); /* 스크롤바 색상 연하게 */
+  border-radius: 4px;
+}
+
+.m_detail-violation-unique:hover::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.3); /* 호버 시 스크롤바 색상 조금 더 진하게 */
+}
+
+
 
 .m_detail-violation-row-unique {
   padding: 10px;
@@ -704,7 +757,7 @@ body {
 .violation-table {
   width: 100%;
   border-collapse: collapse; /* 테이블 테두리 겹침 방지 */
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .violation-table th,
@@ -726,7 +779,6 @@ body {
 .filter-table {
   width: 100%;
   border-collapse: collapse; /* 테이블 경계선 겹침 방지 */
-  margin-bottom: 20px; /* 테이블과 사진 간의 여백 */
 }
 
 .filter-table td {
@@ -740,6 +792,26 @@ body {
   background-color: #f9f9f9; /* 짝수 행의 배경색 설정 */
 }
 
+/* M_detail 버튼 2개  */
+.m_detail-download-buttons {
+  display: flex;
+  /* justify-content: space-between; */
+  gap: 10px; /* 버튼 간격 */
+  margin-top: 25px; /* 여백 */
+}
+
+.m_detail-download-button {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  text-align: center;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  min-width: 170px; /* 최소 너비를 지정해 균일하게 */
+}
 
 
 /* **************메인 이미지 화면************** */
@@ -853,104 +925,6 @@ body {
 }
 
 
-/* ****************필터링(Filtering)페이지 컴포넌트************** */
-/********************************* Filtering Page CSS *********************************/
-
-.filtering-page-container {
-  padding: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 60%; /* 화면 전체에 적용 */
-}
-
-.filtering-page-box {
-  background-color: white; /* 하얀색 배경 */
-  padding: 14px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-  width: 100%;
-  max-width: 400px; /* 최대 너비 제한 */
-  min-height: 450px;
-}
-
-
-.filtering-input-group {
-  margin-bottom: 20px;
-}
-
-.filtering-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-}
-.filtering_line {
-  border: none;
-  border-bottom: 1px solid #ccc; /* 얇은 회색 선 */
-  margin: 20px 0; /* 위아래 간격 */
-}
-
-.filtering-input {
-  width: 92%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.filtering-time-section, .filtering-time-range {
-  margin-bottom: 20px;
-}
-
-.filtering-section-title {
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-
-.filtering-time-buttons, .filtering-order-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.filtering-time-buttons button, .filtering-order-buttons button {
-  flex: 1; /* 버튼을 동일한 비율로 배치 */
-  padding: 10px 20px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  background-color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 0 5px; /* 버튼 간 간격을 추가 */
-  width: 100%; /* 버튼의 너비를 100%로 설정 */
-}
-
-.filtering-time-buttons button.filtering-active, .filtering-order-buttons button.filtering-active {
-  background-color: #FFDA38;
-  color: black;
-}
-
-.filtering-time-inputs {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.filtering-time-divider {
-  margin: 0 10px;
-}
-
-.filtering-search-button {
-  width: 100%;
-  padding: 15px;
-  font-size: 18px;
-  background-color: black;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 20px;
-}
 
 /* ******************설정(Setting) 페이지 컴포넌트*************** */
 .setting-page-container-unique {
@@ -1452,7 +1426,7 @@ input:checked + .slider-unique:before {
   bottom: 0px;
   left: 0px;
   width: 100%;
-  height: 80px; /* 관리자용 버튼바와 동일한 높이 */
+  height: 8%; /* 관리자용 버튼바와 동일한 높이 */
   z-index: 20;
 }
 
@@ -1556,6 +1530,17 @@ input:checked + .slider-unique:before {
   padding: 10px;
   border-radius: 5px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+.save-button {
+  width: 40px;
+  height: 30px;
+  margin-left: 8px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
 }
 
 

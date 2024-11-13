@@ -30,8 +30,10 @@ const M_calender = () => {
       });
   }, []);
 
+  
 
-  // 조회하기 버튼 클릭 시 실행되는 함수
+
+  // 기간 조회 버튼 클릭 시 실행되는 함수
   const handleSearch = async () => {
     if (!startDate || !endDate) {
       alert("시작 기간과 종료 기간을 선택해 주세요.");
@@ -44,17 +46,8 @@ const M_calender = () => {
     }
 
     try {
-      // API 호출
-      const response = await fetch(`http://localhost:4000/violation/filtering_dateRange?startDate=${startDate.toISOString().split("T")[0]}&endDate=${endDate.toISOString().split("T")[0]}`);
-      const data = await response.json();
-
-      if (response.ok) {
-        console.log("기간 조회 데이터:", data); // 확인용 로그
-        // 데이터를 필터링 페이지로 전달하면서 mode=period 파라미터 추가
-        navigate(`/filtering?start=${startDate.toISOString().split("T")[0]}&end=${endDate.toISOString().split("T")[0]}&mode=period`);
-      } else {
-        alert(data.error || '데이터 조회 중 문제가 발생했습니다.');
-      }
+      // API 호출 - 필터링 페이지로 이동하면서 파라미터 전달
+      navigate(`/filtering?start=${startDate.toISOString().split("T")[0]}&end=${endDate.toISOString().split("T")[0]}&mode=period`);
     } catch (error) {
       console.error('API 호출 중 오류:', error);
       alert('API 호출 중 오류가 발생했습니다.');
