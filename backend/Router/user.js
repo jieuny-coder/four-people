@@ -7,7 +7,7 @@ router.post('/join', (req, res) => {
     console.log('회원가입 요청');
     console.log('요청데이터 출력:', req.body);
 
-    const { id, pw, name, phone, email, carNumber, adminCode } = req.body; // id와 pw 사용
+    const { id, pw, name, phone, email, carNumber, admin_auth_code } = req.body; // id와 pw 사용
     const username = id;
     const password = pw; // 여기에 추가
 
