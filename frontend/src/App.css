@@ -113,9 +113,9 @@ body {
 .login_tabs button {
   flex: 1;
   padding: 10px;
-  border: 1px solid #ccc;
   font-size: 1rem;
   cursor: pointer;
+  border: 1px solid #ccc;
   transition: background-color 0.3s ease, color 0.3s ease;
   border-radius: 10px;
   border: none;
@@ -124,10 +124,10 @@ body {
 /* 사용자 버튼 (왼쪽 버튼) */
 .login_tabs button:first-child {
   flex: 1;
-  padding: 10px;
-  background-color: #ffffff;  /* 비활성화된 버튼의 배경은 흰색 */
+  padding: 14px;
+  background-color: #B4B3B3;  /* 비활성화된 버튼의 배경은 흰색 */
   border: none;  /* 개별 경계선 제거 */
-  color: black;
+  color: #454242;
   font-size: 1rem;
   cursor: pointer;
   border-radius: 10px 0 0 0;  /* 왼쪽 상단만 둥글게 */
@@ -137,10 +137,10 @@ body {
 /* 관리자 버튼 (오른쪽 버튼) */
 .login_tabs button:last-child {
   flex: 1;
-  padding: 10px;
-  background-color: black;  /* 비활성화된 버튼의 배경은 검정색 */
+  padding: 14px;
+  background-color: #B4B3B3;  /* 비활성화된 버튼의 배경은 검정색 */
   border: none;  /* 개별 경계선 제거 */
-  color: white;
+  color: #454242;
   font-size: 1rem;
   cursor: pointer;
   border-radius: 0 10px 0 0;  /* 오른쪽 상단만 둥글게 */
@@ -150,12 +150,12 @@ body {
 /* 활성화된 탭 */
 .login_tabs button.active {
   background-color: white;
-  color: black;
+  color: #454242;
 }
 
 .login_tabs button:not(.active) {
-  background-color: black;
-  color: white;
+  background-color: #B4B3B3;
+  color: #454242;
 }
 
 /* 로그인 폼 */
@@ -175,21 +175,45 @@ body {
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 1rem;
-  background-color: rgba(255, 255, 255, 0.9);  /* 입력 필드 배경을 더 밝게 */
+  background-color:rgba(255, 255, 255, 0.9);  /* 입력 필드 배경을 더 밝게 */
+}
+/* 플레이스홀더 스타일 */
+.login_form input::placeholder {
+  color: #8F8E8E;
 }
 
 /* 로그인 버튼 */
 .login_button {
   width: 100%;
   padding: 12px;
-  background-color: black;
+  background-color: #454242;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 1rem;
   margin-top: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+/* 로그인 버튼 활성화 상태 */
+/* .login_button.active {
+  background-color: #FFDA38;
+  color: #434551;
+} */
+/* 로그인 버튼 활성화 상태 */
+.login_button.filled {
+  background-color: #FFDA38;
+  color: #121316;
+  font-weight: bold;
+}
+
+/* 로그인 버튼 비활성화 상태 */
+.login_button:disabled {
+  cursor: not-allowed;
+  background-color: #454242;
+  color: white;
+}
+
 
 /* 로그인 옵션 (아이디/비밀번호 찾기, 회원가입) */
 .login_options {
@@ -202,7 +226,7 @@ body {
 .login_options button {
   background: none;
   border: none;
-  color: black;  /* 검정색 텍스트 */
+  color: #454242;  
   font-size: 0.9rem;
   cursor: pointer;
   text-decoration: underline;
@@ -210,7 +234,7 @@ body {
 }
 
 .login_options button:hover {
-  color: black;  /* 호버 상태에서도 검정색 유지 */
+  color: #454242; 
 }
 
 /* 수평선 스타일 */
@@ -225,7 +249,7 @@ body {
 .header_custom_container {
   width: 100%;
   justify-content: flex-start; /* 왼쪽 정렬 (화살표와 제목 왼쪽으로 시작) */
-  height: 100px;
+  height: 15%;
   background-color: #FFDA38;
   display: flex;
   align-items: center;
@@ -283,13 +307,15 @@ body {
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 90%; /* 너비를 조정하여 중앙 정렬 */
-  margin: 0 auto;
+  /* margin: 0 auto; */
+  margin-top: -2px;
+  padding-top: 20px;
   overflow-x: auto; /* 가로 스크롤 가능 */
   min-height: 300px; /* 최소 높이 설정 */
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 70%;
+  height: 80%;
 }
 .download_preview {
   width: 100%;
@@ -374,7 +400,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 60%; /* 화면 전체에 적용 */
+  height: 70%; /* 화면 전체에 적용 */
 }
 
 .filtering-page-box {
@@ -387,7 +413,15 @@ body {
   min-height: 450px;
 }
 
+/* 라벨 및 타이틀 텍스트 스타일 */
+.filtering-label,
+.filtering-section-title {
+  color: #454242; /* 텍스트 컬러 변경 */
+  font-size: 14px;
+  font-weight: bold;
+}
 
+/* 차량번호 입력 */
 .filtering-input-group {
   margin-bottom: 20px;
 }
@@ -395,59 +429,73 @@ body {
 .filtering-label {
   display: block;
   margin-bottom: 8px;
-  font-weight: bold;
-}
-.filtering_line {
-  border: none;
-  border-bottom: 1px solid #ccc; /* 얇은 회색 선 */
-  margin: 20px 0; /* 위아래 간격 */
 }
 
 .filtering-input {
-  width: 92%;
+  width: 82%;
   padding: 12px;
-  border: 1px solid #ccc;
+  border: 1px solid #8F8E8E; /* 테두리 색상 변경 */
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 14px; /* 텍스트 사이즈 */
+  color: #201C1C; /* 입력된 텍스트 색상 */
 }
 
-.filtering-time-section, .filtering-time-range {
+/* 포커스 시 테두리 색상 변경 */
+.filtering-input:focus {
+  border-color: #FFDA38; /* 활성화된 상태의 테두리 색상 */
+  outline: none; /* 기본 포커스 아웃라인 제거 */
+}
+
+/* 플레이스홀더 스타일 */
+.filtering-input::placeholder {
+  color: #8F8E8E; /* 플레이스홀더 텍스트 색상 */
+}
+
+/* 구분선 */
+.filtering_line {
+  border: none;
+  border-bottom: 1px solid #8F8E8E; /* 얇은 회색 선 */
+  margin: 20px 0; /* 위아래 간격 */
+}
+
+/* 조회시간 및 정렬 버튼 */
+.filtering-time-section,
+.filtering-time-range {
   margin-bottom: 20px;
 }
 
-.filtering-section-title {
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-
-.filtering-time-buttons, .filtering-order-buttons {
+.filtering-time-buttons,
+.filtering-order-buttons {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
 }
 
-.filtering-time-buttons button, .filtering-order-buttons button {
+.filtering-time-buttons button,
+.filtering-order-buttons button {
   flex: 1; /* 버튼을 동일한 비율로 배치 */
   padding: 10px 20px;
   font-size: 16px;
-  border: 1px solid #ccc;
+  border: 1px solid #8F8E8E; /* 버튼 테두리 색상 변경 */
   background-color: white;
   border-radius: 5px;
   cursor: pointer;
+  color: #8F8E8E; /* 버튼 텍스트 색상 변경 */
   margin: 0 5px; /* 버튼 간 간격을 추가 */
-  width: 100%; /* 버튼의 너비를 100%로 설정 */
 }
 
-.filtering-time-buttons button.filtering-active, .filtering-order-buttons button.filtering-active {
+.filtering-time-buttons button.filtering-active,
+.filtering-order-buttons button.filtering-active {
   background-color: #FFDA38;
   color: black;
 }
 
-.filtering-time-buttons button:disabled, .filtering-order-buttons button:disabled {
+.filtering-time-buttons button:disabled,
+.filtering-order-buttons button:disabled {
   cursor: not-allowed; /* 비활성화된 상태에서 기본 커서로 표시 */
 }
 
-
+/* 시간 입력 */
 .filtering-time-inputs {
   display: flex;
   justify-content: space-between;
@@ -456,37 +504,75 @@ body {
 
 .filtering-time-divider {
   margin: 0 10px;
+  font-weight: bold;
 }
 
+.filtering-time-inputs .react-datepicker__input-container input,
+.filtering-input {
+  color: #201C1C; /* 입력된 텍스트 색상 */
+  border: 1px solid #8F8E8E; /* 입력 필드 테두리 색상 */
+}
+
+.filtering-time-inputs select {
+  color: #8F8E8E; /* 텍스트 색상 변경 */
+}
+
+/* .custom-datepicker에 스타일을 적용 */
+.custom-datepicker .react-datepicker__time-container {
+  width: 100% !important;
+  border: none;
+  background-color: #FFDA38;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.custom-time-list .react-datepicker__time-list-item {
+  color: #201C1C;
+  font-size: 14px;
+  padding: 8px 10px;
+  text-align: center;
+}
+
+.custom-time-list .react-datepicker__time-list-item--selected {
+  background-color: #E3E3E3;
+  color: #201C1C;
+  font-weight: bold;
+}
+
+.custom-time-list .react-datepicker__time-list-item:hover {
+  background-color: #D6D6D6;
+}
+
+
+/* 시간 선택 드롭다운 리스트의 폭을 슬라이드박스와 동일하게 설정 */
+.custom-time-list .react-datepicker__time-list {
+  width: 100% !important; /* 슬라이드박스와 동일한 너비로 설정 */
+}
+
+.custom-time-list .react-datepicker__time-container {
+  width: 100% !important; /* 슬라이드박스와 동일한 너비로 설정 */
+  background-color: #FFDA38;
+  border: none;
+  box-shadow: none;
+}
+
+
+
+/* 조회하기 버튼 */
 .filtering-search-button {
   width: 100%;
   padding: 15px;
   font-size: 18px;
-  background-color: black;
-  color: white;
+  background-color: #FFDA38; /* 버튼 배경색 변경 */
+  color: #201C1C; /* 버튼 텍스트 색상 */
   border: none;
   border-radius: 5px;
   cursor: pointer;
   margin-top: 20px;
 }
-.react-datepicker-wrapper,
-.react-datepicker__input-container {
-  width: 70%;
-}
 
-.filtering-time-inputs .react-datepicker__input-container input {
-  width: 88%;
-  padding: 8px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  text-align: center;
-}
 
-.filtering-time-divider {
-  margin: 0 10px;
-  font-weight: bold;
-}
+
 
 
 
@@ -495,31 +581,30 @@ body {
 .m_calender-container-unique {
   background-color: white;
   padding: 14px;
-  /* border-radius: 10px; */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-  /* max-width: 400px; */
-  /* margin: 0 auto; */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-top: -1px;
   display: flex;
-  flex-direction: column; /* 세로 정렬로 변경 */
-  justify-content: flex-start; /* 상단에 위치하도록 */
-  align-items: center; /* 수평 중앙 정렬 */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: 75%;
 }
 .m_calender-time-select-unique {
   text-align: center;
   margin-top: 0;
-  width: 100%; /* 너비를 100%로 설정 */
-  max-width: 400px; /* 원하는 최대 너비 */
-  padding: 10px; /* 내부 여백 추가 */
-  box-sizing: border-box; /* 패딩 포함하여 너비 조절 */
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  box-sizing: border-box;
 }
 .m_calender-label-unique {
-  font-weight: bold;
+  color: #454242;
+  font-size: 14px;
+  font-weight: normal;
   margin-bottom: 10px;
-  text-align: left; /* 텍스트 왼쪽 정렬 */
-  width: 100%; /* 텍스트가 차지하는 영역의 너비를 100%로 */
-  padding-left: 10px; /* 원하는 만큼 왼쪽에 여백 추가 */
+  text-align: left;
+  width: 100%;
+  padding-left: 10px;
 }
 .m_calender-time-inputs-unique {
   display: flex;
@@ -528,28 +613,31 @@ body {
   margin-bottom: 20px;
 }
 .m_calender-input-unique {
-  width: 45%; /* 두 입력 필드의 너비 조정 */
+  width: 45%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #8f8e8e;
   border-radius: 5px;
-  margin: 0 5px; /* 입력 필드 사이 간격 조정 */
+  margin: 0 5px;
+  color: #8f8e8e;
 }
+
 .m_calender-time-divider-unique {
   font-size: 24px;
   color: #333;
 }
 .m_calender-search-button-unique {
   padding: 12px 30px;
-  background-color: black;
-  color: white;
+  background-color: #FFDA38;
+  color: #201C1C;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
-  width: 100%; /* 버튼 너비를 전체로 설정 */
-  max-width: 400px; /* 원하는 최대 너비 제한 */
-  margin: 0 auto; /* 중앙에 위치 */
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
 }
+
 /* 달력 자체 */
 .m_calender-unique {
   width: 100%;
@@ -564,21 +652,21 @@ body {
 .m_calender-tile-unique {
   text-align: center;
   padding: 10px;
-  border-radius: 50%; /* 원형 날짜 */
+  border-radius: 50%;
   transition: background-color 0.2s ease;
 }
 
 /* 타일 마우스 오버 시 */
 .m_calender-tile-unique:hover {
-  background-color: #f0f0f0; /* 타일에 마우스 오버 시 배경색 */
+  background-color: #f0f0f0;
 }
 
 /* 선택된 날짜 */
 .m_calender-tile-active-unique {
-  background-color: #4caf50; /* 원하는 색상으로 변경 가능 */
+  background-color: #4caf50;
   color: white;
-  border-radius: 60%; /* 완전히 둥글게 */
-  padding: 10px; /* 크기를 조정할 수 있는 padding 값 */
+  border-radius: 60%;
+  padding: 10px;
   width: 40px;
   height: 40px;
   display: flex;
@@ -588,15 +676,17 @@ body {
 
 /* 주말 날짜 (토, 일) */
 .m_calender-weekend-unique {
-  color: red; /* 주말의 날짜 색상 */
+  color: red;
 }
 
 /* 오늘 날짜 */
 .m_calender-today-unique {
-  background-color: #ff5722; /* 오늘 날짜 강조 */
+  background-color: #ff5722;
   color: white;
-  border-radius: 60%; /* 원형 효과 */
+  border-radius: 60%;
 }
+
+
 /* 달력화면에서 기간 조회 드롭박스 버튼 CSS */
 /* 드롭다운 전체 영역 스타일 */
 .time-dropdown-container {
@@ -622,24 +712,6 @@ body {
   font-weight: bold;
 }
 
-/* 오전/오후 버튼 스타일 */
-.time-dropdown-container .ampm-toggle {
-  background-color: #f8f8f8; /* 배경색 */
-  font-size: 18px;
-  color: #333;
-  border: none;
-  cursor: pointer;
-  padding: 8px 0;
-  width: 100%; /* 너비를 꽉 채움 */
-  text-align: center;
-}
-
-/* 선택된 AM/PM 강조 스타일 */
-.time-dropdown-container .ampm-toggle.selected {
-  background-color: #e0e0e0;
-  color: #000;
-  font-weight: bold;
-}
 
 /* 스크롤바 스타일 */
 .time-dropdown-container .scrollable {
@@ -665,6 +737,10 @@ body {
  ***********************************/
 
  .m_detail-container-unique {
+  position: absolute;
+  top: 57%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   padding: 20px;
   background-color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -782,7 +858,7 @@ body {
 }
 
 .filter-table td {
-  padding: 8px;
+  padding: 14px;
   border: 1px solid #ccc; /* 셀 경계선 설정 */
   text-align: left; /* 텍스트 왼쪽 정렬 */
   font-size: 12px; /* 글씨 크기 조정 */
@@ -805,8 +881,8 @@ body {
   padding: 10px;
   font-size: 16px;
   text-align: center;
-  background-color: black;
-  color: white;
+  background-color: #FFDA38;
+  color: #201C1C;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -984,7 +1060,7 @@ body {
 
 .section-divider-unique {
   border: none;
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid #201C1C;
   margin: 0 0;
 }
 
@@ -1081,11 +1157,18 @@ input:checked + .slider-unique:before {
   width: 100%; /* 부모 요소의 전체 너비 */
 }
 
+/* 다크 모드일 때 로그아웃 버튼 스타일 */
+.dark-mode .logout-button {
+  background-color: white; /* 배경색 흰색 */
+  color: #201C1C; /* 텍스트 색상 검정 */
+}
+
+
 .logout-button {
   display: block; /* 버튼이 블록 레벨 요소로 나열되도록 설정 */
   width: 20%; /* 버튼 너비 */
   padding: 8px 12px; /* 내부 여백 */
-  background-color: black; /* 배경색 */
+  background-color: #201C1C; /* 배경색 */
   color: white; /* 텍스트 색상 */
   border: none; /* 테두리 제거 */
   border-radius: 5px; /* 둥근 모서리 */
@@ -1106,6 +1189,7 @@ input:checked + .slider-unique:before {
 .violations-list-container {
   background-color: white; /* 흰색 배경 */
   padding: 4px;
+  padding-top: 14px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
   width: 98%; /* 너비를 조정해서 가운데 정렬 */
   overflow-x: auto; /* 가로 스크롤 가능 */
@@ -1181,7 +1265,7 @@ input:checked + .slider-unique:before {
   padding: 0 10px;
 }
 .to_download{
-  background-color: black;
+  background-color: #201C1C;
   color: white;
   padding: 12px 30px;
   border: none;
@@ -1202,6 +1286,8 @@ input:checked + .slider-unique:before {
   padding: 20px;
   max-width: 400px;
   margin: 0 auto;
+  justify-content: center;
+  height: 70%;
 }
 
 /* 라벨 스타일 */
@@ -1282,53 +1368,57 @@ input:checked + .slider-unique:before {
   padding: 20px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 20px; /* 요소 간의 간격 조정 */
   max-width: 400px;
-  margin: 0 auto;
-  min-height: 80%;
+  margin: 20px auto; /* 상단에 마진 추가하여 컨테이너를 위로 이동 */
+  min-height: 70%; /* 전체 높이 줄이기 */
   box-sizing: border-box; /* 패딩 포함 높이 계산 */
+  justify-content: flex-start;
 }
 
 /* 상단 사용자 정보 박스 */
 .user_info_box {
   display: flex;
-  align-items: center; /* 가로 정렬 */
-  justify-content: center;
-  gap: 15px; /* 내부 요소 간격 */
+  align-items: center; /* 수평 정렬 */
+  gap: 15px; /* 이미지와 텍스트 사이 간격 */
   padding: 20px;
+  margin-top: 10%;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 90%;
   max-width: 400px;
-  min-height: 120px; /* 동일한 높이 설정 */
-  justify-content: space-evenly;
+  min-height: 120px;
+  justify-content: center; /* 이미지와 텍스트 간격을 적절히 분배 */
 }
 
 .user_info {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-weight: bold;
-  font-size: 14px;
-  color: #333;
+  color: #454242; /* 텍스트 컬러 변경 */
   margin: 10px;
 }
 .user_info p {
-  margin: 2px 0; /* 상하 여백을 줄이기 위해 margin-top과 margin-bottom을 줄임 */
-}
-.user_info p:first-of-type {
-  margin-bottom: 0px; /* 첫 번째 텍스트와 두 번째 텍스트 사이의 간격을 더 줄이기 위해 설정 */
-}
-.user_info p:last-of-type {
-  margin-top: 5px; /* 마지막 요소 위쪽 여백 제거 */
+  margin: 0; /* 텍스트 간격을 최소화 */
 }
 
+.user_info p:first-of-type {
+  font-size: 14px; /* "이름 :" 텍스트 사이즈 */
+  font-weight: normal; /* "이름 :" 텍스트 Regular */
+}
+
+.user_info p:last-of-type {
+  font-size: 16px; 
+  font-weight: normal; 
+  color: #454242; 
+}
 
 .photo {
   flex-shrink: 0;
-  width: 100px;
-  height: 100px;
+  width: 90px; /* width를 살짝 줄임 */
+  height: 90px; /* height도 줄임 */
   background-color: #ccc;
   border-radius: 50%;
   display: flex;
@@ -1339,17 +1429,74 @@ input:checked + .slider-unique:before {
   overflow: hidden;
 }
 
+/* 카드 컨테이너 추가 */
+.card_container {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+  justify-content: center;
+  height: 180px; /* 높이를 약간 늘려서 카드가 커보이도록 조정 */
+}
+
+/* 카드 스타일 추가 */
+.parking_card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 45%;
+  height: 150%;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.parking_card:nth-child(1) {
+  background-color: #BCD5FC; /* 나의 주차장 카드 배경색 */
+}
+
+.parking_card:nth-child(2) {
+  background-color: #FFF0AF; /* 주차장 조회하기 카드 배경색 */
+}
+
+/* 카드 호버 효과 추가 */
+.parking_card:hover {
+  transform: translateY(-5px);
+}
+
+.p_icon,
+.parking_icon {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+/* 카드 내 텍스트 스타일 수정 */
+.card_text {
+  font-size: 16px;
+  font-weight: bold;
+  color: #454242; /* 텍스트 색상 변경 */
+}
+
 /* 회원정보 수정 버튼 */
 .members_edit_btn {
   margin-top: 10px;
   padding: 8px 16px;
-  background-color: black;
-  color: #ffffff;
+  background-color: #454242; /* 버튼 컬러 변경 */
+  color: #ffffff; /* 폰트 컬러 유지 */
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 12px; /* 폰트 사이즈 변경 */
+  height: 24px; /* 버튼 높이 설정 */
+  display: flex; /* 중앙 정렬을 위한 플렉스박스 설정 */
+  align-items: center; /* 수직 중앙 정렬 */
+  justify-content: center; /* 수평 중앙 정렬 */
+  text-align: center; /* 텍스트 가운데 정렬 */
 }
+
 .update-message {
   color: white;
   font-weight: bold;
@@ -1377,7 +1524,6 @@ input:checked + .slider-unique:before {
   border: none;
   color: #333;
   cursor: pointer;
-  margin-right: -20px; /* 아이콘과 더 겹치도록 간격 조정 */
   z-index: 1; /* 텍스트를 아이콘 위로 배치 */
 }
 
@@ -1416,6 +1562,10 @@ input:checked + .slider-unique:before {
   width: 120px;
   height: 120px;
 }
+
+
+
+
 /* ************* 사용자용 버튼하단바 CSS  *************/
 .bottom-bar {
   position: fixed;
@@ -1461,9 +1611,10 @@ input:checked + .slider-unique:before {
 /* ParkingSearch 페이지 컴포넌트 */
 .parking-container {
   max-width: 390px;
-  margin: 0 auto;
+  margin-top: -2px;
   background-color: #f9f9f9;
   padding: 20px;
+  padding-top: 14px;
   padding-bottom: 80px; /* 하단에 여유 공간 추가 */
   min-height: 600px; /* 높이를 늘리고자 하는 최소 높이 설정 */
 }
@@ -1561,12 +1712,14 @@ input:checked + .slider-unique:before {
 .parking_list_container {
   padding: 10px;
   background-color: white;
+  margin-top: -2px;
   width: 100%;
   height: 80%;
   max-width: 380px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
 }
 
 /* 주차장 헤더 */
@@ -1577,7 +1730,7 @@ input:checked + .slider-unique:before {
   width: 100%;
   padding: 10px;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 14px;
   text-align: center;
   box-sizing: border-box;
   border-bottom: 2px solid #ddd;
@@ -1608,7 +1761,7 @@ input:checked + .slider-unique:before {
 .parking_item_number {
   flex: 1;
   text-align: center;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 /* 주소 텍스트에 마우스 호버 효과 */
@@ -1635,6 +1788,7 @@ input:checked + .slider-unique:before {
   text-align: left;
   padding-left: 10px;
   cursor: pointer;
+  font-size: 12px;
 }
 
 /* 즐겨찾기 아이콘 */
@@ -1785,8 +1939,9 @@ input:checked + .slider-unique:before {
 /********** Handicap_car(등록차량 관리 페이지 컴포넌트 ) CSS **********/
 .handicap_car_container {
   padding: 20px;
+  padding-top: 14px;
   background-color: #f9f9f9;
-  height: 100vh;
+  height: 80%;
 }
 
 .handicap_car_content {
@@ -1811,7 +1966,7 @@ input:checked + .slider-unique:before {
 
 .search_section .search_button {
   padding: 10px 20px;
-  background-color: #000;
+  background-color: #201C1C;
   color: white;
   border: none;
   border-radius: 5px;
@@ -1874,7 +2029,7 @@ input:checked + .slider-unique:before {
 }
 /* Handicap_car 등록/해제 버튼 스타일 */
 .car_list_table button {
-  background-color: black;
+  background-color: #201C1C;
   color: white;
   border: none;
   border-radius: 5px;

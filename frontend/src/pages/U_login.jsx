@@ -11,6 +11,7 @@ const U_login = ({ setIsAdmin }) => {
         id: '',
         pw: ''
     });
+    const [isInputFilled, setIsInputFilled] = useState(false);
 
     const handleChange = (e) => {
         const { id, value } = e.target;
@@ -19,17 +20,18 @@ const U_login = ({ setIsAdmin }) => {
             [id]: value
         });
     };
+    // 입력 필드 상태 확인
+    useEffect(() => {
+        setIsInputFilled(loginData.id !== '' && loginData.pw !== '');
+    }, [loginData]);
 
     // 사용자와 관리자 탭 전환 핸들링
     const handleTabSwitch = (type) => {
-        console.log(`${type} 버튼이 클릭되었습니다.`);
         setIsUser(type === 'user');
     };
 
     // 로그인 클릭 시 처리
     const handleLoginClick = async () => {
-        console.log('로그인 버튼이 클릭되었습니다.');
-        console.log('전송할 데이터:', loginData);  // 디버깅 추가
 
         const endpoint = isUser
             ? 'http://localhost:4000/user/login'  // 사용자 로그인 엔드포인트
@@ -113,7 +115,12 @@ const U_login = ({ setIsAdmin }) => {
                         onChange={handleChange}
                         placeholder={isUser ? "비밀번호를 입력하세요." : "관리자 비밀번호를 입력하세요."}
                     />
-                    <button className="login_button" onClick={handleLoginClick}>로그인</button>
+                    <button 
+                            className={`login_button ${isInputFilled ? 'filled' : ''}`} 
+                            onClick={handleLoginClick}
+                            disabled={!isInputFilled} // 입력이 안 되면 클릭 불가
+                        >로그인</button>
+
                     <div className="login_options">
                         <button className="find_credentials_button">아이디/비밀번호 찾기</button>
                         <button className="register_button" onClick={handleRegisterClick}>회원가입</button>

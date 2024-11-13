@@ -53,19 +53,23 @@ export const UserMain = () => {
           <img src='#' alt='프사' />
         </div>
         <div className='user_info'>
-          <p>이름 : {userName}</p>
+          <p>이름 : <span style={{ fontSize: '18px', fontWeight: 'bold' }}>{userName}</span></p>
           <p>번호 : {carNumber}</p>
           <button className='members_edit_btn' onClick={clean}>회원정보수정</button>
         </div>
       </div>
-      <div className='parking_search_box' onClick={goToParkingSearch} style={{ cursor: 'pointer' }}>
-        <button className='parking_search'>주차장 조회하기</button>
-        <img className='p_icon' alt='돋보기' src='/images/P.png' />
+      {/* 카드 컨테이너 추가 */}
+      <div className='card_container'>
+        <div className='parking_card' onClick={goToParkingList}>
+          <img className='parking_icon' alt='주차장' src='/images/parking.png' />
+          <p className='card_text'>나의 주차장</p>
+        </div>
+        <div className='parking_card' onClick={goToParkingSearch}>
+          <img className='p_icon' alt='돋보기' src='/images/P.png' />
+          <p className='card_text'>주차장 조회하기</p>
+        </div>
       </div>
-      <div className='my_parking_list' onClick={goToParkingList} style={{ cursor: 'pointer' }}>
-        <img className='parking_icon' alt='주차장' src='/images/parking.png' />
-        <button className='my_pk_list'>나의 주차장</button>
-      </div>
+      {/* 카드 컨테이너 끝 */}
     </div>
   )
 }

@@ -3,7 +3,6 @@ import './App.css';
 import Header from './components/Header';
 import U_login from './pages/U_login';
 import Join from './pages/Join';
-import BannerBox from './components/BannerBox';
 import Download from './pages/Download';
 import M_btnBar from './components/M_btnBar';
 import Filtering from './pages/Filtering';
@@ -65,12 +64,11 @@ function AppContent() {
         className="mobile_content"
         style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/background.png)` }}
       >
-        {/* Main, Login 페이지를 제외한 모든 페이지에서 Header와 BannerBox 렌더링 */}
+        {/* Main, Login 페이지를 제외한 모든 페이지에서 Header 렌더링 */}
         {location.pathname !== '/' && location.pathname !== '/login' && <Header title={pageTitle} />}
-        {location.pathname !== '/' && location.pathname !== '/login' && <BannerBox />}
 
         <Routes>
-          {/* 사용자/ 관리자 */}
+          {/* 사용자/ 관리자 */ }
           <Route path="/" element={<Main/>} />
           <Route path="/login" element={<U_login setIsAdmin={setIsAdmin} />} />
           <Route path="/join" element={<Join/>} />
@@ -81,7 +79,7 @@ function AppContent() {
           <Route path="/violations" element={<ViolationsList/>} />
           <Route path="/detail" element={<M_detail/>} />
           <Route path='/register-car' element={<Handicap_car/>}/>
-          {/* 사용자 */}
+          {/* 사용자 */ }
           <Route path="/myparking_place" element={<Myparking_place/>} />
           <Route path="/parkinglist" element={<ParkingList/>} />
           <Route path="/parkingSearch" element={<ParkingSearch/>} />
