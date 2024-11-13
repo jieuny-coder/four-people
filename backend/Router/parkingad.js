@@ -4,6 +4,28 @@ const router = express.Router();
 const conn = require('../config/db');  // DB 연결
 const axios = require('axios');
 
+// 데이터 삭제 작업 실행(1분마다 불러온 리스트 삭제 함수)
+setInterval(()=>{
+  const deleteQuery = `
+    DELETE m
+    FROM maplist m
+    JOIN (
+      SELECT time
+      FROM maplist
+      ORDER BY time DESC
+      LIMIT 1 OFFSET 1
+    ) subquery
+    ON m.time < subquery.time;
+  `;
+  conn.query(deleteQuery,(err,results)=>{
+    if(err){
+      console.error('데이터 삭제 실패:',err);
+    }else{
+      console.log('자동 데이터 삭제 성공:',results);
+    }
+  })
+},60000);
+
 // 주차장 찾기에서 얻은 위도, 경도 데이터를 DB에 저장하기
 router.post('/parkinglist', (req, res) => {
     const { latitude, longitude } = req.body;

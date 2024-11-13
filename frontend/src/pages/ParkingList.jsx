@@ -67,7 +67,7 @@ const ParkingList = () => {
 const handleParkingClick = (latitude, longitude, address) => {
   console.log(`클릭된 주소: ${address}, 위도: ${latitude}, 경도: ${longitude}`);
   // 쿼리 파라미터로 위도와 경도 전달
-  navigate(`/Myparking_place`);
+  navigate(`/Myparking_place?latitude=${latitude}&longitude=${longitude}`);
 };
 
   return (

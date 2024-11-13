@@ -15,14 +15,22 @@ export const Myparking_place = () => {
 
     // 쿼리 파라미터에서 위도(latitude), 경도(longitude), 주소(address) 값 가져오기
     const queryParams = new URLSearchParams(location.search);
-    const latitude = queryParams.get('latitude') || '35.1465771378372';  // 기본 위도값
-    const longitude = queryParams.get('longitude') || '126.922229981548';  // 기본 경도값
-    const address = queryParams.get('address') || '기본 주소';  // 기본 주소값
+    const latitude = queryParams.get('latitude');  // 위도 값 가져오기
+    const longitude = queryParams.get('longitude');  // 경도 값 가져오기
+    const address = queryParams.get('address');  // 주소 값 가져오기
 
     // 쿼리 파라미터 확인
     useEffect(() => {
         console.log("Latitude:", latitude, "Longitude:", longitude, "Address:", address);
     }, [latitude, longitude, address]);
+
+    useEffect(()=>{
+        if (latitude && longitude && !isNaN(latitude) && !isNaN(longitude)){
+            initializeKakaoRoadview(parseFloat(latitude),parseFloat(longitude)); 
+        }else{
+            console.error('위도와 경도 정보가 유효하지 않습니다.');
+        }
+    },[latitude,longitude]); // 위도와 경도 값이 변경될 때 마다 로드뷰 업데이트
 
     // 랜덤 값을 생성하는 함수
     useEffect(() => {
@@ -83,18 +91,9 @@ export const Myparking_place = () => {
             document.body.appendChild(script); // 스크립트 태그를 문서에 추가하여 로드 시도
         }
     };
-    useEffect(() => {
-        if (latitude && longitude && !isNaN(latitude) && !isNaN(longitude)) {
-            console.log("Latitude:", latitude, "Longitude:", longitude);
-            initializeKakaoRoadview(parseFloat(latitude), parseFloat(longitude));  // 카카오 SDK 로드 시도
-        } else {
-            console.error('위도와 경도 정보가 유효하지 않습니다.');
-        }
-    }, [latitude, longitude]);  // latitude와 longitude 값이 변경될 때마다 로드뷰 업데이트
-
     // 카카오 SDK가 로드되었을 때 로드뷰 초기화
     useEffect(() => {
-        if (kakaoSdkLoaded) {
+        if (kakaoSdkLoaded && latitude && longitude) {
             const roadviewContainer = document.getElementById('roadviewContainer');
             const position = new window.kakao.maps.LatLng(parseFloat(latitude), parseFloat(longitude));
 
