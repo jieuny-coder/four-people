@@ -7,17 +7,20 @@ router.post('/join', (req, res) => {
     console.log('회원가입 요청');
     console.log('요청데이터 출력:', req.body);
 
-    const { id, pw, name, phone, email, carNumber, admin_auth_code } = req.body; // id와 pw 사용
+    const { id, pw, name, phone, email, carNumber, adminCode } = req.body; // id와 pw 사용
     const username = id;
     const password = pw; // 여기에 추가
 
     const userQuery = `INSERT INTO USER (user_id, user_pw, user_email, car_number, user_joined, user_name, user_phone, handicap) VALUES (?, ?, ?, ?, ?, ?, ? ,?)`;
     const adminQuery = `INSERT INTO ADMIN (admin_id, admin_pw, admin_email, admin_joined ,admin_name, admin_phone, admin_auth_code) VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
+
     const query = adminCode ? adminQuery : userQuery;
+
     const params = adminCode
-        ? [id, password, email, new Date(), name, phone]
-        : [id, password, email, carNumber, new Date(), name, phone, 1];
+        ? [id, password, email, new Date(), name, phone, adminCode]  // 관리자일 경우 adminCode를 포함
+        : [id, password, email, carNumber, new Date(), name, phone, 1]; // 일반 사용자는 adminCode가 필요 없으므로 1로 설정
+
 
     conn.query(query, params, (err, results) => {
         if (err) {
