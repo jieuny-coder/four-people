@@ -469,6 +469,24 @@ body {
   cursor: pointer;
   margin-top: 20px;
 }
+.react-datepicker-wrapper,
+.react-datepicker__input-container {
+  width: 70%;
+}
+
+.filtering-time-inputs .react-datepicker__input-container input {
+  width: 88%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.filtering-time-divider {
+  margin: 0 10px;
+  font-weight: bold;
+}
 
 
 
@@ -687,7 +705,7 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%; 
   box-sizing: border-box;
-  max-height: 100px; /* 스크롤 높이 */
+  max-height: 175px; /* 스크롤 높이 */
   overflow-y: auto; /* 세로 스크롤 활성화 */
 
   /* Firefox - 기본 상태에서 스크롤바 숨기기 */
@@ -779,7 +797,7 @@ body {
   display: flex;
   /* justify-content: space-between; */
   gap: 10px; /* 버튼 간격 */
-  margin-top: 65px; /* 여백 */
+  margin-top: 25px; /* 여백 */
 }
 
 .m_detail-download-button {
@@ -907,104 +925,6 @@ body {
 }
 
 
-/* ****************필터링(Filtering)페이지 컴포넌트************** */
-/********************************* Filtering Page CSS *********************************/
-
-.filtering-page-container {
-  padding: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 60%; /* 화면 전체에 적용 */
-}
-
-.filtering-page-box {
-  background-color: white; /* 하얀색 배경 */
-  padding: 14px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-  width: 100%;
-  max-width: 400px; /* 최대 너비 제한 */
-  min-height: 450px;
-}
-
-
-.filtering-input-group {
-  margin-bottom: 20px;
-}
-
-.filtering-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-}
-.filtering_line {
-  border: none;
-  border-bottom: 1px solid #ccc; /* 얇은 회색 선 */
-  margin: 20px 0; /* 위아래 간격 */
-}
-
-.filtering-input {
-  width: 92%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.filtering-time-section, .filtering-time-range {
-  margin-bottom: 20px;
-}
-
-.filtering-section-title {
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-
-.filtering-time-buttons, .filtering-order-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.filtering-time-buttons button, .filtering-order-buttons button {
-  flex: 1; /* 버튼을 동일한 비율로 배치 */
-  padding: 10px 20px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  background-color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 0 5px; /* 버튼 간 간격을 추가 */
-  width: 100%; /* 버튼의 너비를 100%로 설정 */
-}
-
-.filtering-time-buttons button.filtering-active, .filtering-order-buttons button.filtering-active {
-  background-color: #FFDA38;
-  color: black;
-}
-
-.filtering-time-inputs {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.filtering-time-divider {
-  margin: 0 10px;
-}
-
-.filtering-search-button {
-  width: 100%;
-  padding: 15px;
-  font-size: 18px;
-  background-color: black;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 20px;
-}
 
 /* ******************설정(Setting) 페이지 컴포넌트*************** */
 .setting-page-container-unique {

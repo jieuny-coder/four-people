@@ -1,7 +1,7 @@
 // PDF_form.js
 import React from 'react';
 import { Document, Page, Text, View, StyleSheet, Font } from '@react-pdf/renderer';
-import NotoSansKR from '../fonts/NotoSansKR-Regular.ttf'; // 한글 폰트 파일 경로
+import NotoSansKR from '../fonts/NotoSansKR-Regular.ttf';
 
 // 폰트 등록
 Font.register({
@@ -17,6 +17,31 @@ const formatDate = (isoString) => {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
+  });
+};
+
+// 날짜와 시간 포맷 함수
+const formatDateTime = (isoString) => {
+  if (!isoString) return '날짜 없음';
+  const date = new Date(isoString);
+  return date.toLocaleString('ko-KR', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  });
+};
+
+// 시간 포맷 함수
+const formatTime = (timeString) => {
+  if (!timeString) return '시간 없음';
+  const time = new Date(timeString);
+  return time.toLocaleTimeString('ko-KR', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
   });
 };
 
@@ -41,7 +66,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   tableCol: {
-    width: '20%',
+    width: '25%',
     borderStyle: 'solid',
     borderWidth: 1,
     borderColor: '#000',
@@ -53,10 +78,8 @@ const styles = StyleSheet.create({
 });
 
 const PDF_form = ({ data }) => {
-  // 로그 추가: PDF_form에 전달된 data를 확인
-  console.log('PDF_form에 전달된 data:', data);
+  console.log('PDF_form에 전달된 data 확인용:', data);
 
-  // 예외 처리: 데이터가 비어 있을 경우
   if (!data || data.length === 0) {
     return (
       <Document>
@@ -74,21 +97,33 @@ const PDF_form = ({ data }) => {
         <Text style={styles.header}>위반 차량 내역</Text>
         <View style={styles.table}>
           <View style={styles.tableRow}>
-            {['날짜', '차량번호', '장소', '주차시간', '이용구역'].map((header, index) => (
+            {['날짜', '차량번호', '장소', '주차시간'].map((header, index) => (
               <View key={index} style={styles.tableCol}>
                 <Text style={styles.tableCell}>{header}</Text>
               </View>
             ))}
           </View>
-          {data.map((item, index) => (
-            <View key={index} style={styles.tableRow}>
-              <View style={styles.tableCol}><Text style={styles.tableCell}>{formatDate(item.violation_date)}</Text></View>
-              <View style={styles.tableCol}><Text style={styles.tableCell}>{item.violation_number}</Text></View>
-              <View style={styles.tableCol}><Text style={styles.tableCell}>{item.violation_location}</Text></View>
-              <View style={styles.tableCol}><Text style={styles.tableCell}>{item.violation_time}</Text></View>
-              <View style={styles.tableCol}><Text style={styles.tableCell}>{item.violation_section}</Text></View>
-            </View>
-          ))}
+          {data.map((item, index) => {
+            // violation_time 값 로그 출력
+            console.log('violation_time:', item.violation_time);
+
+            return (
+              <View key={index} style={styles.tableRow}>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableCell}>{formatDate(item.upload_time)}</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableCell}>{item.violation_number}</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableCell}>{item.violation_location}</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableCell}>{formatTime(item.violation_time)}</Text>
+                </View>
+              </View>
+            );
+          })}
         </View>
       </Page>
     </Document>
