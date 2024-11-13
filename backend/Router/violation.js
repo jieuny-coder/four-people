@@ -96,7 +96,7 @@ router.get('/filtering_dateRange', (req, res) => {
 
 
 
-// 위반데이터 전체 조회하기 
+// 차량 위반데이터 전체 조회하기 
 router.get('/all',(req,res)=>{
     //쿼리문 : violation_date를 기준으로 내림차순 정렬
     const sql = 'SELECT * FROM VIOLATION ORDER BY upload_time DESC';
@@ -111,6 +111,20 @@ router.get('/all',(req,res)=>{
     });
 });
 
+
+// 적재물 위반 데이터 전체조회하기 
+router.get('/obstacle_all', (req, res) => {
+    // 쿼리: 적재물 데이터를 날짜(detected_at) 기준으로 정렬, 같은 날짜일 경우 시간까지 고려
+    const sql = 'SELECT * FROM OBSTACLE_VIOLATION ORDER BY DATE(detected_at) DESC, TIME(detected_at) DESC';
+
+    conn.query(sql, (err, rows) => {
+        if (err) {
+            console.error('적재물 데이터 조회 오류:', err); // 구체적인 오류 메시지 출력
+            return res.status(500).json({ error: '적재물 데이터 조회 중 오류가 발생했습니다.', details: err.message });
+        }
+        res.status(200).json(rows);
+    });
+});
 
 
 

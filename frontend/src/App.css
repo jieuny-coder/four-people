@@ -307,10 +307,7 @@ body {
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 90%; /* 너비를 조정하여 중앙 정렬 */
-  /* margin: 0 auto; */
   margin-top: -2px;
-  padding-top: 20px;
-  overflow-x: auto; /* 가로 스크롤 가능 */
   min-height: 300px; /* 최소 높이 설정 */
   display: flex;
   flex-direction: column;
@@ -319,9 +316,37 @@ body {
 }
 .download_preview {
   width: 100%;
-  padding: 20px;
+  /* padding: 20px; */
   background-color: #f5f5f5;
   transition: filter 0.3s ease; /* 희미해지는 효과 */
+  max-height: 70%; /* 최대 높이 제한 */
+  overflow-y: auto;  /* 높이 초과 시 수직 스크롤 활성화 */
+  border-top: 1px solid #ddd; /* 헤더와 데이터 구분을 위한 선 추가 */
+   /* 기본 상태에서 스크롤바 숨기기 */
+   scrollbar-width: none; /* Firefox */
+   -ms-overflow-style: none; /* IE and Edge */
+}
+.download_preview::-webkit-scrollbar {
+  width: 0; /* Chrome, Safari에서 기본적으로 숨기기 */
+}
+
+/* 마우스를 올렸을 때만 스크롤바 보이기 */
+.download_preview:hover {
+  scrollbar-width: thin; /* Firefox: 얇은 스크롤바 */
+}
+
+.download_preview:hover::-webkit-scrollbar {
+  width: 6px; /* Chrome, Safari: 얇은 스크롤바 */
+  background-color: transparent; /* 스크롤바 트랙 배경 투명 */
+}
+
+.download_preview:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3); /* 스크롤바 손잡이 색상 */
+  border-radius: 3px;
+}
+
+.download_preview:hover::-webkit-scrollbar-track {
+  background-color: transparent;
 }
 
 .download_preview.blur {
@@ -332,6 +357,7 @@ body {
   width: 100%;
   border-collapse: collapse; /* 테이블 테두리 겹침 방지 */
   margin-top: 20px;
+  
 }
 .download_message_overlay {
   position: absolute;
@@ -356,7 +382,7 @@ body {
 }
 .download_button {
   position: fixed; /* 버튼을 화면 하단에 고정 */
-  bottom: 80px; /* 버튼이 하단에 붙어있지만, 하단바와 겹치지 않게 약간 위로 이동 */
+  bottom: 100px; /* 버튼이 하단에 붙어있지만, 하단바와 겹치지 않게 약간 위로 이동 */
   left: 50%; /* 화면 너비의 절반에 위치 */
   transform: translateX(-50%); /* 버튼을 중앙으로 정렬 */
   background-color: black;
@@ -383,8 +409,12 @@ body {
 }
 
 .preview_table th {
+  position: sticky;
+  top: 0;
   background-color: #f0f0f0; /* 컬럼 제목 배경색 */
   font-weight: bold;
+  z-index: 1; /* 데이터가 헤더 위로 보이지 않도록 z-index 설정 */
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); /* 헤더에 그림자 추가 */
 }
 
 .preview_table tr:nth-child(even) {
@@ -490,9 +520,21 @@ body {
   color: black;
 }
 
+/* 시간 및 정렬 버튼 비활성화 상태 스타일 */
 .filtering-time-buttons button:disabled,
 .filtering-order-buttons button:disabled {
-  cursor: not-allowed; /* 비활성화된 상태에서 기본 커서로 표시 */
+  cursor: not-allowed; /* 비활성화된 상태에서 🚫 모양으로 표시 */
+  color: #8f8e8e; /* 비활성화 상태 텍스트 색상 */
+  background-color: #f5f5f5; /* 비활성화 상태 배경색 */
+  border-color: #d0d0d0; /* 비활성화 상태 테두리 색상 */
+}
+
+/* 슬라이드 박스 비활성화 상태 스타일 */
+.filtering-time-inputs .react-datepicker__input-container input[disabled] {
+  cursor: not-allowed; /* 비활성화된 슬라이드 박스에서 🚫 모양으로 표시 */
+  color: #8f8e8e; /* 비활성화 상태 텍스트 색상 */
+  background-color: #f5f5f5; /* 비활성화 상태 배경색 */
+  border-color: #d0d0d0; /* 비활성화 상태 테두리 색상 */
 }
 
 /* 시간 입력 */
@@ -600,7 +642,7 @@ body {
 .m_calender-label-unique {
   color: #454242;
   font-size: 14px;
-  font-weight: normal;
+  font-weight: bold;
   margin-bottom: 10px;
   text-align: left;
   width: 100%;
@@ -619,6 +661,9 @@ body {
   border-radius: 5px;
   margin: 0 5px;
   color: #8f8e8e;
+}
+.m_calender-input-unique:not(:placeholder-shown) {
+  color: #031D01; /* 입력된 값이 있을 때 텍스트 색상 */
 }
 
 .m_calender-time-divider-unique {
@@ -1185,62 +1230,34 @@ input:checked + .slider-unique:before {
 }
 
 
-/************* 위반차량정보 페이지(ViolationsList)*********** */
+/************* 위반차량정보 페이지(ViolationsList) *********** */
 .violations-list-container {
-  background-color: white; /* 흰색 배경 */
+  background-color: white;
   padding: 4px;
   padding-top: 14px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-  width: 98%; /* 너비를 조정해서 가운데 정렬 */
-  overflow-x: auto; /* 가로 스크롤 가능 */
-  margin: 0 auto; /* 가운데 정렬 */
-  min-height: 300px; /* 적절한 최소 높이 설정 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 98%;
+  margin: 0 auto;
+  min-height: 450px;
+  max-height: 35vh;
   display: flex;
-  flex-direction: column; /* 세로 방향으로 콘텐츠 배치 */
+  flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  height:80%;
+  height: 80%;
 }
 
-/* 개별 위반 내역 행 */
-.violation-row {
-  display: flex;
-  flex-wrap: nowrap; /* 행의 셀들이 한 줄에 유지되도록 설정 */
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #ccc; /* 각 행 아래에 경계선 추가 */
-  width: 100%;
-  cursor: pointer; /* 클릭 가능한 상태로 표시 */
-  transition: background-color 0.3s ease; /* 배경색 전환 애니메이션 */
-}
-
-.violation-row:hover {
-  background-color: #f0f0f0; /* 마우스를 올렸을 때 배경색 변화 */
-}
-
-.violation-cell {
-  flex: 1;
-  text-align: center; /* 텍스트 중앙 정렬 */
-  padding: 5px;
-  font-size: 10px;
-  white-space: normal; /* 텍스트가 한줄로 표시하려면 nowrap 바꾸기 */
-  overflow-wrap: break-word; /* 단어가 길 경우 줄바꿈 */
-  overflow: visible; /* 넘치는 텍스트는 숨기려면 hidden */
-  text-overflow: clip; 
-  word-break: break-all; /* 단어가 길 경우에도 줄 바꿈되도록 설정 */
-}
-/* 데이터의 컬럼표시항목  */
+/* 컬럼 제목 */
 .violation-header {
   display: flex;
   justify-content: space-between;
   width: 100%;
   padding: 10px;
   font-weight: bold;
-  box-sizing: border-box;
-  background-color: #f0f0f0; /* 컬럼 제목 배경색 */
-  border-bottom: 2px solid #ccc; /* 아래쪽에 선 추가 */
+  background-color: #f0f0f0;
+  border-bottom: 2px solid #ccc;
 }
+
 .violation-cell-header {
   flex: 1;
   text-align: center;
@@ -1250,20 +1267,81 @@ input:checked + .slider-unique:before {
   padding: 0 10px;
 }
 
+/* 스크롤 가능한 리스트 컨테이너 */
+.violations-list-scroll {
+  width: 100%;
+  flex: 1; /* 공간을 채우도록 설정 */
+  overflow-y: auto; /* 수직 스크롤 활성화 */
+  position: relative; /* 스크롤바 위치 조정용 */
+  max-height: 600px; /* 필요에 따라 조정 */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  
+  /* 스크롤바 숨기기 */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+}
+
+/* Webkit 기반 브라우저 (Chrome, Safari)용 스크롤바 숨기기 */
+.violations-list-scroll::-webkit-scrollbar {
+  width: 0px; /* 스크롤바 너비 */
+  background: transparent; /* 스크롤바 배경 */
+}
+
+/* 마우스를 가져다 댔을 때 스크롤바 보이기 */
+.violations-list-scroll:hover {
+  scrollbar-width: thin; /* Firefox: 얇은 스크롤바 */
+}
+
+.violations-list-scroll:hover::-webkit-scrollbar {
+  width: 8px; /* 스크롤바 너비 */
+}
+
+.violations-list-scroll:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5); /* 스크롤바 색상 */
+  border-radius: 4px;
+}
+
+.violations-list-scroll:hover::-webkit-scrollbar-track {
+  background: transparent; /* 스크롤바 트랙 배경 */
+}
+
+/* 개별 행 스타일 */
 .violation-row {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  align-items: center;
+  padding: 10px 0;
   width: 100%;
-  box-sizing: border-box;
-  border-bottom: 1px solid #ccc; /* 행마다 선 추가 */
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.violation-row:hover {
+  background-color: #f0f0f0;
 }
 
 .violation-cell {
   flex: 1;
   text-align: center;
-  padding: 0 10px;
+  padding: 0 5px;
+  font-size: 12px; /* 글자 크기 조정 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: center; 
+  text-overflow: ellipsis;
+  word-break: break-all;
 }
+/* 날짜 셀의 왼쪽 여백 줄이기 */
+.violation-cell.date-cell {
+  padding-left: 5px; /* 왼쪽 여백을 줄임 */
+  text-align: left; /* 텍스트 왼쪽 정렬 */
+}
+
+
+
+/* 기타 버튼 스타일 등 */
 .to_download{
   background-color: #201C1C;
   color: white;
@@ -1275,6 +1353,102 @@ input:checked + .slider-unique:before {
   width: 100%;
   margin: 0 auto;
 }
+
+/* 위반정보 탭버튼(위반 or 적재물) */
+/* 탭 버튼 공통 스타일 */
+.violation-tab-btn {
+  padding: 8px 16px;
+  margin: 0 5px;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  cursor: pointer;
+  background-color: #fff; /* 기본 배경색 흰색 */
+  color: #666; /* 기본 글자색 회색 */
+  font-weight: normal;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+/* 활성화된 탭 버튼 스타일 */
+.violation-tab-btn.active {
+  background-color: #ffdd57; /* 활성화된 상태에서 배경색을 노란색으로 */
+  color: #333; /* 활성화된 상태에서 글자색을 짙은 회색으로 */
+  font-weight: bold;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* 선택된 버튼에 그림자 추가 */
+}
+
+/**************** 적재물 페이지 컴포넌트  ***************************/
+/* 셀의 비율 설정 (ID:설명:탐지 시간 = 1:2:3) */
+.violation-cell-header.id,
+.violation-cell.id {
+  flex: 1;
+  text-align: center;
+}
+
+.violation-cell-header.description,
+.violation-cell.description {
+  flex: 2;
+  text-align: center;
+}
+
+.violation-cell-header.detected-at,
+.violation-cell.detected-at {
+  flex: 3;
+  text-align: center;
+}
+
+
+/************* ViolationsPage 스타일 *************/
+
+/* 전체 페이지 스타일 */
+.violations-page-container {
+  background-color: #f7f7f7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 탭 버튼 섹션 */
+.violations-page-tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+  background-color: #fff;
+}
+
+/* 콘텐츠 영역 */
+.violations-page-content {
+  padding: 20px;
+  max-height: 35vh;
+}
+
+/* 다운로드 버튼 섹션 */
+.violations-page-download-section {
+  padding: 20px;
+  background-color: #f7f7f7;
+}
+
+/* 다운로드 버튼 컨테이너 */
+.download-button-container {
+  display: flex;
+  justify-content: center;
+}
+
+/* 다운로드 버튼 스타일 */
+.to_download {
+  background-color: #201C1C;
+  color: #fff;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  /* max-width: 200px; */
+  width: 100%;
+}
+
+
 
 /************************** EditProfile 페이지 CSS **************************/
 
@@ -1812,7 +1986,7 @@ input:checked + .slider-unique:before {
   padding: 10px;
   width: 95%;
   max-width: 400px;
-  height: 70%;
+  height: 80%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -2049,3 +2223,6 @@ input:checked + .slider-unique:before {
 .car_list_table button:hover {
   opacity: 0.8;
 }
+
+
+/*************** PDF컴포넌트 양식 ********************/

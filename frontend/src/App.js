@@ -9,7 +9,7 @@ import Filtering from './pages/Filtering';
 import Setting from './pages/Setting';
 import M_calender from './pages/M_calender';
 import Main from './pages/Main';
-import ViolationsList from './pages/ViolationsList';
+import ViolationsPage from './pages/ViolationsPage';
 import M_detail from './pages/M_detail';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import { useState } from 'react';
@@ -38,7 +38,7 @@ function AppContent() {
       case '/setting': return '설정'; 
       case '/download': return '다운로드'; 
       case '/M_calender': return '조회할 기간을 선택하세요.';
-      case '/Violations': return '위반 차량 목록';
+      case '/Violations': return '위반 정보';
       case '/detail': return '세부사항';
       case '/register-car': return '장애인등록차량 관리'; 
       // 사용자모드
@@ -76,7 +76,7 @@ function AppContent() {
           <Route path="/setting" element={<Setting/>} />
           <Route path="/download" element={<Download/>} />
           <Route path="/m_calender" element={<M_calender/>} />
-          <Route path="/violations" element={<ViolationsList/>} />
+          <Route path="/violations" element={<ViolationsPage/>}/>
           <Route path="/detail" element={<M_detail/>} />
           <Route path='/register-car' element={<Handicap_car/>}/>
           {/* 사용자 */ }

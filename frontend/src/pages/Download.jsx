@@ -5,11 +5,11 @@ import PDF_form from '../components/PDF_form';
 
 
 // 날짜 형식을 YYYY-MM-DD로 변환하는 함수
-const formatDate = (isoDate) => {
-  if (!isoDate) {
-    return '날짜 없음'; // null 또는 undefined일 경우 대체 텍스트
+const formatDate = (uploadTime) => {
+  if (!uploadTime || uploadTime === 'default_value') {
+    return '날짜 없음';
   }
-  const date = new Date(isoDate);
+  const date = new Date(uploadTime);
   if (isNaN(date.getTime())) {
     return '유효하지 않은 날짜'; // 날짜 형식이 잘못된 경우
   }
@@ -17,6 +17,21 @@ const formatDate = (isoDate) => {
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
   return `${year}-${month}-${day}`; // YYYY-MM-DD 형식
+};
+
+// 시간을 HH:MM:SS 형식으로 변환하는 함수
+const formatTime = (uploadTime) => {
+  if (!uploadTime || uploadTime === 'default_value') {
+    return '시간 없음';
+  }
+  const date = new Date(uploadTime);
+  if (isNaN(date.getTime())) {
+    return '유효하지 않은 시간';
+  }
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+  return `${hours}:${minutes}:${seconds}`;
 };
 
 
@@ -31,21 +46,42 @@ const Download = () => {
           <table className="preview_table">
             <thead>
               <tr>
-                <th>날짜</th>
-                <th>차량번호</th>
-                <th>장소</th>
-                <th>주차시간</th>
-                <th>이용구역</th>
+                {/* 적재물 데이터인지, 위반차량 데이터인지에 따라 컬럼 표시 */}
+                {previewData[0].description ? (
+                  <>
+                    <th>ID</th>
+                    <th>설명</th>
+                    <th>탐지 시간</th>
+                  </>
+                ) : (
+                  <>
+                    <th>날짜</th>
+                    <th>차량번호</th>
+                    <th>장소</th>
+                    <th>주차시간</th>
+                  </>
+                )}
               </tr>
             </thead>
             <tbody>
               {previewData.map((item, index) => (
                 <tr key={index}>
-                  <td>{formatDate(item.violation_date)}</td>
-                  <td>{item.violation_number}</td>
-                  <td>{item.violation_location}</td>
-                  <td>{item.violation_time}</td>
-                  <td>{item.violation_section}</td>
+                  {item.description ? (
+                    // 적재물 데이터 렌더링
+                    <>
+                      <td>{item.id}</td>
+                      <td>{item.description}</td>
+                      <td>{new Date(item.detected_at).toLocaleString()}</td>
+                    </>
+                  ) : (
+                    // 위반차량 데이터 렌더링
+                    <>
+                      <td>{formatDate(item.upload_time)}</td>
+                      <td>{item.violation_number}</td>
+                      <td>{item.violation_location || '정보 없음'}</td>
+                      <td>{formatTime(item.upload_time)}</td>
+                    </>
+                  )}
                 </tr>
               ))}
             </tbody>

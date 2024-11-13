@@ -4,7 +4,7 @@ import axios from 'axios';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import PDF_form from '../components/PDF_form';
 
-const M_detail = () => {
+const M_detail = ({ setData }) => {
   const location = useLocation();
   const { violation } = location.state || {};
 
@@ -99,6 +99,12 @@ const M_detail = () => {
 
        // 원본 upload_time 필드를 그대로 사용하여 전달
       setViolations(response.data);
+
+      // 상위 컴포넌트로 데이터 전달
+      if (setData) {
+        setData(response.data);
+      }
+
     } catch (error) {
       console.error('위반데이터 패치 실패:', error);
     } finally {
@@ -109,7 +115,7 @@ const M_detail = () => {
     if (violation || carNumber || (startDate && endDate)) {
       fetchData();
     }
-  }, [violation, date, carNumber, startTimeDisplay, endTimeDisplay, startDate, endDate]);
+  }, [violation, date, carNumber, startTimeDisplay, endTimeDisplay, startDate, endDate, setData]);
 
   return (
     <div className="m_detail-container-unique">
@@ -135,6 +141,7 @@ const M_detail = () => {
         </table>
       </div>
 
+      {/* 사진 박스 추가 */}
       <div className="m_detail-photo-unique">
         <div className="m_detail-photo-box-unique">사진</div>
       </div>
@@ -167,6 +174,8 @@ const M_detail = () => {
           </tbody>
         </table>
       </div>
+      
+      {/* PDF 및 동영상 다운로드 버튼 */}
       <div className="m_detail-download-buttons">
         <PDFDownloadLink
           document={<PDF_form data={Array.isArray(violations) ? violations : []} />}
