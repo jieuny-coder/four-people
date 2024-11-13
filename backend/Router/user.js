@@ -12,7 +12,7 @@ router.post('/join', (req, res) => {
     const password = pw; // 여기에 추가
 
     const userQuery = `INSERT INTO USER (user_id, user_pw, user_email, car_number, user_joined, user_name, user_phone, handicap) VALUES (?, ?, ?, ?, ?, ?, ? ,?)`;
-    const adminQuery = `INSERT INTO ADMIN (admin_id, admin_pw, admin_email, admin_joined, admin_name, admin_phone) VALUES (?, ?, ?, ?, ?, ?)`;
+    const adminQuery = `INSERT INTO ADMIN (admin_id, admin_pw, admin_email, admin_joined ,admin_name, admin_phone, admin_auth_code) VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
     const query = adminCode ? adminQuery : userQuery;
     const params = adminCode
