@@ -21,6 +21,9 @@ npm install react-kakao-maps-sdk
 - .env 환경 변수 불러오기 설치파일
 npm install dotenv 
 
+- DB 저장 실패시 설치파일 - Back-end에 설치 해주세요
+npm install moment-timezone
+
 
 - 다운로드 라이브러리
 npm install jspdf jspdf-autotable
