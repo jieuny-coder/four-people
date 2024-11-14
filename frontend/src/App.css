@@ -1405,6 +1405,7 @@ input:checked + .slider-unique:before {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start; /* 컨테이너 전체를 상단 정렬 */
 }
 
 /* 탭 버튼 섹션 */
@@ -1417,16 +1418,20 @@ input:checked + .slider-unique:before {
   background-color: #fff;
 }
 
+
 /* 콘텐츠 영역 */
 .violations-page-content {
   padding: 20px;
-  max-height: 35vh;
+  max-height: 60%;
 }
 
 /* 다운로드 버튼 섹션 */
 .violations-page-download-section {
   padding: 20px;
   background-color: #f7f7f7;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px; /* 하단바와의 간격 */
 }
 
 /* 다운로드 버튼 컨테이너 */
@@ -1444,8 +1449,8 @@ input:checked + .slider-unique:before {
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
-  /* max-width: 200px; */
   width: 100%;
+  max-width: 400px; /* 버튼의 최대 너비 설정 */
 }
 
 
