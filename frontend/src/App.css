@@ -314,6 +314,7 @@ body {
   align-items: center;
   height: 80%;
 }
+
 .download_preview {
   width: 100%;
   /* padding: 20px; */
@@ -385,23 +386,28 @@ body {
   bottom: 100px; /* 버튼이 하단에 붙어있지만, 하단바와 겹치지 않게 약간 위로 이동 */
   left: 50%; /* 화면 너비의 절반에 위치 */
   transform: translateX(-50%); /* 버튼을 중앙으로 정렬 */
-  background-color: black;
-  color: white;
+  background-color: #FFDA38;
+  color: #201C1C;
   padding: 12px 30px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
-  width: 90%;/* 버튼이 가로로 꽉 차도록 설정 */
+  width: 80%;/* 버튼이 가로로 꽉 차도록 설정 */
   margin-top: auto; /* 자동으로 아래로 밀림 */
   margin-bottom: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
-
+.download_button:hover {
+  transform: translateX(-50%) scale(1.05); /* 5% 확대 */
+  background-color: #ffd633; /* 호버 시 약간 더 밝은 노란색 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
 
 .preview_table th,
 .preview_table td {
   border: 1px solid #ccc; /* 셀 테두리 설정 */
-  padding: 8px; /* 내부 여백 */
+  padding: 10px; /* 내부 여백 */
   text-align: center; /* 텍스트 중앙 정렬 */
   font-size: 12px; /* 폰트 크기 */
   word-wrap: break-word; /* 단어 줄바꿈 */
@@ -411,8 +417,10 @@ body {
 .preview_table th {
   position: sticky;
   top: 0;
-  background-color: #f0f0f0; /* 컬럼 제목 배경색 */
+  background-color: #eaeaea; /* 컬럼 제목 배경색 */
+  color: #333; 
   font-weight: bold;
+  padding: 10px;
   z-index: 1; /* 데이터가 헤더 위로 보이지 않도록 z-index 설정 */
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); /* 헤더에 그림자 추가 */
 }
@@ -455,6 +463,14 @@ body {
 .filtering-input-group {
   margin-bottom: 20px;
 }
+.vehicle-number-input { /* 새로 추가된 클래스 */
+  width: 100%; /* 부모 요소에 맞게 너비 조정 */
+  padding: 12px;
+  border: 1px solid #8F8E8E; /* 테두리 색상 변경 */
+  border-radius: 5px;
+  font-size: 14px;
+  color: #201C1C; /* 입력된 텍스트 색상 */
+}
 
 .filtering-label {
   display: block;
@@ -462,16 +478,35 @@ body {
 }
 
 .filtering-input {
-  width: 82%;
+  width: 90%;
   padding: 12px;
   border: 1px solid #8F8E8E; /* 테두리 색상 변경 */
   border-radius: 5px;
   font-size: 14px; /* 텍스트 사이즈 */
   color: #201C1C; /* 입력된 텍스트 색상 */
+  height: 25px;
+}
+
+.time-input { 
+  width: 80%; /* 시간 조회 필드 너비 고정 */
+  padding: 12px;
+  border: 1px solid #8F8E8E;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #201C1C;
 }
 
 /* 포커스 시 테두리 색상 변경 */
 .filtering-input:focus {
+  border-color: #FFDA38; /* 활성화된 상태의 테두리 색상 */
+  outline: none; /* 기본 포커스 아웃라인 제거 */
+}
+
+.vehicle-number-input::placeholder { /* 새로 추가된 클래스 */
+  color: #8F8E8E; /* 플레이스홀더 텍스트 색상 */
+}
+
+.vehicle-number-input:focus { /* 새로 추가된 클래스 */
   border-color: #FFDA38; /* 활성화된 상태의 테두리 색상 */
   outline: none; /* 기본 포커스 아웃라인 제거 */
 }
@@ -485,7 +520,7 @@ body {
 .filtering_line {
   border: none;
   border-bottom: 1px solid #8F8E8E; /* 얇은 회색 선 */
-  margin: 20px 0; /* 위아래 간격 */
+  margin: 20px 5px; /* 위아래 간격 */
 }
 
 /* 조회시간 및 정렬 버튼 */
@@ -498,14 +533,15 @@ body {
 .filtering-order-buttons {
   display: flex;
   justify-content: space-between;
+  height: 45px;
   margin-bottom: 10px;
 }
 
 .filtering-time-buttons button,
 .filtering-order-buttons button {
   flex: 1; /* 버튼을 동일한 비율로 배치 */
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 8px 16px;
+  font-size: 14px;
   border: 1px solid #8F8E8E; /* 버튼 테두리 색상 변경 */
   background-color: white;
   border-radius: 5px;
@@ -542,11 +578,13 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 5px;
 }
 
 .filtering-time-divider {
   margin: 0 10px;
   font-weight: bold;
+  font-size: 16px;
 }
 
 .filtering-time-inputs .react-datepicker__input-container input,
@@ -611,8 +649,14 @@ body {
   border-radius: 5px;
   cursor: pointer;
   margin-top: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가로 버튼 강조 */
+  transition: background-color 0.3s, transform 0.2s;
 }
-
+.filtering-search-button:hover {
+  background-color: #FFDA38; /* 호버 시 밝은 노란색으로 변경 */
+  transform: scale(1.02);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
 
 
 
@@ -623,6 +667,8 @@ body {
 .m_calender-container-unique {
   background-color: white;
   padding: 14px;
+  padding-top: 10px;
+  padding-bottom: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-top: -1px;
   display: flex;
@@ -661,6 +707,10 @@ body {
   border-radius: 5px;
   margin: 0 5px;
   color: #8f8e8e;
+  transition: border-color 0.3s ease;
+}
+.m_calender-input-unique:hover {
+  border-color: #555; /* hover 시 약간 어두운 테두리 */
 }
 .m_calender-input-unique:not(:placeholder-shown) {
   color: #031D01; /* 입력된 값이 있을 때 텍스트 색상 */
@@ -681,6 +731,12 @@ body {
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.m_calender-search-button-unique:hover {
+  background-color: #ffd733;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* 달력 자체 */
@@ -691,12 +747,13 @@ body {
   border: none;
   border-radius: 10px;
   height: 55%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* 달력 타일 (각 날짜) */
 .m_calender-tile-unique {
   text-align: center;
-  padding: 10px;
+  padding: 12px;
   border-radius: 50%;
   transition: background-color 0.2s ease;
 }
@@ -722,14 +779,24 @@ body {
 /* 주말 날짜 (토, 일) */
 .m_calender-weekend-unique {
   color: red;
+  font-weight: bold;
 }
 
 /* 오늘 날짜 */
-.m_calender-today-unique {
-  background-color: #ff5722;
-  color: white;
-  border-radius: 60%;
+.m_calender-today-unique,
+.react-calendar__tile--now {
+  background-color: transparent !important;
+  color: red !important;
+  border-radius: 50%;
+  border: 2px solid red !important;
+  box-shadow: 0 0 4px rgba(211, 47, 47, 0.3);
 }
+.react-calendar__tile--active {
+  background-color: #FF3B30 !important;
+  color: white !important;
+  border-radius: 50%;
+}
+
 
 
 /* 달력화면에서 기간 조회 드롭박스 버튼 CSS */
@@ -741,6 +808,11 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100px; /* 원하는 드롭다운 너비 */
 }
+.time-dropdown-container .dropdown-item.disabled {
+  color: #d3d3d3;
+  cursor: not-allowed;
+}
+
 
 /* 개별 선택 아이템 스타일 */
 .time-dropdown-container .dropdown-item {
@@ -803,23 +875,26 @@ body {
   width: 95%;
 }
 
-
+/* 동영상 박스 */
 .m_detail-photo-unique {
   text-align: center;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 }
 
 .m_detail-photo-box-unique {
   width: 100%;
-  height: 160px;
-  background-color: #f0f0f0;
+  height: 200px;
+  background-color: #f9f9f9;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid #ddd;
   border-radius: 10px;
   font-size: 18px;
+  color: #aaa;
 }
 
+/* 위반 정보 테이블 */
 .m_detail-violation-unique {
   background-color: white;
   border-radius: 10px;
@@ -828,8 +903,6 @@ body {
   box-sizing: border-box;
   max-height: 175px; /* 스크롤 높이 */
   overflow-y: auto; /* 세로 스크롤 활성화 */
-
-  /* Firefox - 기본 상태에서 스크롤바 숨기기 */
   scrollbar-width: none;
 }
 
@@ -884,7 +957,7 @@ body {
 .violation-table th,
 .violation-table td {
   border: 1px solid #ccc; /* 셀 테두리 설정 */
-  padding: 8px; /* 내부 여백 추가 (조정) */
+  padding: 10px; /* 내부 여백 추가 (조정) */
   text-align: center; /* 텍스트 중앙 정렬 */
   font-size: 12px; /* 폰트 크기 줄임 */
   word-wrap: break-word; /* 단어 줄바꿈 */
@@ -894,8 +967,13 @@ body {
 
 .violation-table th {
   background-color: #f0f0f0; /* 헤더 배경색 */
-  /* font-weight: bold; */
+  font-weight: bold;
+  color: #333;
 }
+.violation-table tr:nth-child(even) td {
+  background-color: #fafafa; /* 짝수 행 배경색 */
+}
+
 
 .filter-table {
   width: 100%;
@@ -908,6 +986,11 @@ body {
   text-align: left; /* 텍스트 왼쪽 정렬 */
   font-size: 12px; /* 글씨 크기 조정 */
 }
+.filter-table td:first-child {
+  font-weight: bold;
+  color: #333; /* 라벨 컬럼 강조 */
+  width: 30%; /* 라벨 컬럼 너비 설정 */
+}
 
 .filter-table tr:nth-child(even) {
   background-color: #f9f9f9; /* 짝수 행의 배경색 설정 */
@@ -916,7 +999,6 @@ body {
 /* M_detail 버튼 2개  */
 .m_detail-download-buttons {
   display: flex;
-  /* justify-content: space-between; */
   gap: 10px; /* 버튼 간격 */
   margin-top: 25px; /* 여백 */
 }
@@ -932,6 +1014,12 @@ body {
   border-radius: 5px;
   cursor: pointer;
   min-width: 170px; /* 최소 너비를 지정해 균일하게 */
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+}
+.m_detail-download-button:hover {
+  background-color: #ffd633;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* 호버 시 그림자 효과 */
+  transform: scale(1.05);
 }
 
 
@@ -1010,12 +1098,14 @@ body {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: black;
+  background-color: #f2f2f2;
   height: 8%;
   position: fixed;
   bottom: 0px;
   width: 100%;
   z-index: 10;
+  border-top: 1px solid rgba(166, 166, 166, 0.3); /* 얇은 선, 투명도 80% */
+
 }
 
 .btn_item {
@@ -1023,39 +1113,52 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #454242;
   width: 25%; /* 아이템 간격을 균일하게 설정 */
-  gap: 5px;
+  gap: 3px;
+  transition: background-color 0.3s ease; /* 배경 전환 효과 */
 }
 
 .btn_icon {
   width: 20px; /* 아이콘 크기 조절 */
   height: 20px;
+  color: #454242;
 }
 
 .btn_item p {
   margin: 0;
   font-size: 12px;
+  color: #201C1C;
 }
 
 .btn_item.active {
-  color: #FFDA38; /* 활성화된 버튼을 강조 */
+  /* color: #FFDA38; */
+  color: #201C1C; /* 활성화된 텍스트 색상 */
+  background-color: rgba(255, 218, 56, 0.85); /* 노란색 배경 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 60%; /* 원형 효과 */
+  padding: 8px 8px; /* 원형 크기를 조절 */
+  margin: 0px 10px;
 }
-.btn_item.active .btn_icon {
+/* .btn_item.active .btn_icon {
   filter: brightness(0) saturate(100%) invert(72%) sepia(86%) saturate(220%) hue-rotate(1deg) brightness(101%) contrast(96%);
-}
+} */
 
+
+/* 텍스트와 아이콘을 중앙 정렬 */
+.btn_item.active p, .btn_item.active .btn_icon {
+  margin: 0; /* 텍스트와 아이콘의 기본 여백 제거 */
+}
 
 
 /* ******************설정(Setting) 페이지 컴포넌트*************** */
 .setting-page-container-unique {
   background-color: white; 
   padding: 20px;
-  /* border-radius: 10px; */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 90%;
   max-width: 400px;
-  margin: 108px auto;
+  margin: 108px auto -10px auto;
   height: 100%; /* 화면에서 버튼바 높이만큼 뺀 높이 */
   display: flex;
   flex-direction: column;
@@ -1068,15 +1171,17 @@ body {
 }
 
 .setting-section-title-unique {
+  font-size: 16px;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  color: #333;
 }
 
 .setting-item-unique {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 .setting-text-container {
   display: flex;
@@ -1088,25 +1193,26 @@ body {
 
 .setting-title {
   font-size: 16px;
-  margin-bottom: 4px;
+  margin-bottom: 10px;
+  color: #201C1C;
 }
 
 .setting-description {
   font-size: 12px;
   color: #999; /* 토글의 off 색상과 유사하게 희미한 색상 */
-  margin-top: -6px; /* 제목과의 간격을 좁힘 */
+  margin-top: 2px; /* 제목과의 간격을 좁힘 */
 }
 
 .divider-unique {
   border: none;
-  border-bottom: 1px solid #ccc;
-  margin: 0 0;
+  border-bottom: 1px solid #e0e0e0;
+  margin: 10px 0;
 }
 
 .section-divider-unique {
   border: none;
   border-bottom: 2px solid #201C1C;
-  margin: 0 0;
+  margin: 20px 0;
 }
 
 .toggle-switch-unique {
@@ -1147,7 +1253,7 @@ body {
 }
 
 input:checked + .slider-unique {
-  background-color: #2196F3;
+  background-color: #FFDA38;
 }
 
 input:checked + .slider-unique:before {
@@ -1157,10 +1263,34 @@ input:checked + .slider-unique:before {
 /* 토글 버튼 기능 */
 /* 다크 모드 스타일 */
 .dark-mode .setting-page-container-unique {
-  background-color: black;
+  background-color: #121212;
   color: white;
 }
+.dark-mode .logout-button {
+  background-color: white;
+  color: #201C1C;
+}
+/* 다크 모드에서의 각 제목 색상 */
+.dark-mode .setting-section-title-unique {
+  color: #e0e0e0; /* 밝은 회색으로 변경 */
+}
 
+.dark-mode .setting-title {
+  color: #ffffff; /* 흰색으로 설정 */
+}
+
+.dark-mode .setting-description {
+  color: #aaaaaa; /* 더 밝은 회색으로 설정 */
+}
+
+/* 다크 모드에서 구분선 색상 조정 */
+.dark-mode .divider-unique {
+  border-bottom: 1px solid #444; /* 어두운 회색 */
+}
+
+.dark-mode .section-divider-unique {
+  border-bottom: 2px solid #888; /* 밝은 회색 */
+}
 
 /* 텍스트 크기 조정 */
 .normal-text {
@@ -1200,6 +1330,7 @@ input:checked + .slider-unique:before {
   display: flex;
   justify-content: flex-end; /* 오른쪽 정렬 */
   width: 100%; /* 부모 요소의 전체 너비 */
+  padding-bottom: 20px;
 }
 
 /* 다크 모드일 때 로그아웃 버튼 스타일 */
@@ -1220,7 +1351,7 @@ input:checked + .slider-unique:before {
   font-size: 12px; /* 폰트 크기 */
   text-align: center; /* 텍스트 가운데 정렬 */
   cursor: pointer; /* 마우스 커서 */
-  margin-top: 20px; /* 위쪽 여백 */
+  /* margin-top: 20px; */
   transition: background-color 0.3s, color 0.3s; /* 부드러운 효과 */
 }
 
@@ -1245,6 +1376,7 @@ input:checked + .slider-unique:before {
   justify-content: flex-start;
   align-items: center;
   height: 80%;
+  border-radius: 10px;
 }
 
 /* 컬럼 제목 */
@@ -1252,10 +1384,13 @@ input:checked + .slider-unique:before {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 10px;
+  padding: 8px;
   font-weight: bold;
-  background-color: #f0f0f0;
+  background-color: #f2f2f2;
+  color: #333;
+  font-size: 14px;
   border-bottom: 2px solid #ccc;
+  border-radius: 10px 10px 0 0;
 }
 
 .violation-cell-header {
@@ -1265,6 +1400,7 @@ input:checked + .slider-unique:before {
   overflow: hidden; /* 내용이 넘칠 때 숨기기 */
   font-size: 14px;
   padding: 0 10px;
+  color: #333;
 }
 
 /* 스크롤 가능한 리스트 컨테이너 */
@@ -1298,7 +1434,7 @@ input:checked + .slider-unique:before {
 }
 
 .violations-list-scroll:hover::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.5); /* 스크롤바 색상 */
+  background-color: rgba(247, 243, 243, 0.93); /* 스크롤바 색상 */
   border-radius: 4px;
 }
 
@@ -1316,6 +1452,9 @@ input:checked + .slider-unique:before {
   border-bottom: 1px solid #ccc;
   cursor: pointer;
   transition: background-color 0.3s ease;
+}
+.violation-row:nth-child(even) {
+  background-color: #fafafa; /* 짝수 행의 배경색 설정 */
 }
 
 .violation-row:hover {
@@ -1375,6 +1514,11 @@ input:checked + .slider-unique:before {
   font-weight: bold;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* 선택된 버튼에 그림자 추가 */
 }
+.violation-tab-btn:hover {
+  transform: scale(1.05); /* 호버 시 5% 확대 */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* 약간의 그림자 추가로 입체감 부여 */
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* 부드러운 확대 효과 */
+}
 
 /**************** 적재물 페이지 컴포넌트  ***************************/
 /* 셀의 비율 설정 (ID:설명:탐지 시간 = 1:2:3) */
@@ -1416,6 +1560,7 @@ input:checked + .slider-unique:before {
   padding: 10px 0;
   border-bottom: 1px solid #ddd;
   background-color: #fff;
+  /* margin-bottom: 15px; */
 }
 
 
@@ -1442,8 +1587,8 @@ input:checked + .slider-unique:before {
 
 /* 다운로드 버튼 스타일 */
 .to_download {
-  background-color: #201C1C;
-  color: #fff;
+  background-color: #ffdd57;
+  color: #333;
   padding: 12px 30px;
   border: none;
   border-radius: 5px;
@@ -1451,6 +1596,12 @@ input:checked + .slider-unique:before {
   font-size: 16px;
   width: 100%;
   max-width: 400px; /* 버튼의 최대 너비 설정 */
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+}
+.to_download:hover {
+  background-color: #ffdd57;
+  transform: scale(1.05); /* 호버 시 전체적으로 확대 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
 }
 
 
@@ -2129,6 +2280,17 @@ input:checked + .slider-unique:before {
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+.handicap_car_content p:first-child {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.handicap_car_content p:nth-child(2) {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.4;
+}
 
 .search_section {
   display: flex;
@@ -2138,9 +2300,10 @@ input:checked + .slider-unique:before {
 
 .search_section input {
   flex: 1;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  font-size: 14px;
 }
 
 .search_section .search_button {
@@ -2150,6 +2313,11 @@ input:checked + .slider-unique:before {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 버튼에 약간의 그림자 추가 */
+  transition: background-color 0.3s;
+}
+.search_section .search_button:hover {
+  background-color: #333;
 }
 
 .car_list_section {
@@ -2189,6 +2357,7 @@ input:checked + .slider-unique:before {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  border-radius: 10px;
 }
 
 .car_list_table th, .car_list_table td {
@@ -2200,12 +2369,57 @@ input:checked + .slider-unique:before {
 
 .car_list_table th {
   background-color: #f2f2f2;
-  /* font-weight: bold; */
+  font-weight: bold;
+  font-size: 14px;
+  padding: 10px; /* 헤더 셀의 패딩을 살짝 증가 */
+  color: #333;
+}
+.car_list_table td {
+  border: 1px solid #ddd;
+  padding: 10px; /* 데이터 셀 패딩을 동일하게 맞춤 */
+  text-align: center;
+  font-size: 12px; /* 폰트 크기 약간 증가 */
+  word-break: break-all;
+}
+/* 연락처와 상태(버튼) 열 너비 조정 */
+.car_list_table td:nth-child(4),
+.car_list_table th:nth-child(4) {
+  width: 80px; /* 연락처 셀의 너비를 줄여서 줄바꿈이 더 잘 일어나도록 설정 */
+}
+.car_list_table td:nth-child(5),
+.car_list_table th:nth-child(5) {
+  width: 60px; /* 상태 버튼 셀의 너비를 줄여서 공간 절약 */
 }
 
 .registered {
   background-color: yellow;
 }
+/* 각 열의 너비 비율 설정 */
+.car_list_table th:nth-child(1),
+.car_list_table td:nth-child(1) {
+  width: 30%; /* 가입날짜 */
+}
+
+.car_list_table th:nth-child(2),
+.car_list_table td:nth-child(2) {
+  width: 16.67%; /* 차량번호 */
+}
+
+.car_list_table th:nth-child(3),
+.car_list_table td:nth-child(3) {
+  width: 20%; /* 이름 */
+}
+
+.car_list_table th:nth-child(4),
+.car_list_table td:nth-child(4) {
+  width: 28%; /* 연락처 */
+}
+
+.car_list_table th:nth-child(5),
+.car_list_table td:nth-child(5) {
+  width: 12%; /* 상태 (버튼) */
+}
+
 /* Handicap_car 등록/해제 버튼 스타일 */
 .car_list_table button {
   background-color: #201C1C;
@@ -2217,16 +2431,17 @@ input:checked + .slider-unique:before {
   cursor: pointer;
   white-space: nowrap;  /* 텍스트가 줄바꿈되지 않도록 설정 */
   width: auto; /* 버튼의 너비가 내용에 맞게 조정되도록 설정 */
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s;
 }
 
 .car_list_table button.registered {
   background-color: #FFDA38; /* 노란색 */
-  color: black;
+  color: #201C1C;
 }
 
 .car_list_table button:hover {
-  opacity: 0.8;
+  opacity: 0.9;
+  transform: scale(1.05); /* 약간의 확대 효과 */
 }
 
 

@@ -98,7 +98,7 @@ const Filtering = () => {
             placeholder="차량 번호를 입력하세요."
             value={carNumber}
             onChange={(e) => setCarNumber(e.target.value)}
-            className="filtering-input"
+            className="filtering-input vehicle-number-input"
           />
         </div>
 
@@ -161,7 +161,7 @@ const Filtering = () => {
               dateFormat="h:mm aa"
               placeholderText="시작 시간"
               disabled={isTimeDisabled}
-              className="filtering-input custom-datepicker" 
+              className="filtering-input time-input" 
               timeClassName={() => "custom-time-list"}
             />
             <span className="filtering-time-divider">~</span>
@@ -175,7 +175,7 @@ const Filtering = () => {
               dateFormat="h:mm aa"
               placeholderText="종료 시간"
               disabled={isTimeDisabled}
-              className="filtering-input custom-datepicker"
+              className="filtering-input time-input"
               timeClassName={() => "custom-time-list"}
             />
           </div>
