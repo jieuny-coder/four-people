@@ -28,23 +28,28 @@ setInterval(()=>{
 
 // 주차장 찾기에서 얻은 위도, 경도 데이터를 DB에 저장하기
 router.post('/parkinglist', (req, res) => {
-    const { latitude, longitude } = req.body;
+  const { latitude, longitude } = req.body;
 
-    // 받은 위도, 경도 데이터를 콘솔에 출력
-    console.log('받은 데이터:', { latitude, longitude });
+  // 받은 위도, 경도 데이터를 콘솔에 출력
+  console.log('받은 데이터:', { latitude, longitude });
 
-    // SQL 쿼리
-    const query = 'INSERT INTO maplist (latitude, longitude) VALUES(?, ?)';
+  const moment = require('moment-timezone');
 
-    // DB에 데이터 넣기
-    conn.query(query, [latitude, longitude], (err, results) => {
-        if (err) {
-            console.error('DB 저장 실패:', err);
-            return res.status(500).json({ error: 'DB 저장 실패' });
-        }
-        console.log('DB 저장 성공:', results);
-        res.status(200).send({ message: '데이터 전송 성공!' });
-    });
+  // 한국 시간(KST)으로 변환하여 저장
+  const currentTime = moment.tz("Asia/Seoul").format('YYYY-MM-DD HH:mm:ss');
+
+  // SQL 쿼리
+  const query = 'INSERT INTO maplist (latitude, longitude, time) VALUES(?,?,?)';
+
+  // DB에 데이터 넣기
+  conn.query(query, [latitude, longitude,currentTime], (err, results) => {
+      if (err) {
+          console.error('DB 저장 실패:', err);
+          return res.status(500).json({ error: 'DB 저장 실패' });
+      }
+      console.log('DB 저장 성공:', results);
+      res.status(200).send({ message: '데이터 전송 성공!' });
+  });
 });
 
 // kakao api 위도/ 경도 변환하기
