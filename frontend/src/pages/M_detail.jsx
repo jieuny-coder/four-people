@@ -73,49 +73,47 @@ const M_detail = ({ setData }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        let response;
-        if (startDate && endDate) {
-          response = await axios.get('http://localhost:4000/violation/filtering_dateRange', {
-            params: {
-              startDate: startDate.split("T")[0],
-              endDate: endDate.split("T")[0]
+        try {
+            let response;
+            if (startDate && endDate && carNumber) { // carNumber가 null이 아닌지 확인
+                response = await axios.get('http://localhost:4000/violation/filtering_dateRange', {
+                    params: {
+                        startDate: startDate.split("T")[0],
+                        endDate: endDate.split("T")[0],
+                        car_number: carNumber  // 반드시 car_number로 전달
+                    }
+                });
+            } else if (date && carNumber && startTimeDisplay && endTimeDisplay) {
+                response = await axios.get('http://localhost:4000/violation/filter_Violations', {
+                    params: {
+                        car_number: carNumber, // 반드시 car_number로 전달
+                        startTime: startTimeDisplay,
+                        endTime: endTimeDisplay
+                    }
+                });
+            } else {
+                setLoading(false);
+                return;
             }
-          });
-        } else if (date && carNumber && startTimeDisplay && endTimeDisplay) {
-          response = await axios.get('http://localhost:4000/violation/filter_Violations', {
-            params: {
-              car_number: carNumber,
-              startTime: startTimeDisplay,
-              endTime: endTimeDisplay
+
+            console.log('Fetched violations:', response.data);
+
+            setViolations(response.data);
+            if (setData) {
+                setData(response.data);
             }
-          });
-        } else {
-          setLoading(false);
-          return;
+
+        } catch (error) {
+            console.error('위반 데이터 패치 실패:', error);
+        } finally {
+            setLoading(false);
         }
-
-        console.log('Fetched violations:', response.data);
-
-       // 원본 upload_time 필드를 그대로 사용하여 전달
-      setViolations(response.data);
-
-      // 상위 컴포넌트로 데이터 전달
-      if (setData) {
-        setData(response.data);
-      }
-
-    } catch (error) {
-      console.error('위반데이터 패치 실패:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
 
     if (violation || carNumber || (startDate && endDate)) {
-      fetchData();
+        fetchData();
     }
-  }, [violation, date, carNumber, startTimeDisplay, endTimeDisplay, startDate, endDate, setData]);
+}, [violation, date, carNumber, startTimeDisplay, endTimeDisplay, startDate, endDate, setData]);
 
   return (
     <div className="m_detail-container-unique">
