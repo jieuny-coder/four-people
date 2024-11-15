@@ -123,14 +123,14 @@ export const Myparking_place = () => {
             <div id="roadviewContainer" style={{ width: '100%', height: '180px', display: 'block', top: '0px' }}></div>  {/* 로드뷰 표시 */}
             <div className="parkinglot-info-button">주차장 정보</div>
             <div className="parkinglot-info-details">
-                <div className="parkinglot-info-text">총 주차 구역수: {parkingInfo.totalSpaces}</div>
-                <div className="parkinglot-info-text">현재 주차 가능 수: {parkingInfo.availableSpaces}</div>
-                <div className="parkinglot-info-text">장애인전용주차 가능 수: {parkingInfo.disabledSpaces}</div>
+                <div className="parkinglot-info-text">총 주차 구역수: <strong>{parkingInfo.totalSpaces}</strong></div>
+                <div className="parkinglot-info-text">현재 주차 가능 수: <strong>{parkingInfo.availableSpaces}</strong></div>
+                <div className="parkinglot-info-text">장애인전용주차 가능 수: <strong>{parkingInfo.disabledSpaces}</strong></div>
             </div>
             <div className="parkinglot-event-button">현재 이벤트</div>
             <div className="parkinglot-event-details">
-                <div className="parkinglot-event-text">이중주차</div>
-                <div className="parkinglot-event-text">통행방해</div>
+                <div className="parkinglot-event-text">이중주차:<strong></strong> </div>
+                <div className="parkinglot-event-text">통행방해:<strong></strong> </div>
             </div>
             <Btnbar />
         </div>

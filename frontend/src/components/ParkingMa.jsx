@@ -68,7 +68,8 @@ const ParkingMa = ({ searchTerm, setCoordinates }) => {
       <Map
         id="map"
         center={{ lat: 35.146738, lng: 126.922251 }}
-        style={{ width: "380px", height: "300px" }}
+        // transform: "translateX(-15px) => 지도 내부의 버튼이 잘려서 왼쪽으로 이동시키는 css
+        style={{ width: "380px", height: "300px", transform: "translateX(-15px)" }}
         level={3}
         onCreate={setMap}
       >

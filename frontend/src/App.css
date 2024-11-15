@@ -89,7 +89,7 @@ body {
   width: 90%;
   max-width: 350px;
   padding: 20px;
-  background-color: #ffffff;
+  background-color: #f9f9f9;
   border-radius: 10px;  /* 흰색 박스 둥근 모서리 */
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   margin-top: 30px; /* 탭 버튼이 위에 겹칠 수 있도록 여백 추가 */
@@ -149,13 +149,21 @@ body {
 
 /* 활성화된 탭 */
 .login_tabs button.active {
-  background-color: white;
-  color: #454242;
+  background-color: #f9f9f9;
+  color: #111;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+.login_tabs button.active::before {
+  content: "✔️ ";
+  font-size: 1rem;
+  margin-right: 4px;
 }
 
+
 .login_tabs button:not(.active) {
-  background-color: #B4B3B3;
-  color: #454242;
+  background-color: #B0B0B0;
+  color: #fff;
 }
 
 /* 로그인 폼 */
@@ -1956,7 +1964,7 @@ input:checked + .slider-unique:before {
 .parking-container {
   max-width: 390px;
   margin-top: 0px;
-  background-color: #f9f9f9;
+  background-color: #ffffff;
   padding: 20px;
   padding-top: 14px;
   padding-bottom: 80px; /* 하단에 여유 공간 추가 */
@@ -1985,11 +1993,17 @@ input:checked + .slider-unique:before {
 }
 
 .box {
-  flex: 1;
+  flex: 1 ;
+  transition: border-color 0.2s ease;
   height: 34px;
   border: 1px solid #ddd;
   border-radius: 4px;
   padding: 3px;
+}
+.box:focus {
+  border-color: #ffcc00; /* 포커스 시 노란색으로 변경 */
+  outline: none;
+  box-shadow: 0 0 4px rgba(255, 204, 0, 0.5); /* 포커스 시 그림자 */
 }
 
 .searchbox-btn {
@@ -2011,8 +2025,8 @@ input:checked + .slider-unique:before {
 
 .example {
   font-size: 12px;
-  color: #aaa;
-  line-height: 1.7;
+  color: #777;
+  line-height: 1.8;
   letter-spacing: 0.5px; /* 글자 간격 조정 */
 }
 
@@ -2022,8 +2036,8 @@ input:checked + .slider-unique:before {
   height: 300px; /* 지도 높이 설정 */
   border: 1px solid #ccc;
   border-radius: 8px;
-  overflow: visible;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   margin-top: 15px;
 }
 
@@ -2044,7 +2058,7 @@ input:checked + .slider-unique:before {
 }
 
 .save-button {
-  width: 400px;
+  width: 90%;
   height: 40px;
   background-color: #ffda38;
   color: #333;
@@ -2054,7 +2068,7 @@ input:checked + .slider-unique:before {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .save-button:hover {
@@ -2304,6 +2318,9 @@ input:checked + .slider-unique:before {
   color: #333;
   margin: 5px 0;
   font-weight: 500;
+}
+.parkinglot-info-text strong {
+  font-weight: bold; /* 주차 정보 항목에서 강조된 텍스트 */
 }
 
 .parkinglot-event-details {
