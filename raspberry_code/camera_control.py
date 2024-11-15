@@ -4,9 +4,10 @@ import time
 import os
 import boto3
 import mysql.connector as mysql
+import logging
 
 # 서버 및 클라우드 URL
-SERVER_URL = 'http://192.168.20.144:8000/upload/'  # FastAPI 서버 URL(컴퓨터 ip)
+SERVER_URL = 'http://192.168.20.235:8000/upload/'  # FastAPI 서버 URL(컴퓨터 ip)
 endpoint_url = 'https://kr.object.ncloudstorage.com'  # 네이버 클라우드 URL
 service_name = 's3'
 bucket_name = 'four-people-project'
@@ -56,13 +57,14 @@ def capture_frame():
         return photo_file
     return None
 
-def send_to_server(file_path):
+def send_to_server(image_path, video_filename):
     """
-    서버로 이미지 전송
+    서버로 이미지 전송과 동영상 파일명을 함께 전송
     """
-    with open(file_path, 'rb') as f:
+    with open(image_path, 'rb') as f:
         files = {'file': f}
-        response = requests.post(SERVER_URL, files=files)
+        data = {'video_filename': video_filename}
+        response = requests.post(SERVER_URL, files=files, data=data)
         return response.json()
 
 def upload_to_cloud(file_path):
@@ -81,35 +83,35 @@ def upload_to_cloud(file_path):
         # 메타데이터(동영상url)를 DB에 저장
         store_metadata_in_db(filename, cloud_url)
         return {'message': 'Upload successful', 'url': cloud_url}
-    
-    except Exception as e :
+   
+    except Exception as e:
         print(f'Failed to upload {filename}: {str(e)}')
-        return {'error':'str(e)'}
+        return {'error': str(e)}
 
 def store_metadata_in_db(filename, url):
-
-    # mysql 데이터 베이스에 업로드된 파일의 메타데이터 저장
-
+    """
+    MySQL 데이터베이스에 메타데이터 저장
+    """
     upload_time = time.strftime('%Y-%m-%d %H:%M:%S')
     conn = None
 
+    print(f'Attempting to store metadata in DB for filename: {filename}, URL: {url}')
+
     try:
-        # MySQL 연결 설정 및 데이터베이스 연결
         conn = mysql.connect(**DB_CONFIG)
         cursor = conn.cursor()
 
-        # 메타데이터를 삽입하는 SQL 쿼리
+        logging.info(f'Inserting into DB - Filename: {filename}, URL: {url}, Upload Time: {upload_time}')
+
         sql = 'INSERT INTO VIOLATION (filename, url, upload_time) VALUES (%s, %s, %s)'
         cursor.execute(sql, (filename, url, upload_time))
 
-        # 변경사항 커밋 후 연결 종료
         conn.commit()
         print(f'Metadata for {filename} inserted into database.')
 
     except mysql.Error as err:
         print(f'Error: {err}')
     finally:
-        # 커서와 연결이 정상적으로 생성된 경우에만 닫도록 설정
         if cursor:
             cursor.close()
         if conn:
@@ -123,7 +125,6 @@ if __name__ == "__main__":
             if not ret:
                 break
 
-            # 화면에 실시간 프레임 출력
             cv2.imshow("Press 'r' to start/stop recording, 'c' to capture frame, 'q' to quit", frame)
 
             key = cv2.waitKey(1) & 0xFF
@@ -141,10 +142,31 @@ if __name__ == "__main__":
             elif key == ord('c') and is_recording:
                 print("Capturing frame...")
                 photo_file = capture_frame()
-                if photo_file:
-                    print("Sending photo to server...")
-                    response = send_to_server(photo_file)
+                if photo_file and 'video_file' in locals():  # 동영상 파일 확인
+                    print('Uploading video to cloud before sending photo to server...')
+                   
+                    # 동영상 업로드
+                    cloud_response = upload_to_cloud(video_file)
+                    print('Cloud Upload Response:', cloud_response)
+
+                    # 첫 번째 이미지 전송(번호판 분석)
+                    print("Sending first photo to server...")
+                    response = send_to_server(photo_file, os.path.basename(video_file))
                     print("Server Response:", response)
+
+                    # 서버 응답 확인 및 추가 행동
+                    if response.get("action") == "capture_assist":
+                        print("Waiting 5 seconds for second capture...")
+                        time.sleep(5)
+                        
+                        # 두 번째 캡처 수행
+                        assist_photo_file = capture_frame()
+                        if assist_photo_file:
+                            print("Sending second photo to server for assistive device analysis...")
+                            assist_response = send_to_server(assist_photo_file, os.path.basename(video_file))
+                            print("Assist Server Response:", assist_response)
+                else:
+                    print("Video file is not available yet. Please start recording before capturing.")
 
             elif key == ord('q'):
                 print("Exiting...")
@@ -153,7 +175,6 @@ if __name__ == "__main__":
             if is_recording:
                 out.write(frame)
 
-        # 동영상 업로드
         if is_recording:
             out.release()
             print("Uploading video to cloud...")
@@ -161,6 +182,5 @@ if __name__ == "__main__":
             print("Cloud Upload Response:", cloud_response)
 
     finally:
-        # 리소스 해제
         camera.release()
         cv2.destroyAllWindows()
