@@ -8,6 +8,8 @@ router.get('/filter_Violations',(req,res)=>{
     console.log('GET /filter_Violations route hit'); // 로그 추가
 
     const { car_number, startTime, endTime } = req.query;
+    console.log('Received parameters:', { car_number, startTime, endTime });
+
     // 파라미터 유효성 검사
     if (!car_number || !startTime || !endTime) {
         return res.status(400).json({ error: '차량 번호, 시작 시간, 종료 시간을 모두 제공해주세요.' });
@@ -19,7 +21,6 @@ router.get('/filter_Violations',(req,res)=>{
         FROM VIOLATION 
         WHERE upload_time BETWEEN ? AND ? 
           AND violation_number = ? 
-          AND violation_number IS NOT NULL
     `;
 
     // 쿼리 실행 전에 쿼리와 파라미터를 로그로 출력
@@ -46,38 +47,34 @@ router.get('/filter_Violations',(req,res)=>{
 
 // 기간으로 위반데이터 조회하기 
 router.get('/filtering_dateRange', (req, res) => {
-    console.log('라우터 정상작동!');
-
+    console.log('GET /filtering_dateRange route hit');
     let { startDate, endDate, car_number } = req.query;
 
+    // 파라미터 로그 추가
+    console.log('Received parameters:', { startDate, endDate, car_number });
+
     if (!startDate || !endDate) {
-        return res.status(400).json({ error: '시작날짜와 끝 날짜를 모두 제공해주세요.' });
+        return res.status(400).json({ error: '시작 날짜와 끝 날짜를 모두 제공해주세요.' });
     }
 
-    // 시간 부분을 별도로 추가하여 새로운 변수에 저장
+    if (!car_number) {
+        return res.status(400).json({ error: '차량 번호를 제공해주세요.' });
+    }
+
     const startDateTime = `${startDate} 00:00:00`;
     const endDateTime = `${endDate} 23:59:59`;
 
-    // 기본 SQL 쿼리 작성
-    let sql = `
+    const sql = `
         SELECT * 
         FROM VIOLATION 
         WHERE upload_time BETWEEN ? AND ? 
-          AND violation_number IS NOT NULL
+          AND violation_number = ?
     `;
-    const params = [startDateTime, endDateTime];
+    const params = [startDateTime, endDateTime, car_number];
 
-    // 차량번호 필터 추가
-    if (car_number) {
-        sql += ` AND violation_number = ?`;
-        params.push(car_number);
-    }
-
-    // 쿼리 실행 로그 추가
     console.log('실행될 쿼리:', sql);
     console.log('쿼리 파라미터:', params);
 
-    // 쿼리 실행
     conn.query(sql, params, (err, rows) => {
         if (err) {
             console.error('DB 조회 오류:', err);
@@ -85,10 +82,12 @@ router.get('/filtering_dateRange', (req, res) => {
         } else if (rows.length > 0) {
             return res.status(200).json(rows);
         } else {
-            return res.status(200).json({ message: '해당 기간에 대한 데이터가 없습니다.', data: [] });
+            return res.status(200).json({ message: '해당 기간과 차량 번호에 대한 데이터가 없습니다.', data: [] });
         }
     });
 });
+
+
 
 
 

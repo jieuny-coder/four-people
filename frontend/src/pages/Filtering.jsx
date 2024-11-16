@@ -71,22 +71,40 @@ const Filtering = () => {
   const formatDateTime = (date) => (date ? date.toISOString() : '');
 
   // 조회하기 버튼 클릭 시 쿼리 생성 및 상세 페이지로 이동
-  const handleSearch = () => {
-    const query = new URLSearchParams();
-    query.append("carNumber", carNumber);
+  // Filtering 컴포넌트에서 handleSearch 함수 수정
+const handleSearch = () => {
+  if (!carNumber) {
+      alert("차량 번호를 입력해 주세요.");
+      return;
+  }
+  if (!selectedTime && (!startDate || !endDate)) {
+      alert("시간 범위를 설정하거나 시작 및 종료 시간을 모두 입력해 주세요.");
+      return;
+  }
 
-    if (selectedTime) {
+  const query = new URLSearchParams();
+  query.append("carNumber", carNumber);
+
+  if (selectedTime) {
       query.append("selectedTime", selectedTime);
-    } else {
-      query.append("start", formatDateTime(startDate));
-      query.append("end", formatDateTime(endDate));
-    }
+  } else {
+      // 날짜 형식을 YYYY-MM-DD로 변환
+      const formattedStartDate = startDate.toISOString().split("T")[0];
+      const formattedEndDate = endDate.toISOString().split("T")[0];
+      query.append("start", formattedStartDate);
+      query.append("end", formattedEndDate);
+  }
 
-    if (selectedOrder) query.append("order", selectedOrder);
-    if (selectedDate) query.append("date", selectedDate);
+  if (selectedOrder) query.append("order", selectedOrder);
+  if (selectedDate) query.append("date", selectedDate);
 
-    navigate(`/detail?${query.toString()}`);
-  };
+  // 최종 URL 확인 로그 추가
+  console.log('Generated URL:', `/detail?${query.toString()}`);
+
+  navigate(`/detail?${query.toString()}`);
+};
+
+
 
   return (
     <div className="filtering-page-container">
@@ -98,7 +116,7 @@ const Filtering = () => {
             placeholder="차량 번호를 입력하세요."
             value={carNumber}
             onChange={(e) => setCarNumber(e.target.value)}
-            className="filtering-input"
+            className="filtering-input vehicle-number-input"
           />
         </div>
 
@@ -161,7 +179,7 @@ const Filtering = () => {
               dateFormat="h:mm aa"
               placeholderText="시작 시간"
               disabled={isTimeDisabled}
-              className="filtering-input custom-datepicker" 
+              className="filtering-input time-input" 
               timeClassName={() => "custom-time-list"}
             />
             <span className="filtering-time-divider">~</span>
@@ -175,7 +193,7 @@ const Filtering = () => {
               dateFormat="h:mm aa"
               placeholderText="종료 시간"
               disabled={isTimeDisabled}
-              className="filtering-input custom-datepicker"
+              className="filtering-input time-input"
               timeClassName={() => "custom-time-list"}
             />
           </div>

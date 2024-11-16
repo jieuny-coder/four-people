@@ -92,14 +92,16 @@ const Download = () => {
       </div>
 
       {previewData.length > 0 && (
-        <PDFDownloadLink
-          document={<PDF_form data={previewData} />}
-          fileName="Violation_Report.pdf"
-        >
-          {({ loading }) =>
-            loading ? 'PDF 생성 중...' : <button className="download_button">Download</button>
-          }
-        </PDFDownloadLink>
+        <div className="download_button_container">
+          <PDFDownloadLink
+            document={<PDF_form data={previewData} />}
+            fileName="Violation_Report.pdf"
+          >
+            {({ loading }) =>
+              loading ? 'PDF 생성 중...' : <button className="download_button">Download</button>
+            }
+          </PDFDownloadLink>
+        </div>
       )}
     </div>
   );

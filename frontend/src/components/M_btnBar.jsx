@@ -46,7 +46,7 @@ const M_btnBar = ({ previewData }) => { // previewData prop 추가
           style={{ cursor: 'pointer' }}
         >
           <img src={`${process.env.PUBLIC_URL}/images/violations.png`} alt="Violations Icon" className="btn_icon" />
-          <p>위반차량정보</p>
+          <p>위반정보</p>
         </div>
         {/* 다운로드 Button */}
         <div

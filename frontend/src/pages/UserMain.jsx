@@ -50,7 +50,7 @@ export const UserMain = () => {
     <div className='user_container'>
       <div className='user_info_box'>
         <div className='photo'>
-          <img src='#' alt='프사' />
+          <img src='/images/avatar.png' alt='프사' />
         </div>
         <div className='user_info'>
           <p>이름 : <span style={{ fontSize: '18px', fontWeight: 'bold' }}>{userName}</span></p>
@@ -60,13 +60,13 @@ export const UserMain = () => {
       </div>
       {/* 카드 컨테이너 추가 */}
       <div className='card_container'>
-        <div className='parking_card' onClick={goToParkingList}>
-          <img className='parking_icon' alt='주차장' src='/images/parking.png' />
-          <p className='card_text'>나의 주차장</p>
-        </div>
         <div className='parking_card' onClick={goToParkingSearch}>
           <img className='p_icon' alt='돋보기' src='/images/P.png' />
           <p className='card_text'>주차장 조회하기</p>
+        </div>
+        <div className='parking_card' onClick={goToParkingList}>
+          <img className='parking_icon' alt='주차장' src='/images/parking.png' />
+          <p className='card_text'>나의 주차장</p>
         </div>
       </div>
       {/* 카드 컨테이너 끝 */}
