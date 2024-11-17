@@ -59,11 +59,16 @@ class Violation(Base):
 
 class ObstacleViolation(Base):
     __tablename__ = 'OBSTACLE_VIOLATION'
-    obstacle_id = Column(Integer, primary_key=True, index=True)
-    filename = Column(String(255), unique=True)
-    url = Column(String(255))
-    detection_time = Column(DateTime, default=datetime.utcnow)
-    status = Column(String(50))  # 처리상태 추가
+    id = Column(Integer, primary_key=True, index=True)
+    description = Column(String(50))  # 적재물1, 적재물2 등을 저장
+    detected_at = Column(DateTime, default=datetime.utcnow)
+    video_url = Column(String(255)) 
+    # __tablename__ = 'OBSTACLE_VIOLATION'
+    # obstacle_id = Column(Integer, primary_key=True, index=True)
+    # filename = Column(String(255), unique=True)
+    # url = Column(String(255))
+    # detection_time = Column(DateTime, default=datetime.utcnow)
+    # status = Column(String(50))  # 처리상태 추가
 
 # 테이블 생성
 Base.metadata.create_all(bind=engine)
@@ -290,31 +295,92 @@ async def upload_file(request: Request, file: UploadFile = File(...), db: Sessio
         # 1. 번호판 분석
         plate_number, confidence = analyze_plate_image(str(file_location))
         print(f"번호판 분석 결과: {plate_number}, 신뢰도: {confidence}")
+
+        # violation_record 찾기
+        violation_record = db.query(Violation).filter(
+            Violation.filename == video_filename
+        ).first()
+
+        if not violation_record:
+            return JSONResponse(content={"error": "비디오 파일 기록을 찾을 수 없습니다"}, status_code=404)
         
         if confidence < 0.5:
             print("번호판 인식 실패 - 적재물 탐지 시작")
             if detect_obstacle(str(file_location)):
                 print("적재물 감지 완료")
-                return JSONResponse(content={"status": "적재물 감지", "type": "obstacle"})
+                
+                # 마지막 적재물 번호 조회
+                last_obstacle = db.query(ObstacleViolation).order_by(
+                    ObstacleViolation.id.desc()
+                ).first()
+                
+                next_number = 1
+                if last_obstacle:
+                    # 마지막 description에서 숫자 추출
+                    match = re.search(r'\d+', last_obstacle.description)
+                    if match:
+                        next_number = int(match.group()) + 1
+                
+                # **VIOLATION 테이블에서 URL 가져오기**
+                violation_record = db.query(Violation).filter(
+                    Violation.filename == video_filename
+                ).first()
+
+                if not violation_record or not violation_record.url:
+                    print("VIOLATION 테이블에서 URL 정보를 찾을 수 없습니다.")
+                    return JSONResponse(content={"error": "VIOLATION 테이블에 URL 정보 없음"}, status_code=404)
+
+                # 새로운 적재물 위반 기록 생성
+                new_obstacle = ObstacleViolation(
+                    description=f"적재물{next_number}",
+                    detected_at=datetime.now(),
+                    video_url=violation_record.url  # VIOLATION 테이블의 URL 참조
+                )
+                
+                try:
+                    db.add(new_obstacle)
+                    db.commit()
+                    print(f"적재물 위반 기록 저장 완료: 적재물{next_number}")
+                except Exception as db_error:
+                    print(f"DB 저장 중 오류 발생: {db_error}")
+                    db.rollback()
+                
+                return JSONResponse(content={
+                    "status": "적재물 감지",
+                    "type": "obstacle",
+                    "description": f"적재물{next_number}",
+                    "video_url": violation_record.url,
+                    "detected_at": datetime.now().isoformat()
+                })
             else:
                 print("번호판 인식 실패 및 적재물 없음")
                 return JSONResponse(content={"status": "번호판 인식 실패 및 적재물 없음"})
 
         # 2. DB 조회 - 차량 번호 확인
+        logging.info(f"DB에서 차량 번호 조회 시작: {plate_number.strip()}")
         print(f"DB에서 차량 번호 조회 시작: {plate_number.strip()}")
         user_entry = db.query(User).filter(User.car_number == plate_number.strip()).first()
         
         if not user_entry:
+            logging.info(f"미등록 차량으로 처리: {plate_number}")
             print(f"미등록 차량으로 처리: {plate_number}")
+            violation_record.violation_number = plate_number
+            db.commit()
+            print(f"위반 차량 번호: {plate_number} DB 저장 완료")
             return JSONResponse(content={"status": "미등록 차량", "type": "illegal"})
         
         if not user_entry.handicap:
+            logging.info(f"일반 등록 차량으로 처리: {plate_number}")
             print(f"일반 등록 차량으로 처리: {plate_number}")
+            violation_record.violation_number = plate_number
+            db.commit()
+            print(f"위반 차량 번호: {plate_number} DB 저장 완료")
             return JSONResponse(content={"status": "일반 차량", "type": "illegal"})
         
         # 장애인 등록 차량인 경우
+        logging.info(f"장애인 등록 차량 확인: {plate_number}")
         print(f"장애인 등록 차량 확인: {plate_number}")
-        return JSONResponse(content={"status": "장애인 등록 차량", "action": "capture_assist"})
+        return JSONResponse(content={"status": "장애인 등록 차량", "action": "capture_assist", "plate_number": plate_number})
 
     except Exception as e:
         print(f"처리 중 에러 발생: {e}")
@@ -322,8 +388,22 @@ async def upload_file(request: Request, file: UploadFile = File(...), db: Sessio
 
 
 @app.post("/assist_check/")
-async def assist_check(file: UploadFile = File(...), db: Session = Depends(get_db)):
+async def assist_check(request:Request, file: UploadFile = File(...), db: Session = Depends(get_db)):
     try:
+        form_data = await request.form()
+        video_filename = form_data.get("video_filename")
+        plate_number = form_data.get("plate_number")
+
+        if not video_filename or not plate_number:
+            print("필수 정보 누락")
+            return JSONResponse(
+                content={"error": "비디오 파일명 또는 차량번호가 누락되었습니다"}, 
+                status_code=400
+            )
+
+        print(f"Received file for assist_check: {file.filename}")
+        print(f"Video filename: {video_filename}")
+        print(f"Plate number: {plate_number}")
         print("\n=== 보조기구 확인 시작 ===")
         
         # 파일 저장
@@ -335,18 +415,33 @@ async def assist_check(file: UploadFile = File(...), db: Session = Depends(get_d
         # 3. 보조기구 분석
         assist_result = analyze_assist_device(str(file_location))
         print(f"보조기구 분석 결과: {assist_result}")
-        
+
+        # violation_record 찾기
+        violation_record = db.query(Violation).filter(
+            Violation.filename == video_filename
+        ).first()
+
+        if not violation_record:
+            print("비디오 파일 기록을 찾을 수 없습니다")
+            return JSONResponse(content={"error": "비디오 파일 기록을 찾을 수 없습니다"}, status_code=404)
+
         if assist_result == "합법: 객체가 탐지되었습니다.":
             print("보조기구 확인 완료 - 합법 처리")
+            violation_record.violation_number = None  # 합법이므로 위반 기록 제거
+            db.commit()
             return JSONResponse(content={"status": "보조기구 확인", "type": "legal"})
         else:
             print("보조기구 없음 - 불법 처리")
+            plate_number = form_data.get("plate_number")
+            if plate_number:
+                violation_record.violation_number = plate_number  # 불법이므로 위반 차량 번호 기록
+                db.commit()
+                print(f"위반 차량 번호 {plate_number} DB 저장 완료")
             return JSONResponse(content={"status": "보조기구 없음", "type": "illegal"})
 
     except Exception as e:
         print(f"처리 중 에러 발생: {e}")
         raise HTTPException(status_code=500, detail=str(e))
-
 
 
 @app.get("/files/")

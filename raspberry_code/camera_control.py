@@ -5,42 +5,47 @@ import os
 import boto3
 import mysql.connector as mysql
 import logging
+ # import sys
+# import threading
 
 # 서버 및 클라우드 URL
-SERVER_URL = 'http://192.168.20.235:8000/upload/'  # FastAPI 서버 URL(컴퓨터 ip)
-endpoint_url = 'https://kr.object.ncloudstorage.com'  # 네이버 클라우드 URL
+SERVER_URL = 'http://192.168.200.161:8000/upload/'  # FastAPI 서버 URL(컴퓨터ip)
+# 네이버 클라우드 URL
 service_name = 's3'
+endpoint_url = 'https://kr.object.ncloudstorage.com'
 bucket_name = 'four-people-project'
 region_name = 'kr-standard'
-ACCESS_KEY = 'Access key ID'
-SECRET_KEY = 'Secret key'
+ACCESS_KEY = 'ACCESS_KEY'
+SECRET_KEY = 'SECERT_KEY'
 
 # MySQL 연결 설정
 DB_CONFIG = {
     'user': 'Insa5_JSB_final_1',
-    'password':'aischool1',
-    'host':'project-db-stu3.smhrd.com',
-    'database':'Insa5_JSB_final_1',
+    'password': 'aischool1',
+    'host': 'project-db-stu3.smhrd.com',
+    'database': 'Insa5_JSB_final_1',
     'port':'3307'
-}
+    }
 
 # 저장 경로 설정
 VIDEO_PATH = '/home/pi/videos/'
 PHOTO_PATH = '/home/pi/photos/'
-
+ 
 # 카메라 초기화
 camera = cv2.VideoCapture(0)
 is_recording = False  # 동영상 촬영 상태
 
 # 동영상 저장 설정
-fourcc = cv2.VideoWriter_fourcc(*'XVID')
+# fourcc = cv2.VideoWriter_fourcc(*'XVID')
 
 def start_video_recording():
     """
     동영상 촬영 시작
     """
     os.makedirs(VIDEO_PATH, exist_ok=True)
-    video_file = os.path.join(VIDEO_PATH, f"video_{int(time.time())}.avi")
+    video_file = os.path.join(VIDEO_PATH, f"video_{int(time.time())}.mp4")
+   
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
     out = cv2.VideoWriter(video_file, fourcc, 20.0, (640, 480))
     return video_file, out
 
@@ -139,34 +144,83 @@ if __name__ == "__main__":
                     is_recording = False
                     out.release()
 
+           
             elif key == ord('c') and is_recording:
-                print("Capturing frame...")
-                photo_file = capture_frame()
-                if photo_file and 'video_file' in locals():  # 동영상 파일 확인
-                    print('Uploading video to cloud before sending photo to server...')
-                   
-                    # 동영상 업로드
-                    cloud_response = upload_to_cloud(video_file)
-                    print('Cloud Upload Response:', cloud_response)
-
-                    # 첫 번째 이미지 전송(번호판 분석)
-                    print("Sending first photo to server...")
-                    response = send_to_server(photo_file, os.path.basename(video_file))
-                    print("Server Response:", response)
-
-                    # 서버 응답 확인 및 추가 행동
-                    if response.get("action") == "capture_assist":
-                        print("Waiting 5 seconds for second capture...")
-                        time.sleep(5)
-                        
-                        # 두 번째 캡처 수행
-                        assist_photo_file = capture_frame()
-                        if assist_photo_file:
-                            print("Sending second photo to server for assistive device analysis...")
-                            assist_response = send_to_server(assist_photo_file, os.path.basename(video_file))
-                            print("Assist Server Response:", assist_response)
-                else:
-                    print("Video file is not available yet. Please start recording before capturing.")
+                try:
+                    print("첫 번째 캡처 - 번호판 분석용...")
+                    plate_photo = capture_frame()
+                    if plate_photo and 'video_file' in locals():
+                        # 클라우드 업로드
+                        print('클라우드에 영상 업로드')
+                        cloud_response = upload_to_cloud(video_file)
+                        print('Cloud Upload Response:', cloud_response)
+                       
+                        # 첫 번째 사진으로 번호판 분석
+                        print("번호판 분석을 위해 서버로 전송중...")
+                        print(f"전송할 파일: {plate_photo}")
+                        plate_response = send_to_server(plate_photo, os.path.basename(video_file))
+                        print(f"번호판 분석 응답: {plate_response}")
+                       
+                        if plate_response:
+                            if plate_response.get("status") == "장애인 등록 차량" and plate_response.get("action") == "capture_assist":
+                                print("\n장애인 차량 확인됨 - 보조기구 확인을 위해 5초 대기...")
+                                time.sleep(5)
+                               
+                                # 두 번째 캡처 - 보조기구 확인용
+                                # 카메라 프레임 갱신을 위한 루프
+                            for _ in range(10):  # 몇 프레임 읽어서 버퍼 초기화
+                                ret, frame = camera.read()
+                                cv2.imshow("Press 'c' to capture assist device, 'q' to quit", frame)
+                                cv2.waitKey(1)
+                           
+                            print("\n보조기구 확인을 위해 프레임 캡처 준비...")
+                            print("'c' 키를 눌러 보조기구를 캡처하세요...")
+                           
+                            # 보조기구 캡처를 위한 대기
+                            while True:
+                                ret, frame = camera.read()
+                                if not ret:
+                                    break
+                               
+                                cv2.imshow("Press 'c' to capture assist device, 'q' to quit", frame)
+                                key = cv2.waitKey(1) & 0xFF
+                               
+                                if key == ord('c'):
+                                    print("보조기구 캡처 중...")
+                                    assist_photo = capture_frame()
+                                    if assist_photo:
+                                        print(f"보조기구 확인용 사진 촬영 완료: {assist_photo}")
+                                        # 보조기구 분석 요청
+                                        assist_url = "http://192.168.200.161:8000/assist_check/"  # 컴터 IP 주소 수정
+                                        try:
+                                            with open(assist_photo, 'rb') as f:
+                                                assist_files = {'file': f}
+                                                assist_data = {
+                                                    'video_filename': os.path.basename(video_file),
+                                                    'plate_number': plate_response.get('plate_number')          
+                                                               }
+                                                print(f"Sending assist device check request with data: {assist_data}")
+                                                assist_response = requests.post(
+                                                    assist_url,
+                                                    files=assist_files,
+                                                    data=assist_data
+                                                )
+                                            if assist_response.status_code == 200:
+                                                print("보조기구 분석 결과:", assist_response.json())
+                                            else:
+                                                print(f"보조기구 분석 요청 실패: {assist_response.status_code}")
+                                        except Exception as e:
+                                            print(f"보조기구 분석 요청 중 에러 발생: {e}")
+                                    break
+                                elif key == ord('q'):
+                                    print("보조기구 캡처 취소")
+                                    break
+                        else:
+                            print("일반 차량 또는 미등록 차량으로 처리됨:", plate_response.get("status"))
+                    else:
+                        print('영상 파일이 준비되지 않았습니다. 녹화를 먼저 시작하세요.')
+                except Exception as e:
+                    print(f"캡처 및 분석 중 에러 발생: {e}")
 
             elif key == ord('q'):
                 print("Exiting...")
