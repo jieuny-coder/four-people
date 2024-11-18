@@ -88,13 +88,6 @@ router.get('/filtering_dateRange', (req, res) => {
 });
 
 
-
-
-
-
-
-
-
 // 차량 위반데이터 전체 조회하기 
 router.get('/all',(req,res)=>{
     //쿼리문 : violation_date를 기준으로 내림차순 정렬
@@ -109,6 +102,48 @@ router.get('/all',(req,res)=>{
         res.status(200).json(rows);
     });
 });
+
+
+// 특정 차량 번호의 동영상 데이터 반환 API
+router.get('/videos', (req, res) => {
+    console.log('GET /videos route hit'); // 로그 추가
+
+    const { violationNumber } = req.query;
+
+    // 파라미터 유효성 검사
+    if (!violationNumber) {
+        return res.status(400).json({ error: 'violationNumber(차량 번호)가 필요합니다.' });
+    }
+
+    // SQL 쿼리 작성
+    const sql = `
+        SELECT violation_id, violation_number, url, upload_time 
+        FROM VIOLATION 
+        WHERE violation_number = ? 
+        ORDER BY upload_time DESC
+    `;
+
+    // 쿼리 실행 전에 로그 출력
+    console.log('실행될 쿼리:', sql);
+    console.log('쿼리 파라미터:', [violationNumber]);
+
+    // 쿼리 실행
+    conn.query(sql, [violationNumber], (err, rows) => {
+        if (err) {
+            console.error('동영상 데이터 조회 오류:', err);
+            return res.status(500).json({ error: '동영상 데이터를 가져오는 중 오류가 발생했습니다.' });
+        }
+
+        // 결과 반환
+        if (rows.length > 0) {
+            return res.status(200).json(rows);
+        } else {
+            return res.status(200).json({ message: '해당 차량 번호에 대한 동영상 데이터가 없습니다.', data: [] });
+        }
+    });
+});
+
+
 
 
 // 적재물 위반 데이터 전체조회하기 
