@@ -12,19 +12,19 @@ setInterval(()=>{
     JOIN (
       SELECT time
       FROM maplist
-      ORDER BY time DESC
-      LIMIT 1 OFFSET 1
+      ORDER BY time ASC
+      LIMIT 1
     ) subquery
-    ON m.time < subquery.time;
+    ON m.time = subquery.time;
   `;
-  conn.query(deleteQuery,(err,results)=>{
-    if(err){
-      console.error('데이터 삭제 실패:',err);
-    }else{
-      console.log('자동 데이터 삭제 성공:',results);
+  conn.query(deleteQuery, (err, results) => {
+    if (err) {
+      console.error('데이터 삭제 실패:', err);
+    } else {
+      console.log('자동 데이터 삭제 성공:', results);
     }
   })
-},60000);
+}, 600000);
 
 // 주차장 찾기에서 얻은 위도, 경도 데이터를 DB에 저장하기
 router.post('/parkinglist', (req, res) => {
@@ -35,7 +35,7 @@ router.post('/parkinglist', (req, res) => {
 
   const moment = require('moment-timezone');
 
-  // 한국 시간(KST)으로 변환하여 저장
+  // 한국 시간으로 변환하여 저장
   const currentTime = moment.tz("Asia/Seoul").format('YYYY-MM-DD HH:mm:ss');
 
   // SQL 쿼리
