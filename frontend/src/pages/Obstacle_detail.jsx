@@ -16,6 +16,14 @@ const Obstacle_detail = () => {
   const detectedDate = new Date(obstacle.detected_at).toLocaleDateString();
   const detectedTime = new Date(obstacle.detected_at).toLocaleTimeString();
 
+  // 동영상 다운로드 핸들러
+  const handleVideoDownload = () => {
+    const link = document.createElement('a');
+    link.href = obstacle.video_url; // 동영상 URL
+    link.download = 'obstacle_video.mp4'; // 다운로드될 파일 이름 지정
+    link.click();
+  };
+
   return (
     <div className="obstacle-detail-unique-container">
       {/* 테이블 */}
@@ -72,13 +80,14 @@ const Obstacle_detail = () => {
           }
         </PDFDownloadLink>
 
-        {/* 동영상 다운로드 버튼 */}
-        {obstacle.video_url && (
-          <a href={obstacle.video_url} download>
-            <button className="obstacle-detail-unique-download-button">
-              동영상 다운로드
-            </button>
-          </a>
+         {/* 동영상 다운로드 버튼 */}
+         {obstacle.video_url && (
+          <button
+            className="obstacle-detail-unique-download-button"
+            onClick={handleVideoDownload}
+          >
+            동영상 다운로드
+          </button>
         )}
       </div>
     </div>
