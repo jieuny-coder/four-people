@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 const ObstacleViolationsList = ({ setData }) => {
+  const navigate = useNavigate(); 
   const [obstacles, setObstacles] = useState([]); // 적재물 데이터 상태
   const [loading, setLoading] = useState(true); // 로딩 상태
   const [error, setError] = useState(''); // 에러 상태
@@ -26,6 +29,10 @@ const ObstacleViolationsList = ({ setData }) => {
     fetchObstacles();
   }, [setData]); // setData가 변하면 다시 fetch
 
+  const handleRowClick = (obstacle) => {
+    navigate('/obstacle-detail', { state: { obstacle } }); // obstacle 데이터를 상세 페이지로 전달
+  };
+
   if (loading) {
     return <p>로딩 중...</p>;
   }
@@ -46,7 +53,7 @@ const ObstacleViolationsList = ({ setData }) => {
       {/* 데이터 목록 또는 "적재물 내역이 없습니다." 메시지 */}
       {obstacles.length > 0 ? (
         obstacles.map((obstacle) => (
-         <div key={obstacle.id} className="violation-row">
+         <div key={obstacle.id} className="violation-row" onClick={() => handleRowClick(obstacle)}>
              <div className="violation-cell id">{obstacle.id}</div>
              <div className="violation-cell description">{obstacle.description}</div>
              <div className="violation-cell detected-at">

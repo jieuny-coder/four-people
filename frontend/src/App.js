@@ -20,6 +20,7 @@ import { UserMain } from './pages/UserMain';
 import EditProfile from './pages/EditProfile';
 import Btnbar from './components/Btnbar';
 import Handicap_car from './pages/Handicap_car';
+import Obstacle_detail from './pages/Obstacle_detail';
 
 function AppContent() {
   const location = useLocation();
@@ -41,6 +42,7 @@ function AppContent() {
       case '/Violations': return '위반 정보';
       case '/detail': return '세부사항';
       case '/register-car': return '장애인등록차량 관리'; 
+      case '/obstacle-detail':return '적재물 상세 정보';
       // 사용자모드
       case '/userMain': return '메인페이지'; 
       case '/editprofile': return '회원정보수정'; 
@@ -55,7 +57,7 @@ function AppContent() {
 
   // 사용자 버튼바가 나타나야 하는 경로 확인
   const userPages = ['/myparking_place', '/parkinglist', '/parkingSearch', '/userMain'];
-  const adminPages = ['/filtering', '/setting', '/download', '/M_calender', '/Violations', '/detail','/register-car'];
+  const adminPages = ['/filtering', '/setting', '/download', '/M_calender', '/Violations', '/detail','/register-car', '/obstacle-detail'];
 
   return (
     <div className="mobile_frame">
@@ -79,6 +81,7 @@ function AppContent() {
           <Route path="/violations" element={<ViolationsPage/>}/>
           <Route path="/detail" element={<M_detail/>} />
           <Route path='/register-car' element={<Handicap_car/>}/>
+          <Route path='obstacle-detail' element={<Obstacle_detail/>}/>
           {/* 사용자 */ }
           <Route path="/myparking_place" element={<Myparking_place/>} />
           <Route path="/parkinglist" element={<ParkingList/>} />

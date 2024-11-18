@@ -2525,4 +2525,105 @@ input:checked + .slider-unique:before {
 }
 
 
-/*************** PDF컴포넌트 양식 ********************/
+/*************** Obstacle_detail(적재물 상세페이지 css ) 양식 ********************/
+/***********************************
+ * Obstacle_detail 컴포넌트 스타일
+ ***********************************/
+
+ .obstacle-detail-unique-container {
+  position: absolute;
+  top: 57%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex; /* Flexbox 사용 */
+  flex-direction: column; /* 세로 방향 정렬 */
+  align-items: center; /* 가로 중앙 정렬 */
+  justify-content: flex-start; 
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 400px; /* 모바일 화면 크기에 적합한 최대 너비 설정 */
+  height: 80%; /* 내용에 맞게 높이 조절 */
+  overflow-y: auto;
+}
+
+.obstacle-detail-unique-title {
+  background-color: #FFDA38;
+  color: black;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.obstacle-detail-unique-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.obstacle-detail-unique-table th,
+.obstacle-detail-unique-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+  font-size: 14px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.obstacle-detail-unique-table th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+  color: #333;
+}
+
+.obstacle-detail-unique-table tr:nth-child(even) td {
+  background-color: #fafafa;
+}
+
+/* 다운로드 버튼 섹션 */
+.obstacle-detail-unique-download-section {
+  margin-top: 20px;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* 버튼 사이의 간격 */
+}
+
+.obstacle-detail-unique-download-button {
+  background-color: #FFDA38;
+  color: #201C1C;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+}
+
+.obstacle-detail-unique-download-button:hover {
+  background-color: #ffd633;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  transform: scale(1.05);
+}
+
+/* 이미지 박스 */
+.obstacle-detail-unique-image-box {
+  width: 100%;
+  height: 200px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #aaa;
+  font-size: 18px;
+  margin-top: 20px;
+}
