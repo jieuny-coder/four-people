@@ -21,6 +21,7 @@ import EditProfile from './pages/EditProfile';
 import Btnbar from './components/Btnbar';
 import Handicap_car from './pages/Handicap_car';
 import Obstacle_detail from './pages/Obstacle_detail';
+import { useEffect } from 'react';
 
 function AppContent() {
   const location = useLocation();
@@ -58,6 +59,15 @@ function AppContent() {
   // 사용자 버튼바가 나타나야 하는 경로 확인
   const userPages = ['/myparking_place', '/parkinglist', '/parkingSearch', '/userMain'];
   const adminPages = ['/filtering', '/setting', '/download', '/M_calender', '/Violations', '/detail','/register-car', '/obstacle-detail'];
+
+  // 경로 변경 시 버튼바 렌더링 동기화
+  useEffect(() => {
+    if (adminPages.includes(location.pathname)) {
+      setIsAdmin(true); // 관리자 경로면 isAdmin을 true로
+    } else if (userPages.includes(location.pathname)) {
+      setIsAdmin(false); // 사용자 경로면 isAdmin을 false로
+    }
+  }, [location.pathname]); // location.pathname이 바뀔 때 실행
 
   return (
     <div className="mobile_frame">

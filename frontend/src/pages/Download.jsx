@@ -87,7 +87,10 @@ const Download = () => {
             </tbody>
           </table>
         ) : (
-          <p>다운로드할 데이터가 없습니다.</p>
+          <div className="no-data-container">
+            <img src='/images/data_image.png' alt="No Data" className="no-data-image"/>
+            <p>다운로드할 데이터가 없습니다.</p>
+          </div>
         )}
       </div>
 

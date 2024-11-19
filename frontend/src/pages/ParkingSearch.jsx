@@ -29,7 +29,7 @@ export const ParkingSearch = () => {
         console.log("서버 응답:", response.data);
       }
   
-      alert('위도와 경도가 저장되었습니다!');
+      alert('즐겨찾기에 추가 되었습니다!');
     } catch (error) {
       console.error('서버로 전송 실패:', error);
       alert('저장에 실패했습니다.');

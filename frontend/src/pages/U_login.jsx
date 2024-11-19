@@ -91,13 +91,13 @@ const U_login = ({ setIsAdmin }) => {
                         className={isUser ? 'active' : ''}
                         onClick={() => handleTabSwitch('user')}
                     >
-                        사용자
+                        <span>사용자</span>
                     </button>
                     <button
                         className={!isUser ? 'active' : ''}
                         onClick={() => handleTabSwitch('admin')}
                     >
-                        관리자
+                        <span>관리자</span>
                     </button>
                 </div>
                 <div className="login_form">

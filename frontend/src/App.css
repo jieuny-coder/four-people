@@ -22,6 +22,7 @@ body {
 .centered_logo_image:hover {
   transform: scale(1.1); /* 크기를 10% 확대 */
   /* border-color: yellow; */
+  cursor: pointer;
 }
 
 
@@ -119,6 +120,19 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
   border-radius: 10px;
   border: none;
+  position: relative;
+  overflow: hidden;
+  height: 50px;
+}
+/* 마우스 호버 효과 추가 */
+.login_tabs button span {
+  display: inline-block;
+  transition: font-size 0.3s ease; /* 부드러운 전환 효과 */
+}
+
+/* 텍스트에만 호버 효과 */
+.login_tabs button span:hover {
+  font-size: 1.2rem; /* 텍스트 크기를 살짝 키움 */
 }
 
 /* 사용자 버튼 (왼쪽 버튼) */
@@ -201,7 +215,7 @@ body {
   cursor: pointer;
   font-size: 1rem;
   margin-top: 10px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease transform 0.3s ease;
 }
 /* 로그인 버튼 활성화 상태 */
 /* .login_button.active {
@@ -213,6 +227,12 @@ body {
   background-color: #FFDA38;
   color: #121316;
   font-weight: bold;
+}
+/* 활성화된 로그인 버튼 호버 효과 */
+.login_button.filled:hover {
+  background-color: #FFDA38; /* 밝은 노란색으로 변경 */
+  transform: scale(1.02); /* 버튼을 살짝 확대 */
+  color: #000; /* 텍스트 색상 변경 */
 }
 
 /* 로그인 버튼 비활성화 상태 */
@@ -325,15 +345,21 @@ body {
 
 .download_preview {
   width: 100%;
-  /* padding: 20px; */
+  padding: 20px;
   background-color: #f5f5f5;
   transition: filter 0.3s ease; /* 희미해지는 효과 */
-  max-height: 70%; /* 최대 높이 제한 */
+  max-height: 100%; /* 최대 높이 제한 */
   overflow-y: auto;  /* 높이 초과 시 수직 스크롤 활성화 */
   border-top: 1px solid #ddd; /* 헤더와 데이터 구분을 위한 선 추가 */
    /* 기본 상태에서 스크롤바 숨기기 */
    scrollbar-width: none; /* Firefox */
    -ms-overflow-style: none; /* IE and Edge */
+   display: flex; /* 플렉스박스 활성화 */
+  flex-direction: column; /* 세로 방향 정렬 */
+  align-items: center; /* 가로 중앙 정렬 */
+  justify-content: center; /* 세로 중앙 정렬 */
+  height: 100%; /* 부모 컨테이너의 전체 높이 사용 */
+  text-align: center; /* 텍스트 중앙 정렬 */
 }
 .download_preview::-webkit-scrollbar {
   width: 0; /* Chrome, Safari에서 기본적으로 숨기기 */
@@ -436,6 +462,23 @@ body {
 .preview_table tr:nth-child(even) {
   background-color: #f9f9f9; /* 짝수 행의 배경색 */
 }
+/* 다운로드할 데이터 없다는 화면 보여줄 때 이미지 */
+.no-data-container {
+  display: flex; /* 플렉스박스 활성화 */
+  flex-direction: column; /* 세로 방향으로 정렬 */
+  align-items: center; /* 가로 중앙 정렬 */
+  justify-content: center; /* 세로 중앙 정렬 */
+  height: 100%; /* 컨테이너의 전체 높이를 사용 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  color: #666; /* 텍스트 색상 */
+}
+
+.no-data-image {
+  opacity: 0.2; /* 희미하게 보이도록 설정 */
+  max-width: 150px; /* 이미지 크기 제한 */
+  margin-bottom: 10px; /* 텍스트와 간격 */
+}
+
 
 
 /* ****************필터링(Filtering)페이지 컴포넌트************** */
@@ -506,8 +549,9 @@ body {
 
 /* 포커스 시 테두리 색상 변경 */
 .filtering-input:focus {
-  border-color: #FFDA38; /* 활성화된 상태의 테두리 색상 */
-  outline: none; /* 기본 포커스 아웃라인 제거 */
+  border-color: #FFDA38;
+  outline: none; 
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .vehicle-number-input::placeholder { /* 새로 추가된 클래스 */
@@ -516,6 +560,7 @@ body {
 
 .vehicle-number-input:focus { /* 새로 추가된 클래스 */
   border-color: #FFDA38; /* 활성화된 상태의 테두리 색상 */
+  box-shadow: 0 0 8px rgba(255, 218, 56, 0.8);
   outline: none; /* 기본 포커스 아웃라인 제거 */
 }
 
@@ -573,6 +618,7 @@ body {
   border-color: #d0d0d0; /* 비활성화 상태 테두리 색상 */
 }
 
+
 /* 슬라이드 박스 비활성화 상태 스타일 */
 .filtering-time-inputs .react-datepicker__input-container input[disabled] {
   cursor: not-allowed; /* 비활성화된 슬라이드 박스에서 🚫 모양으로 표시 */
@@ -599,49 +645,74 @@ body {
 .filtering-input {
   color: #201C1C; /* 입력된 텍스트 색상 */
   border: 1px solid #8F8E8E; /* 입력 필드 테두리 색상 */
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .filtering-time-inputs select {
   color: #8F8E8E; /* 텍스트 색상 변경 */
 }
 
-/* .custom-datepicker에 스타일을 적용 */
-.custom-datepicker .react-datepicker__time-container {
-  width: 100% !important;
-  border: none;
-  background-color: #FFDA38;
-  border-radius: 0;
-  box-shadow: none;
+
+/* React DatePicker 슬라이드박스 스타일 */
+/* DatePicker 전체 컨테이너 */
+.filtering-time-inputs .react-datepicker {
+  z-index: 1050; /* 항상 위로 */
+  background-color: #ffffff; /* 배경색 */
+  border: 1px solid #ddd; /* 테두리 */
+  border-radius: 10px; /* 둥근 모서리 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 */
 }
 
-.custom-time-list .react-datepicker__time-list-item {
-  color: #201C1C;
+/* 시간 리스트 컨테이너 */
+.filtering-time-inputs .react-datepicker__time-container {
+  background-color: white;
+  border-left: 1px solid #ddd; /* 왼쪽 테두리 */
+  border-radius: 10px; /* 오른쪽 둥근 모서리 */
+  max-height: 200px; /* 높이 제한 */
+  overflow-y: hidden; /* 스크롤 비활성화 */
+  width: 150%;
+  box-sizing: border-box;
+  display: flex; /* Flexbox 활성화 */
+  flex-direction: column; /* 세로 방향으로 나열 */
+}
+
+
+/* 시간 리스트 */
+.filtering-time-inputs .react-datepicker__time-list {
+  margin: 0;
+  padding: 0;
+  list-style: none; /* 기본 리스트 스타일 제거 */
+  background-color: transparent;
+  color: #201C1C; /* 텍스트 색상 */
   font-size: 14px;
-  padding: 8px 10px;
+  font-family: Arial, sans-serif;
+  width: 100%; /* 리스트 폭을 컨테이너에 맞춤 */
+  box-sizing: border-box; /* 패딩과 테두리를 포함한 크기 계산 */
+  overflow-y: hidden; /* 내부 스크롤 비활성화 */
+}
+
+/* 시간 리스트 항목 */
+.filtering-time-inputs .react-datepicker__time-list-item {
+  margin: 10px 15px; /* 여백 조정 */
+  font-size: 14px;
   text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  white-space: nowrap;
 }
 
-.custom-time-list .react-datepicker__time-list-item--selected {
-  background-color: #E3E3E3;
-  color: #201C1C;
-  font-weight: bold;
+/* 호버 시 강조 효과 */
+.filtering-time-inputs .react-datepicker__time-list-item:hover {
+  background-color: #FFDA38; /* 노란색 배경 */
+  color: #000;
+  transform: scale(1.05); /* 약간 확대 */
 }
 
-.custom-time-list .react-datepicker__time-list-item:hover {
-  background-color: #D6D6D6;
-}
-
-
-/* 시간 선택 드롭다운 리스트의 폭을 슬라이드박스와 동일하게 설정 */
-.custom-time-list .react-datepicker__time-list {
-  width: 100% !important; /* 슬라이드박스와 동일한 너비로 설정 */
-}
-
-.custom-time-list .react-datepicker__time-container {
-  width: 100% !important; /* 슬라이드박스와 동일한 너비로 설정 */
+/* 선택된 항목 */
+.filtering-time-inputs .react-datepicker__time-list-item--selected {
   background-color: #FFDA38;
-  border: none;
-  box-shadow: none;
+  color: black;
+  font-weight: bold;
 }
 
 
@@ -650,13 +721,15 @@ body {
 .filtering-search-button {
   width: 100%;
   padding: 15px;
-  font-size: 18px;
+  height: 48px;
+  font-size: 16px;
+  font-weight: 600;
   background-color: #FFDA38; /* 버튼 배경색 변경 */
   color: #201C1C; /* 버튼 텍스트 색상 */
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가로 버튼 강조 */
   transition: background-color 0.3s, transform 0.2s;
 }
@@ -736,6 +809,7 @@ body {
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+  font-weight: bold;
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
@@ -1107,11 +1181,12 @@ body {
 /* Main 페이지 전용 스타일 */
 .main_background {
   position: relative;
+  height: 100%;
 }
 
 .main_background .background_image {
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: cover;
   cursor: default; /* 기본 커서 설정 */
 }
@@ -2026,6 +2101,10 @@ input:checked + .slider-unique:before {
   padding-bottom: 80px; /* 하단에 여유 공간 추가 */
   min-height: 600px; /* 높이를 늘리고자 하는 최소 높이 설정 */
 }
+.parking-container p {
+  cursor: default; /* p 태그에 명시적으로 기본 커서 설정 */
+}
+
 
 .parking_search {
   margin-bottom: 20px; /* 지도와의 간격 */
@@ -2036,6 +2115,7 @@ input:checked + .slider-unique:before {
   font-weight: bold;
   margin-bottom: 10px;
   color: #333;
+  
 }
 
 .searchbox {
@@ -2446,16 +2526,18 @@ input:checked + .slider-unique:before {
 
 .search_section .search_button {
   padding: 10px 20px;
-  background-color: #201C1C;
-  color: white;
+  background-color: #FFDA38;
+  color: #333;
+  font-weight: 600;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 버튼에 약간의 그림자 추가 */
-  transition: background-color 0.3s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .search_section .search_button:hover {
-  background-color: #333;
+  transform: scale(1.05); /* 버튼을 10% 확대 */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
 }
 
 .car_list_section {

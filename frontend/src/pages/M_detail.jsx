@@ -179,13 +179,22 @@ const M_detail = ({ setData }) => {
             </tr>
             <tr>
               <td>선택된 날짜:</td>
-              <td>{startDate && endDate ? `${formatDate(startDate)} ~ ${formatDate(endDate)}` : formatDate(date)}</td>
+              <td>
+                {startDate && endDate
+                  ? `${formatDate(startDate)} ~ ${formatDate(endDate)}`
+                  : date
+                    ? formatDate(date)
+                    : "선택한 날짜가 없습니다."}
+              </td>
             </tr>
             <tr>
               <td>조회 기간:</td>
               <td>
-                {`${startTimeDisplay} ~ ${endTimeDisplay}`}<br />
-                {selectedTime ? ` (${selectedTime})` : ''}
+                {startDate && endDate
+                  ? `${formatDate(startDate)} ~ ${formatDate(endDate)}`
+                  : date
+                    ? formatDate(date)
+                    : "선택한 날짜가 없습니다."}
               </td>
             </tr>
           </tbody>
