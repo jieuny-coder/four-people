@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Btnbar from '../components/Btnbar';
 import axios from 'axios';
+import ParkingList_Item from '../components/ParkingList_Item';
 
 export const Myparking_place = () => {
     const location = useLocation();  // useLocation을 사용하여 URL 정보 가져오기
