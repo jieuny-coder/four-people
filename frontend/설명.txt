@@ -32,3 +32,6 @@ npm install @react-pdf/renderer
 -필터링 페이지 시간조회 라이브러리 
 npm install react-datepicker
 npm install date-fns
+
+- 11월 19일 프론트 설치 
+npm install react-player
