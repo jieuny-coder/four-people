@@ -17,6 +17,8 @@ const M_detail = ({ setData }) => {
 
   const [violations, setViolations] = useState(violation ? [violation] : []);
   const [loading, setLoading] = useState(!violation);
+  const [videos, setVideos] = useState([]);
+  const [selectedCarNumber, setSelectedCarNumber] = useState(carNumber);
 
   let startTimeDisplay = startDate;
   let endTimeDisplay = endDate;
@@ -42,7 +44,7 @@ const M_detail = ({ setData }) => {
     const dateObj = new Date(date);
     return isNaN(dateObj.getTime())
       ? '유효하지 않은 날짜'
-      : showTimeOnly 
+      : showTimeOnly
         ? `${String(dateObj.getHours()).padStart(2, '0')}:${String(dateObj.getMinutes()).padStart(2, '0')}`
         : `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(2, '0')}-${String(dateObj.getDate()).padStart(2, '0')} ${String(dateObj.getHours()).padStart(2, '0')}:${String(dateObj.getMinutes()).padStart(2, '0')}`;
   };
@@ -73,47 +75,65 @@ const M_detail = ({ setData }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-        try {
-            let response;
-            if (startDate && endDate && carNumber) { // carNumber가 null이 아닌지 확인
-                response = await axios.get('http://localhost:4000/violation/filtering_dateRange', {
-                    params: {
-                        startDate: startDate.split("T")[0],
-                        endDate: endDate.split("T")[0],
-                        car_number: carNumber  // 반드시 car_number로 전달
-                    }
-                });
-            } else if (date && carNumber && startTimeDisplay && endTimeDisplay) {
-                response = await axios.get('http://localhost:4000/violation/filter_Violations', {
-                    params: {
-                        car_number: carNumber, // 반드시 car_number로 전달
-                        startTime: startTimeDisplay,
-                        endTime: endTimeDisplay
-                    }
-                });
-            } else {
-                setLoading(false);
-                return;
+      try {
+        let response;
+        if (startDate && endDate && carNumber) { // carNumber가 null이 아닌지 확인
+          response = await axios.get('http://localhost:4000/violation/filtering_dateRange', {
+            params: {
+              startDate: startDate.split("T")[0],
+              endDate: endDate.split("T")[0],
+              car_number: carNumber  // 반드시 car_number로 전달
             }
-
-            console.log('Fetched violations:', response.data);
-
-            setViolations(response.data);
-            if (setData) {
-                setData(response.data);
+          });
+        } else if (date && carNumber && startTimeDisplay && endTimeDisplay) {
+          response = await axios.get('http://localhost:4000/violation/filter_Violations', {
+            params: {
+              car_number: carNumber, // 반드시 car_number로 전달
+              startTime: startTimeDisplay,
+              endTime: endTimeDisplay
             }
-
-        } catch (error) {
-            console.error('위반 데이터 패치 실패:', error);
-        } finally {
-            setLoading(false);
+          });
+        } else {
+          setLoading(false);
+          return;
         }
+
+        console.log('Fetched violations:', response.data);
+
+        setViolations(response.data);
+        if (setData) {
+          setData(response.data);
+        }
+
+        // 동영상 데이터 가져오기
+        if (carNumber) {
+          const videoResponse = await axios.get('http://localhost:4000/violation/videos', {
+            params: { violationNumber: carNumber }
+          });
+          console.log('Fetched videos:', videoResponse.data);
+          setVideos(videoResponse.data); // 동영상 데이터를 상태에 저장
+        }
+
+      } catch (error) {
+        console.error('위반 데이터 패치 실패:', error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     if (violation || carNumber || (startDate && endDate)) {
-        fetchData();
+      fetchData();
     }
-}, [violation, date, carNumber, startTimeDisplay, endTimeDisplay, startDate, endDate, setData]);
+  }, [violation, date, carNumber, startTimeDisplay, endTimeDisplay, startDate, endDate, setData]);
+
+
+  // 차량 선택 핸들러
+  const handleCarSelection = (carNumber) => {
+    console.log(`Selected car number: ${carNumber}`);
+    setSelectedCarNumber(carNumber);
+    setVideos([]); // 동영상 데이터 초기화
+    setLoading(true); // 로딩 상태 활성화
+  };
 
   return (
     <div className="m_detail-container-unique">
@@ -131,7 +151,7 @@ const M_detail = ({ setData }) => {
             <tr>
               <td>조회 기간:</td>
               <td>
-                {`${startTimeDisplay} ~ ${endTimeDisplay}`}<br/>
+                {`${startTimeDisplay} ~ ${endTimeDisplay}`}<br />
                 {selectedTime ? ` (${selectedTime})` : ''}
               </td>
             </tr>
@@ -140,8 +160,26 @@ const M_detail = ({ setData }) => {
       </div>
 
       {/* 사진 박스 추가 */}
-      <div className="m_detail-photo-unique">
+      {/* <div className="m_detail-photo-unique">
         <div className="m_detail-photo-box-unique">사진</div>
+      </div>   */}
+
+      {/* 동영상 표시 영역 */}
+      <div className="m_detail-photo-unique">
+        {videos.length > 0 ? (
+          <div>
+            {videos.map((video, index) => (
+              <div key={index} className="m_detail-video-box-unique">
+                <video controls width="100%" src={video.url} />
+                <a href={video.url} download>
+                  <button>동영상 다운로드</button>
+                </a>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="m_detail-photo-box-unique">동영상을 불러오는 중입니다...</div>
+        )}
       </div>
 
       <div className="m_detail-violation-unique">
@@ -158,10 +196,12 @@ const M_detail = ({ setData }) => {
             {violations.length > 0 ? (
               violations.map((violation, index) => (
                 <tr key={index}>
-                  <td>{violation.violation_number}</td>
+                  <td onClick={() => handleCarSelection(violation.violation_number)} style={{ cursor: 'pointer', color: 'blue' }}>
+                    {violation.violation_number}
+                  </td>
                   <td>{formatDate(violation.upload_time)}</td>
                   <td>{formatTime(violation.upload_time)}</td>
-                  <td>{violation.violation_location}</td>
+                  <td>{violation.violation_location || '장소 정보 없음'}</td>
                 </tr>
               ))
             ) : (
@@ -172,7 +212,7 @@ const M_detail = ({ setData }) => {
           </tbody>
         </table>
       </div>
-      
+
       {/* PDF 및 동영상 다운로드 버튼 */}
       <div className="m_detail-download-buttons">
         <PDFDownloadLink
