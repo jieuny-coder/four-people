@@ -104,42 +104,48 @@ router.get('/all',(req,res)=>{
 });
 
 
-// 특정 차량 번호의 동영상 데이터 반환 API
+
+
+
+// 특정 차량 번호(+날짜/시간)의 동영상 데이터 반환 API
 router.get('/videos', (req, res) => {
     console.log('GET /videos route hit'); // 로그 추가
 
-    const { violationNumber } = req.query;
+    const { violationNumber, dateTime } = req.query;
 
     // 파라미터 유효성 검사
-    if (!violationNumber) {
-        return res.status(400).json({ error: 'violationNumber(차량 번호)가 필요합니다.' });
+    if (!violationNumber && !dateTime) {
+        return res.status(400).json({ error: 'violationNumber(차량 번호) 또는 dateTime(날짜+시간)이 필요합니다.' });
     }
 
     // SQL 쿼리 작성
     const sql = `
-        SELECT violation_id, violation_number, url, upload_time 
-        FROM VIOLATION 
-        WHERE violation_number = ? 
+        SELECT violation_id, violation_number, upload_time, url, filename
+        FROM VIOLATION
+        WHERE violation_number = ? AND upload_time = ?
         ORDER BY upload_time DESC
+        LIMIT 1
     `;
+    const params = [violationNumber, dateTime]; // 차량 번호와 날짜+시간 기준
 
     // 쿼리 실행 전에 로그 출력
-    console.log('실행될 쿼리:', sql);
-    console.log('쿼리 파라미터:', [violationNumber]);
+    // console.log('실행될 쿼리:', sql);
+    // console.log('쿼리 파라미터:', params);
 
     // 쿼리 실행
-    conn.query(sql, [violationNumber], (err, rows) => {
+    conn.query(sql, params, (err, rows) => {
         if (err) {
             console.error('동영상 데이터 조회 오류:', err);
             return res.status(500).json({ error: '동영상 데이터를 가져오는 중 오류가 발생했습니다.' });
         }
 
         // 결과 반환
-        if (rows.length > 0) {
-            return res.status(200).json(rows);
-        } else {
-            return res.status(200).json({ message: '해당 차량 번호에 대한 동영상 데이터가 없습니다.', data: [] });
-        }
+        return res.status(200).json({
+            message: rows.length > 0
+                ? '동영상 데이터를 성공적으로 가져왔습니다.'
+                : '해당 조건에 맞는 동영상 데이터가 없습니다.',
+            data: rows // 항상 `data` 필드로 응답
+        });
     });
 });
 
