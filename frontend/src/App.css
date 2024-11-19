@@ -686,7 +686,7 @@ body {
   color: #201C1C; /* 텍스트 색상 */
   font-size: 14px;
   font-family: Arial, sans-serif;
-  width: 100%; /* 리스트 폭을 컨테이너에 맞춤 */
+  width: 150% !important; /* 리스트 폭을 컨테이너에 맞춤 */
   box-sizing: border-box; /* 패딩과 테두리를 포함한 크기 계산 */
   overflow-y: hidden; /* 내부 스크롤 비활성화 */
 }
@@ -937,15 +937,15 @@ body {
 
  .m_detail-container-unique {
   position: absolute;
-  top: 57%;
+  top: 62%;
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 20px;
   background-color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 90%;
-  height: 80%;
-  max-height: 80%; /* 최대 높이 설정 */
+  height: 90%;
+  max-height: 90%; /* 최대 높이 설정 */
 }
 
 .m_detail-filter-unique {
@@ -953,7 +953,7 @@ body {
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 10px; /* 하단 여백 추가 */
+  margin-bottom: 20px; /* 하단 여백 추가 */
   width: 95%;
 }
 
@@ -965,7 +965,7 @@ body {
 
 .m_detail-photo-box-unique {
   width: 100%;
-  height: 200px;
+  height: 250px;
   background-color: #f9f9f9;
   display: flex;
   justify-content: center;
@@ -1087,7 +1087,7 @@ body {
 .violation-table {
   width: 100%;
   border-collapse: collapse; /* 테이블 테두리 겹침 방지 */
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .violation-table th,
@@ -2255,6 +2255,7 @@ input:checked + .slider-unique:before {
   border-bottom: 2px solid #ddd;
   border-radius: 5px;
   background-color: #f0f0f0;
+  height: 50px;
 }
 
 /* 번호와 주소 텍스트 정렬 */
@@ -2300,13 +2301,14 @@ input:checked + .slider-unique:before {
   justify-content: space-between; /* 좌우 간격 확보 */
   width: 100%;
   padding: 15px 0;
+  margin-right: 5px;
   border-bottom: 1px solid #ddd;
   box-sizing: border-box;
   transition: background-color 0.3s;
 }
 
 .parking_item_container:hover {
-  background-color: #f9f9f9; /* 행에 마우스 올렸을 때 배경색 */
+  background-color: #dbe8fd; /* 행에 마우스 올렸을 때 배경색 */
 }
 
 /* 주소 텍스트 */
@@ -2319,23 +2321,21 @@ input:checked + .slider-unique:before {
   color: #333;
 }
 
-/* 즐겨찾기 아이콘 */
+/* 기본 비활성화 별 스타일 */
 .parking_item_star_icon {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   cursor: pointer;
-  /* margin-right: 10px;  */
-  transition: transform 0.3s, filter 0.3s;
+  transition: transform 0.3s ease;
 }
 .parking_item_star_icon:hover {
-  transform: scale(1.1); /* 호버 시 크기 확대 */
+  transform: scale(1.2); /* 호버 시 크기 확대 */
 }
-
-/* 즐겨찾기 활성화 스타일 */
+/* 활성화된 별 스타일 */
 .parking_item_star_icon.favorite {
-  color: #FFDA38; /* 활성화된 아이콘 색상 */
-  /* filter: none; 필터를 없애고 색상으로 구분 */
-  filter: brightness(0) saturate(100%) invert(72%) sepia(86%) saturate(220%) hue-rotate(1deg) brightness(101%) contrast(96%);
+  width: 27px; /* 활성화 상태에서 크기를 키움 */
+  height: 27px;
+  transform: scale(1.2); /* 크기 확대 효과 */
 }
 
 
@@ -2346,7 +2346,7 @@ input:checked + .slider-unique:before {
   padding: 10px ;
   width: 95%;
   max-width: 400px;
-  height: 80%;
+  height: 85%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -2360,18 +2360,20 @@ input:checked + .slider-unique:before {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f5f5f5;
-  width: 100%;
-  max-width: 360px;
+  background-color: #f9fae6;
+  width: 94%;
+  /* max-width: 360px; */
   padding: 12px 15px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  margin-bottom: 10px;
+  gap: 8px;
+  height: 24px;
 }
 
 .parkinglot-address {
   color: #333;
-  font-size: 16px;
+  font-size: 14px;
   flex: 1;
 }
 
@@ -2390,7 +2392,8 @@ input:checked + .slider-unique:before {
   border-radius: 10px;
 }
 
-.parkinglot-image-container {
+/* 해당 페이지 내부에 인라인으로 css가 적용되어서 적용 안되고 있는 css 주석처리 */
+/* .parkinglot-image-container {
   position: relative;
   width: 100%;
   max-width: 360px;
@@ -2401,14 +2404,14 @@ input:checked + .slider-unique:before {
   align-items: center;
   border-radius: 10px;
   margin-bottom: 15px;
-}
+} */
 
-/* 주차장 정보와 이벤트 버튼 스타일 */
+/* 주차장 정보와 현재 이벤트 타이틀 스타일 */
 .parkinglot-info-button {
   width: 100%;
   max-width: 360px;
-  height: 38px;
-  background-color: #e6e6e6;
+  height: 24px;
+  background-color: #FFDA38;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -2416,13 +2419,14 @@ input:checked + .slider-unique:before {
   font-size: 14px;
   font-weight: bold;
   color: #333;
-  margin: 10px 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 0 12px;
+  margin: 8px 0;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  padding: 10px;
+  border: none;
 }
-.parkinglot-event-button {
+/* 같은 css코드인데 다른 모양으로 출력되서 클래스 통합으로 */
+/* .parkinglot-event-button {
   width: 100%;
-  max-width: 360px;
   height: 38px;
   background-color: #e6e6e6;
   display: flex;
@@ -2435,7 +2439,7 @@ input:checked + .slider-unique:before {
   margin: 10px 0;
   padding: 0 12px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+} */
 
 /* 주차장 정보와 이벤트 텍스트 리스트 */
 .parkinglot-info-details {
@@ -2443,18 +2447,17 @@ input:checked + .slider-unique:before {
   flex-direction: column;
   width: 100%;
   max-width: 360px;
-  padding: 15px;
+  padding: 6px;
   background-color: #ffffff;
-  border: 1px solid #ddd;
+  border: 1px solid #ffd65c;
   border-radius: 10px;
-  margin: 10px 0; /* 상하 간격을 좁혀서 5px로 설정 */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
 .parkinglot-info-text {
   font-size: 14px;
   color: #333;
-  margin: 5px 0;
+  margin: 2px 0;
   font-weight: 500;
 }
 .parkinglot-info-text strong {
@@ -2479,9 +2482,21 @@ input:checked + .slider-unique:before {
   font-size: 14px;
   font-weight: 500;
   color: #333;
-  padding: 5px 0;
+  padding: 2px 0;
   display: flex;
-  justify-content: space-between; /* 텍스트와 상태를 양쪽으로 정렬 */
+  justify-content: flex-start; /* 텍스트와 상태를 양쪽으로 정렬 */
+}
+.parkinglot-info-text strong {
+  font-weight: bold; /* 숫자를 굵게 유지 */
+  font-size: 18px; /* 숫자 크기 확대 */
+  margin-left: 10px; /* 텍스트와 숫자 사이 간격 추가 */
+  color: #000; /* 검정색 강조 */
+}
+.parkinglot-event-text strong {
+  font-weight: bold; /* 숫자를 굵게 유지 */
+  font-size: 18px; /* 숫자 크기 확대 */
+  margin-left: 10px; /* 텍스트와 숫자 사이 간격 추가 */
+  color: #000; /* 검정색 강조 */
 }
 
 /********** Handicap_car(등록차량 관리 페이지 컴포넌트 ) CSS **********/
