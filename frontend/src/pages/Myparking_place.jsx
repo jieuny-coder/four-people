@@ -4,35 +4,37 @@ import Btnbar from '../components/Btnbar';
 import axios from 'axios';
 
 export const Myparking_place = () => {
-    const location = useLocation();  // useLocation을 사용하여 URL 정보 가져오기
+    const location = useLocation();
     const [parkingInfo, setParkingInfo] = useState({
         totalSpaces: 0,
         availableSpaces: 0,
         disabledSpaces: 0,
-    }); // 주차장 정보 상태 관리
-    const [coordinates, setCoordinates] = useState([]); // coordinates 상태 추가
-    const [kakaoSdkLoaded, setKakaoSdkLoaded] = useState(false); // SDK 로드 여부 상태 추가
+    });
+    const [coordinates, setCoordinates] = useState([]);
+    const [kakaoSdkLoaded, setKakaoSdkLoaded] = useState(false);
+    const [address, setAddress] = useState('');
 
     // 쿼리 파라미터에서 위도(latitude), 경도(longitude), 주소(address) 값 가져오기
     const queryParams = new URLSearchParams(location.search);
-    const latitude = queryParams.get('latitude');  // 위도 값 가져오기
-    const longitude = queryParams.get('longitude');  // 경도 값 가져오기
-    const address = queryParams.get('address');  // 주소 값 가져오기
+    const latitude = queryParams.get('latitude');
+    const longitude = queryParams.get('longitude');
+    const addressFromQuery = queryParams.get('address');  // 주소 값 가져오기
 
-    // 쿼리 파라미터 확인
     useEffect(() => {
-        console.log("Latitude:", latitude, "Longitude:", longitude, "Address:", address);
-    }, [latitude, longitude, address]);
+        if (addressFromQuery) {
+            setAddress(addressFromQuery);  // 쿼리 파라미터에서 받은 address 상태로 설정
+            console.log("쿼리에서 받은 address:", addressFromQuery);  // 콘솔로 확인
+        }
+    }, [addressFromQuery]);
 
-    useEffect(()=>{
-        if (latitude && longitude && !isNaN(latitude) && !isNaN(longitude)){
-            initializeKakaoRoadview(parseFloat(latitude),parseFloat(longitude)); 
-        }else{
+    useEffect(() => {
+        if (latitude && longitude && !isNaN(latitude) && !isNaN(longitude)) {
+            initializeKakaoRoadview(parseFloat(latitude), parseFloat(longitude)); 
+        } else {
             console.error('위도와 경도 정보가 유효하지 않습니다.');
         }
-    },[latitude,longitude]); // 위도와 경도 값이 변경될 때 마다 로드뷰 업데이트
+    }, [latitude, longitude]);
 
-    // 랜덤 값을 생성하는 함수
     useEffect(() => {
         const generateRandomValue = () => Math.floor(Math.random() * 30) + 1;
         const generateRandomValue1 = () => Math.floor(Math.random() * 10) + 1;
@@ -44,83 +46,88 @@ export const Myparking_place = () => {
         });
     }, []);
 
-    // 서버에서 DB의 경도와 위도 가져오기
     const fetchParkingData = async () => {
         try {
             const response = await axios.get('http://localhost:4000/parkingSearch/parkinglist3');
-            setCoordinates(response.data.coordinates);
+            
+            // 서버에서 받은 전체 데이터를 확인
+            console.log("서버에서 받은 데이터:", response.data);
+            
+            // response.data가 유효한지, coordinates 배열이 있는지 확인
+            if (response.data && Array.isArray(response.data.coordinates) && response.data.coordinates.length > 0) {
+                const firstParking = response.data.coordinates[0];
+                // 첫 번째 주차장의 주소가 존재하는지 확인
+                if (firstParking && firstParking.address) {
+                    setAddress(firstParking.address);
+                    console.log("서버에서 받은 주소:", firstParking.address);
+                } else {
+                    console.error("첫 번째 주차장에 주소 정보가 없습니다.");
+                    setAddress("주소 정보 없음");
+                }
+            } else {
+                console.error("coordinates 배열이 비어 있거나 존재하지 않습니다.");
+                setAddress("주소 정보 없음");
+            }
         } catch (error) {
             console.error('서버에서 데이터 가져오기 실패', error);
+            setAddress("주소 정보 없음");
         }
     };
-
     useEffect(() => {
-        fetchParkingData(); // 서버에서 데이터 가져오기
+        fetchParkingData();
     }, []);
 
     const initializeKakaoRoadview = (latitude, longitude) => {
-        // 카카오 SDK가 이미 로드된 경우 바로 로드뷰 초기화
         if (window.kakao) {
             console.log('Kakao SDK 이미 로드됨');
-            setKakaoSdkLoaded(true); // SDK가 이미 로드되었으면 바로 상태 변경
+            setKakaoSdkLoaded(true); 
         } else {
-            // 카카오 SDK가 로드되지 않은 경우에만 스크립트 로드
             const script = document.createElement('script');
-            
-            // 여기에 자신의 카카오 REST API Key를 넣습니다.
-            const kakaoAppKey = process.env.REACT_APP_PARKINGSERVER_API_KEY;  // 본인의 카카오 API Key로 변경
-            
-            // SDK를 로드할 때 API Key를 추가
+            const kakaoAppKey = process.env.REACT_APP_PARKINGSERVER_API_KEY;
             script.src = `https://developers.kakao.com/sdk/js/kakao.js?appkey=${kakaoAppKey}`;
-            script.async = true; // 비동기 로드로 설정
+            script.async = true;
             script.onload = () => {
-                // SDK가 정상적으로 로드되었을 때
                 if (window.kakao) {
                     console.log('Kakao SDK Loaded');
-                    setKakaoSdkLoaded(true); // SDK 로드 완료 상태 변경
+                    setKakaoSdkLoaded(true); 
                 } else {
                     console.error('Kakao SDK가 로드되지 않았습니다.');
                 }
             };
-    
-            // SDK 로드 실패 시 에러 처리
             script.onerror = () => {
                 console.error('카카오 SDK 로드 실패');
             };
-    
-            document.body.appendChild(script); // 스크립트 태그를 문서에 추가하여 로드 시도
+            document.body.appendChild(script);
         }
     };
-    // 카카오 SDK가 로드되었을 때 로드뷰 초기화
+
     useEffect(() => {
         if (kakaoSdkLoaded && latitude && longitude) {
             const roadviewContainer = document.getElementById('roadviewContainer');
             const position = new window.kakao.maps.LatLng(parseFloat(latitude), parseFloat(longitude));
 
-            // 로드뷰 객체 생성
             const roadviewClient = new window.kakao.maps.RoadviewClient();
             const roadview = new window.kakao.maps.Roadview(roadviewContainer);
 
-            // 로드뷰 토글 함수
             roadviewClient.getNearestPanoId(position, 50, (panoId) => {
                 if (panoId === null) {
-                    roadviewContainer.style.display = 'none'; // 로드뷰를 넣은 컨테이너 숨기기
+                    roadviewContainer.style.display = 'none';
                 } else {
-                    roadviewContainer.style.display = 'block'; // 로드뷰를 넣은 컨테이너 보이게 하기
-                    roadview.setPanoId(panoId, position); // 로드뷰에 해당 위치 파노 ID 설정
-                    roadview.relayout(); // 로드뷰 컨테이너 재배열
+                    roadviewContainer.style.display = 'block';
+                    roadview.setPanoId(panoId, position);
+                    roadview.relayout();
                 }
             });
         }
-    }, [kakaoSdkLoaded, latitude, longitude]); // kakaoSdkLoaded가 true로 변경되었을 때만 로드뷰 초기화
+    }, [kakaoSdkLoaded, latitude, longitude]);
 
     return (
         <div className="parkinglot-status-container">
             <div className="parkinglot-address-container">
-                <div className="parkinglot-address">{address || '주차장 주소 나타내는 부분'}</div>
+                <div className="parkinglot-address">{address || "주소를 불러오는 중..."}</div>
                 <img className="parkinglot-star-icon" alt="스타 아이콘" src="images/stars.png" />
             </div>
-            <div id="roadviewContainer" style={{ width: '100%', height: '180px', display: 'block', top: '0px' }}></div>  {/* 로드뷰 표시 */}
+            <div id="roadviewContainer" style={{ width: '100%', height: '180px', display: 'block', top: '0px' }}></div>
             <div className="parkinglot-info-button">주차장 정보</div>
             <div className="parkinglot-info-details">
                 <div className="parkinglot-info-text">총 주차 구역수: <strong>{parkingInfo.totalSpaces}</strong></div>
