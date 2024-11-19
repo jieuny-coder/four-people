@@ -23,7 +23,7 @@ const ParkingList_Item = ({ number, address, onAddressClick }) => {
             <img
                 className={`parking_item_star_icon ${isFavorite ? 'favorite' : ''}`}
                 alt="star"
-                src="images/stars.png"
+                src="images/stars_btn.png"
                 onClick={toggleFavorite}
             />
         </div>

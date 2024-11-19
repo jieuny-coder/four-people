@@ -2157,6 +2157,8 @@ input:checked + .slider-unique:before {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  max-height: 700px;
+  overflow-y: auto;
 }
 
 /* 주차장 헤더 */
