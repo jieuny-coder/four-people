@@ -146,12 +146,8 @@ export const Myparking_place = () => {
                     {coordinates.length === 0 ? (
                         <p>데이터가 없습니다.</p>
                     ) : (
-                        coordinates.map((item, index) => (
                             <ParkingList_Item
-                                // key={index}
-                                // onAddressClick={() => handleParkingClick(item.latitude, item.longitude, item.address)} // 클릭 시 이동
                             />
-                        ))
                     )}
                 </div>
             </div>
