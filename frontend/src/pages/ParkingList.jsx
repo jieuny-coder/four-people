@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import '../index.css';
 import { useNavigate } from 'react-router-dom';
 import ParkingList_Item from '../components/ParkingList_Item';
 import axios from 'axios';
@@ -44,10 +43,10 @@ const ParkingList = () => {
           Authorization: `KakaoAK ${kakaoApikey}`,
         }
       });
-  
+
       // API 응답 확인
       console.log("카카오 API 응답: ", response.data);
-  
+
       // 카카오 API에서 반환하는 주소 정보
       const address = response.data.documents[0]?.address;
       if (address) {
@@ -64,11 +63,11 @@ const ParkingList = () => {
   };
 
   // handleParkingClick 함수 수정
-const handleParkingClick = (latitude, longitude, address) => {
-  console.log(`클릭된 주소: ${address}, 위도: ${latitude}, 경도: ${longitude}`);
-  // 쿼리 파라미터로 위도와 경도 전달
-  navigate(`/Myparking_place?latitude=${latitude}&longitude=${longitude}`);
-};
+  const handleParkingClick = (latitude, longitude, address, parkingId) => {
+    console.log(`클릭된 주소: ${address}, 위도: ${latitude}, 경도: ${longitude}`);
+    // 쿼리 파라미터로 위도와 경도 전달
+    navigate(`/Myparking_place?latitude=${latitude}&longitude=${longitude}&isActive=true&parkingId=${parkingId}`);
+  };
 
   return (
     <div className="parking_list_container">
@@ -80,14 +79,18 @@ const handleParkingClick = (latitude, longitude, address) => {
       {coordinates.length === 0 ? (
         <p>데이터가 없습니다.</p> // 데이터가 없을 때 표시할 메시지
       ) : (
-        coordinates.map((item, index) => (
-          <ParkingList_Item
-            key={index}
-            number={index + 1} // 번호 설정
-            address={item.address || `위도: ${item.latitude}, 경도: ${item.longitude}`} // 주소 표시, 없으면 위도/경도 표시
-            onAddressClick={() => handleParkingClick(item.latitude, item.longitude, item.address)} // 클릭 시 이동
-          />
-        ))
+        coordinates.map((item, index) => {
+          const parkingId = `${item.latitude}-${item.longitude}`; // 위도 + 경도를 합쳐서 고유한 ID로 사용
+          return (
+            <ParkingList_Item
+              key={index}
+              number={index + 1} // 번호 설정
+              address={item.address || `위도: ${item.latitude}, 경도: ${item.longitude}`} // 주소 표시, 없으면 위도/경도 표시
+              onAddressClick={() => handleParkingClick(item.latitude, item.longitude, item.address, parkingId)} // 클릭 시 이동
+              parkingId={parkingId} // parkingId 전달
+            />
+          );
+        })
       )}
     </div>
   );

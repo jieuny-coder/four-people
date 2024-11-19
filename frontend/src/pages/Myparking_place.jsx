@@ -19,6 +19,7 @@ export const Myparking_place = () => {
     const queryParams = new URLSearchParams(location.search);
     const latitude = queryParams.get('latitude');  // 위도 값 가져오기
     const longitude = queryParams.get('longitude');  // 경도 값 가져오기
+    const parkingId = queryParams.get('parkingId'); // parkingId 쿼리 파라미터 추가
     const navigate = useNavigate();
 
     // 쿼리 파라미터 확인
@@ -147,7 +148,9 @@ export const Myparking_place = () => {
                         <p>데이터가 없습니다.</p>
                     ) : (
                             <ParkingList_Item
+                            parkingId={parkingId}
                             />
+
                     )}
                 </div>
             </div>
