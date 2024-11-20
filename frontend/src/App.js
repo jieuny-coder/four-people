@@ -57,17 +57,24 @@ function AppContent() {
   const pageTitle = getPageTitle(location.pathname);
 
   // 사용자 버튼바가 나타나야 하는 경로 확인
-  const userPages = ['/myparking_place', '/parkinglist', '/parkingSearch', '/userMain'];
-  const adminPages = ['/filtering', '/setting', '/download', '/M_calender', '/Violations', '/detail','/register-car', '/obstacle-detail'];
+  const userPages = ['/myparking_place', '/parkinglist', '/parkingSearch', '/userMain' , '/editprofile'];
+  const adminPages = ['/filtering','/download', '/M_calender', '/Violations', '/detail','/register-car', '/obstacle-detail'];
 
   // 경로 변경 시 버튼바 렌더링 동기화
   useEffect(() => {
-    if (adminPages.includes(location.pathname)) {
-      setIsAdmin(true); // 관리자 경로면 isAdmin을 true로
+    if (location.pathname === '/setting') {
+      // 특정 경로에 따라 관리자/사용자 설정
+      setIsAdmin(adminPages.includes(location.pathname));
+    } else if (adminPages.includes(location.pathname)) {
+      setIsAdmin(true);
     } else if (userPages.includes(location.pathname)) {
-      setIsAdmin(false); // 사용자 경로면 isAdmin을 false로
+      setIsAdmin(false);
     }
-  }, [location.pathname]); // location.pathname이 바뀔 때 실행
+  }, [location.pathname]);
+  
+  
+  
+  
 
   return (
     <div className="mobile_frame">
@@ -78,6 +85,23 @@ function AppContent() {
       >
         {/* Main, Login 페이지를 제외한 모든 페이지에서 Header 렌더링 */}
         {location.pathname !== '/' && location.pathname !== '/login' && <Header title={pageTitle} />}
+        {/* Setting페이지 컴포넌트는 사용자/관리자 모두 사용되니까 따로 추가*/}
+        {location.pathname !== '/' && location.pathname !== '/login' && location.pathname !== '/join' && (
+          location.pathname === '/setting' ? (
+            isAdmin ? (
+              <M_btnBar violationsData={violationsData} detailData={detailData} />
+            ) : (
+              <Btnbar />
+            )
+          ) : (
+            isAdmin ? (
+              adminPages.includes(location.pathname) && <M_btnBar violationsData={violationsData} detailData={detailData} />
+            ) : (
+              userPages.includes(location.pathname) && <Btnbar />
+            )
+          )
+        )}
+
 
         <Routes>
           {/* 사용자/ 관리자 */ }

@@ -28,18 +28,22 @@ const M_detail = ({ setData }) => {
   const handleVideoDownload = async (video) => {
     try {
       // `selectedVideo`의 URL 가져오기
-      if (!video || !video.url) {
+      if (!selectedVideo || !selectedVideo.url) {
         alert('다운로드할 동영상이 없습니다.');
         return;
       }
+
+      // 프록시 서버로 요청 보내기
+      const proxyUrl = `http://localhost:4001/download?url=${encodeURIComponent(selectedVideo.url)}`;
+      console.log('Downloading via proxy:', proxyUrl);
   
-      const videoUrl = selectedVideo.url;
-      console.log('Downloading video:', video);
+      // const videoUrl = selectedVideo.url;
+      // console.log('Downloading video:', video);
   
       // Fetch 요청
-      const response = await fetch(video.url, { mode: 'cors' }); // `mode: 'cors'`는 CORS 요청 허용
+      const response = await fetch(proxyUrl);
       if (!response.ok) {
-        throw new Error(`Failed to fetch video: ${response.statusText}`);
+        throw new Error('Failed to fetch video via proxy');
       }
   
       // Blob으로 변환

@@ -85,6 +85,18 @@ const styles = StyleSheet.create({
 });
 
 const PDF_form = ({ data }) => {
+  // data가 배열인지 확인
+  if (!Array.isArray(data)) {
+    console.error("PDF_form received non-array data:", data);
+    return (
+      <Document>
+        <Page size="A4" style={styles.page}>
+          <Text style={styles.header}>데이터 내역</Text>
+          <Text>올바르지 않은 데이터 형식입니다.</Text>
+        </Page>
+      </Document>
+    );
+  }
   if (!data || data.length === 0) {
     return (
       <Document>

@@ -17,11 +17,39 @@ const Obstacle_detail = () => {
   const detectedTime = new Date(obstacle.detected_at).toLocaleTimeString();
 
   // 동영상 다운로드 핸들러
-  const handleVideoDownload = () => {
-    const link = document.createElement('a');
-    link.href = obstacle.video_url; // 동영상 URL
-    link.download = 'obstacle_video.mp4'; // 다운로드될 파일 이름 지정
-    link.click();
+  const handleVideoDownload = async  () => {
+    if (!obstacle.video_url) {
+      alert('다운로드할 동영상이 없습니다.');
+      return;
+    }
+  
+    try {
+      // 프록시 서버 URL 설정
+      const proxyUrl = `http://localhost:4001/download?url=${encodeURIComponent(obstacle.video_url)}`;
+      console.log('Downloading via proxy:', proxyUrl);
+  
+      // 프록시 서버로 요청 보내기
+      const response = await fetch(proxyUrl);
+      if (!response.ok) {
+        throw new Error('Failed to fetch video via proxy');
+      }
+  
+      // Blob 데이터 생성
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
+  
+      // Blob을 사용해 다운로드 트리거
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = 'obstacle_video.mp4'; // 다운로드될 파일 이름 지정
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(blobUrl); // Blob URL 해제
+    } catch (error) {
+      console.error('Download error:', error);
+      alert('동영상 다운로드 중 문제가 발생했습니다.');
+    }
   };
 
   return (
