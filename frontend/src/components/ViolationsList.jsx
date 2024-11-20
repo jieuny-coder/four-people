@@ -21,7 +21,9 @@ const ViolationsList = ({ setData }) => {
           violation => violation.upload_time !== null &&
                       violation.upload_time !== undefined &&
                       violation.upload_time !== 'default_value' &&
-                      !isNaN(new Date(violation.upload_time).getTime())
+                      !isNaN(new Date(violation.upload_time).getTime()) &&
+                      violation.violation_number !== '' &&
+                      violation.violation_number !== null
         );
         console.log("Filtered Data:", validData); // 필터링된 데이터 확인
 
