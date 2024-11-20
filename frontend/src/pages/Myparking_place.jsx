@@ -14,6 +14,8 @@ export const Myparking_place = () => {
     const [coordinates, setCoordinates] = useState([]); // coordinates 상태 추가
     const [kakaoSdkLoaded, setKakaoSdkLoaded] = useState(false); // SDK 로드 여부 상태 추가
     const [address, setAddress] = useState('');  // 주소 상태 추가
+    const [doubleParking, setDoubleParking] = useState(0); // 이중주차 상태
+    const [obstruction, setObstruction] = useState(0); // 통행방해 상태
 
     // 쿼리 파라미터에서 위도(latitude), 경도(longitude), 주소(address) 값 가져오기
     const queryParams = new URLSearchParams(location.search);
@@ -46,6 +48,10 @@ export const Myparking_place = () => {
             availableSpaces: generateRandomValue1(),
             disabledSpaces: generateRandomValue2(),
         });
+
+        // 이중주차와 통행방해 상태 업데이트
+        setDoubleParking(Math.floor(Math.random() * 2)); // 0~1 사이의 랜덤 값
+        setObstruction(Math.floor(Math.random() * 2)); // 0~1 사이의 랜덤 값
     }, []);
 
     // 서버에서 DB의 경도와 위도 가져오기
@@ -155,17 +161,17 @@ export const Myparking_place = () => {
                 </div>
             </div>
 
-            <div id="roadviewContainer" style={{ width: '100%', height: '180px', display: 'block', top: '0px' }}></div>
+            <div id="roadviewContainer" style={{ width: '100%', height: '300px', display: 'block', top: '0px' ,borderRadius:'12px', boxShadow:'0 4px 10px rgba(0,0,0,0.45)'}}></div>
             <div className="parkinglot-info-button">주차장 정보</div>
             <div className="parkinglot-info-details">
-                <div className="parkinglot-info-text">총 주차 구역수: <strong>{parkingInfo.totalSpaces}</strong></div>
-                <div className="parkinglot-info-text">현재 주차 가능 수: <strong>{parkingInfo.availableSpaces}</strong></div>
-                <div className="parkinglot-info-text">장애인전용주차 가능 수: <strong>{parkingInfo.disabledSpaces}</strong></div>
+                <div className="parkinglot-info-text">총 주차 구역수 : <strong>{parkingInfo.totalSpaces}</strong></div>
+                <div className="parkinglot-info-text">현재 주차 가능 수 : <strong>{parkingInfo.availableSpaces}</strong></div>
+                <div className="parkinglot-info-text">장애인전용주차 가능 수 : <strong>{parkingInfo.disabledSpaces}</strong></div>
             </div>
-            <div className="parkinglot-event-button">현재 이벤트</div>
-            <div className="parkinglot-event-details">
-                <div className="parkinglot-event-text">이중주차:<strong></strong> </div>
-                <div className="parkinglot-event-text">통행방해:<strong></strong> </div>
+            <div className="parkinglot-info-button">현재 이벤트</div>
+            <div className="parkinglot-info-details">
+                <div className="parkinglot-event-text">이중주차 :<strong>{doubleParking}</strong> </div>
+                <div className="parkinglot-event-text">통행방해 :<strong>{obstruction}</strong> </div>
             </div>
 
             <Btnbar />
