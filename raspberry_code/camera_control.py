@@ -45,7 +45,7 @@ def start_video_recording():
     os.makedirs(VIDEO_PATH, exist_ok=True)
     video_file = os.path.join(VIDEO_PATH, f"video_{int(time.time())}.mp4")
    
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    fourcc = cv2.VideoWriter_fourcc(*'X264')
     out = cv2.VideoWriter(video_file, fourcc, 20.0, (640, 480))
     return video_file, out
 
