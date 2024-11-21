@@ -28,9 +28,10 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-scripts start",
+    "build": "react-scripts build",
     "build-react": "webpack --mode production",
     "start-react": "webpack serve --config ./webpack.config.js --mode development",
-    "test": "jest",
+    "test": "react-scripts test",
     "lint": "eslint ."
   },
   "eslintConfig": {
