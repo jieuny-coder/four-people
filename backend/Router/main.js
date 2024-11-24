@@ -6,7 +6,6 @@ router.get('/', (req, res) => {
   res.send("Hello from the main route!");
 });
 
-// 사용자가 로그인을 요청했을때
 
 
 module.exports = router;
