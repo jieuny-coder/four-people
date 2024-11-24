@@ -34,12 +34,12 @@ app.use('/violation',violation);
 
 
 // 포트 설정 (로컬 개발용)
-if (process.env.NODE_ENV !== "production") {
-    const port = process.env.PORT || 4000;
-    app.listen(port, () => {
-      console.log(`Server is running on http://localhost:${port}`);
-    });
-  }
+// if (process.env.NODE_ENV !== "production") {
+//     const port = process.env.PORT || 4000;
+//     app.listen(port, () => {
+//       console.log(`Server is running on http://localhost:${port}`);
+//     });
+//   }
   
   // Express 앱 내보내기
   module.exports = app;
