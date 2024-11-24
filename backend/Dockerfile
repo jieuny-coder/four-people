@@ -1,17 +1,11 @@
-# 1. Node.js 베이스 이미지 사용
-FROM node:16
+# 1. AWS Lambda Node.js 18.x 런타임 베이스 이미지 사용
+FROM public.ecr.aws/lambda/nodejs:18
 
-# 2. 작업 디렉토리 설정
-WORKDIR /app
+# 2. 코드 복사
+COPY . ${LAMBDA_TASK_ROOT}
 
-# 3. 필요한 파일 복사
-COPY package*.json /app/
+# 3. 의존성 설치
 RUN npm install
 
-COPY . /app
-
-# 4. 서버 실행 명령어 설정
-CMD ["node", "server.js"]
-
-# 5. 컨테이너 포트 노출
-EXPOSE 3000
+# 4. Lambda 핸들러 설정 (index.js 파일에서 handler 함수 호출)
+CMD ["index.handler"]
