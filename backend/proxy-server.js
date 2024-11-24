@@ -29,7 +29,11 @@ app.get('/download', async (req, res) => {
 });
 
 // 프록시 서버 실행
-const PORT = 4001;
-app.listen(PORT, () => {
-  console.log(`프록시 서버가 http://localhost:${PORT} 에서 실행 중입니다.`);
-});
+// const PORT = 4001;
+// app.listen(PORT, () => {
+//   console.log(`프록시 서버가 http://localhost:${PORT} 에서 실행 중입니다.`);
+// });
+
+
+// Express 앱 내보내기 (AWS Lambda 핸들러에서 사용할 수 있도록)
+module.exports = app;
