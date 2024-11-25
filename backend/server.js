@@ -32,6 +32,12 @@ app.use('/ParkingSearch', parkingad);
 app.use('/violation',violation);
 
 
+  // Express 앱 내보내기
+  module.exports = app;
+
+
+
+
 
 // 포트 설정 (로컬 개발용)
 // if (process.env.NODE_ENV !== "production") {
@@ -41,5 +47,3 @@ app.use('/violation',violation);
 //     });
 //   }
   
-  // Express 앱 내보내기
-  module.exports = app;
